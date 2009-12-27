@@ -1,0 +1,37 @@
+#!/usr/bin/env ruby
+
+# Xamin - RoR xmi generator
+#
+#   Generates xmi for a Rails application.
+#
+# Copyright 2009-2010 - Brian Lonsdorf
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+
+APP_NAME       = "xamin"
+APP_VERSION    = "0.1"
+COPYRIGHT      = "Copyright (C) 2009-2010 Brian Lonsdorf"
+
+if ARGV.first == ('--version' || '-v')
+  puts "#{APP_NAME} v#{APP_VERSION}"
+  exit(0)
+end
+
+require 'rubygems'
+require 'active_support'
+require 'fileutils'
+require 'diagram'
+require 'model'
+require 'method'
+require 'attribute'
+require 'association'
+
+diagram = Xamin::Diagram.new
+output = diagram.to_xmi.strip
+
+path = File.expand_path(File.join(FileUtils.pwd, "doc", diagram.filename))
+File.open(path, "w"){ |f| f.write(output) }

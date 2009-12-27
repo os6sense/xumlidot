@@ -1,0 +1,3 @@
+= Xamin
+
+Makes some xmi for an app for use with uml readers like ArgoUml
