@@ -16,7 +16,7 @@ APP_NAME       = "xamin"
 APP_VERSION    = "0.1"
 COPYRIGHT      = "Copyright (C) 2009-2010 Brian Lonsdorf"
 
-if ARGV.first == ('--version' || '-v')
+if ['--version', '-v'].include?(ARGV.first)
   puts "#{APP_NAME} v#{APP_VERSION}"
   exit(0)
 end
