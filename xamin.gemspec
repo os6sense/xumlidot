@@ -15,6 +15,7 @@ Gem::Specification.new do |s|
   s.files = [
      "README.rdoc",
      "Rakefile",
+     "xamin.rb",
      "bin/xamin",
      "lib/diagram.rb",
      "lib/association.rb",
@@ -22,7 +23,10 @@ Gem::Specification.new do |s|
      "lib/method.rb",
      "lib/model.rb",
      "spec/xamin_spec.rb",
-     "spec/spec_helper.rb"
+     "spec/spec_helper.rb",
+     "spec/schema.rb",
+     "spec/app/models/author.rb",
+     "spec/app/models/book.rb"
   ]
   s.has_rdoc = false
   s.homepage = %q{http://github.com/drboolean/xamin}
