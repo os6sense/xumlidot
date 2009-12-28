@@ -21,14 +21,7 @@ if ['--version', '-v'].include?(ARGV.first)
   exit(0)
 end
 
-require 'rubygems'
-require 'active_support'
-require 'fileutils'
-require 'diagram'
-require 'model'
-require 'method'
-require 'attribute'
-require 'association'
+require 'xamin'
 
 diagram = Xamin::Diagram.new
 output = diagram.to_xmi.strip

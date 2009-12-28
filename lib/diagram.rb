@@ -17,18 +17,20 @@ class Diagram
     "#{name}.xmi"
   end
 
-  # Process model files
   def to_xmi
-    @xmi = []
-    models = files.map{ |f| Model.new(f) }
-    @xmi << models.map{ |m| m.to_xmi }
-    associations = models.map{ |m| m.associations }.flatten.uniq
-    associations.each{ |assoc| assoc.set_bidirectional }
+    @xmi = models.map{ |m| m.to_xmi }
     @xmi << associations.map{ |a| a.to_xmi unless a.skip }
     template { @xmi.to_s }
   end
 
 private
+
+  def associations
+    return @associations if @associations
+    a = models.map(&:associations).flatten.uniq
+    a.each(&:set_bidirectional)
+    @associations = a
+  end
 
   # Prevents Rails application from writing to STDOUT
   def disable_stdout
@@ -44,6 +46,10 @@ private
     f = Dir.glob("app/models/**/*.rb")
     f += Dir.glob("app/policies/**/*.rb")
     f += Dir.glob("app/services/**/*.rb")
+  end
+  
+  def models
+    @models ||= files.map{ |f| Model.new(f) }
   end
   
   def template
@@ -62,14 +68,12 @@ private
     |
   end
   
-  # Load model classes
   def load_classes
     without_stdout{ files.sort.each {|m| require m } }
   rescue LoadError
     print_error "model classes" && raise
   end
   
-  # Load Rails application's environment
   def load_environment
     begin
       disable_stdout
