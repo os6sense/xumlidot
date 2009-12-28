@@ -18,7 +18,7 @@ class Diagram
   end
 
   def to_xmi
-    @xmi = models.map{ |m| m.to_xmi }
+    @xmi = models.map(&:to_xmi)
     @xmi << associations.map{ |a| a.to_xmi unless a.skip }
     template { @xmi.to_s }
   end
