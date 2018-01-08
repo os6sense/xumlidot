@@ -2,8 +2,8 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe "Xamin" do
   before(:each) do
-    Xamin::Diagram.any_instance.stubs(:load_environment).returns(true)
-    Xamin::Diagram.any_instance.stubs(:files).returns(["app/models/author.rb", "app/models/book.rb"])
+    allow_any_instance_of(Xamin::Diagram).to receive(:load_environment).and_return(true)
+    allow_any_instance_of(Xamin::Diagram).to receive(:files).and_return(["app/models/author.rb", "app/models/book.rb"])
     @diagram = Xamin::Diagram.new
     @xmi = @diagram.to_xmi
   end
