@@ -29,23 +29,32 @@ class Processor < MethodBasedSexpProcessor
   end
 
   def process_class(exp)
-    puts "CLASS: #{self.klass_name}"
-    super
+    super do
+      puts "CLASS: #{self.klass_name}"
+      process_until_empty(exp)
+    end
   end
 
   def process_module(exp)
-    puts "MOUDLE: #{self.klass_name}"
-    super
+    super do
+      puts "MODULE: #{self.klass_name}"
+      process_until_empty(exp)
+    end
   end
 
   def process_defn(exp)
-    puts "METHOD #{self.method_name}"
-    super
+    super do
+      binding.pry
+      puts "METHOD #{self.method_name}"
+      process_until_empty(exp)
+    end
   end
 
   def process_defs(exp)
-    puts "SINGLETON METHOD #{self.method_name}"
-    super
+    super do
+      puts "METHOD #{self.method_name}"
+      process_until_empty(exp)
+    end
   end
 
   #def process_call(exp) 
