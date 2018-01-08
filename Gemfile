@@ -1,13 +1,13 @@
 source 'https://rubygems.org'
 
-gem 'activerecord'
 gem 'activesupport'
 
 group :development, :test do
 end
 
 group :test do
+  gem 'activerecord'
   gem 'sqlite3'
   gem 'rspec'
-  gem 'mocha'
+  #gem 'mocha'
 end

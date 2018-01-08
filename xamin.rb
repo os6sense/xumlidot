@@ -1,8 +1,1 @@
-require 'rubygems'
-require 'active_support'
-require 'fileutils'
-require 'diagram'
-require 'model'
-require 'method'
-require 'attribute'
-require 'association'
+

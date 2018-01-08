@@ -1,3 +1,15 @@
 = Xamin
 
-Makes some xmi for an app for use with uml readers like ArgoUml
+Outputs XMI for an app for use with UML readers like ArgoUml, Visual Paradigm, etc
+
+Its amazing the literal gems you can find digging about. Railroady has the --xmi flag 
+but when you run it you eventually discover it is not implemented (and hasn't been for
+seven years) but floating around was this little piece of magic from DrBinary which 
+saves an awful lot of digging trying to understand XMI. 
+
+It sadly had not been updated in nine years (!!) so I've tweaked things a little so
+that it runs not just with rails applications but any ruby app (not everything that
+glitters runs on rails).
+
+# USAGE
+

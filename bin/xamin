@@ -13,7 +13,7 @@
 #
 
 APP_NAME       = "xamin"
-APP_VERSION    = "0.1"
+APP_VERSION    = "0.2"
 COPYRIGHT      = "Copyright (C) 2009-2010 Brian Lonsdorf"
 
 if ['--version', '-v'].include?(ARGV.first)
@@ -21,14 +21,14 @@ if ['--version', '-v'].include?(ARGV.first)
   exit(0)
 end
 
-require 'rubygems'
+#require 'rubygems'
 require 'active_support'
 require 'fileutils'
-require 'diagram'
-require 'model'
-require 'method'
-require 'attribute'
-require 'association'
+require_relative '../lib/diagram'
+#require 'model'
+#require 'method'
+#require 'attribute'
+#require 'association'
 
 
 diagram = Xamin::Diagram.new

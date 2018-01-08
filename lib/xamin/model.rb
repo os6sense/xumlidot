@@ -10,6 +10,7 @@ module Xamin
 class Model
   
   def initialize(filename)
+    STDERR.puts "Creating model for #{filename}"
     @klass = extract_class_name(filename).constantize
     (@@all ||= []) << self
   end
