@@ -29,31 +29,31 @@ class Processor < MethodBasedSexpProcessor
   end
 
   def process_class(exp)
-    super do
-      binding.pry
-      puts "#{self.klass_name}: #{exp.comments}"
-    end
+    puts "CLASS: #{self.klass_name}"
+    super
   end
 
-  #def process_def(exp)
-    #binding.pry
-  #end
+  def process_module(exp)
+    puts "MOUDLE: #{self.klass_name}"
+    super
+  end
+
+  def process_defn(exp)
+    puts "METHOD #{self.method_name}"
+    super
+  end
+
+  def process_defs(exp)
+    puts "SINGLETON METHOD #{self.method_name}"
+    super
+  end
 
   #def process_call(exp) 
-    #binding.pry
     #recv = process(exp.shift)
     #name = exp.shift 
     #args = process(exp.shift) 
-    #return s() 
+    #return exp
   #end 
-
-  #def default_process(exp) 
-    #binding.pry
-    #until exp.size == 0 
-      #exp.shift 
-    #end 
-    #return s() 
-  #end
 end
 
 # TODO: user input
