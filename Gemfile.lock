@@ -48,9 +48,10 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord
+  activesupport
   mocha
   rspec
   sqlite3
 
 BUNDLED WITH
-   1.15.4
+   1.16.0
