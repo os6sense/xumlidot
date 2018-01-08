@@ -2,6 +2,10 @@ source 'https://rubygems.org'
 
 gem 'pry'
 gem 'pry-byebug'
+
+# https://github.com/seattlerb/ruby_parser
+gem 'ruby_parser'
+
 gem 'sexp_processor'
 # https://github.com/seattlerb/sexp_processor
 

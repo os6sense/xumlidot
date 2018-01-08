@@ -28,6 +28,8 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.7.0)
     rspec-support (3.7.0)
+    ruby_parser (3.10.1)
+      sexp_processor (~> 4.9)
     sexp_processor (4.10.0)
     stream (0.5)
 
@@ -39,6 +41,7 @@ DEPENDENCIES
   pry-byebug
   rgl
   rspec
+  ruby_parser
   sexp_processor
 
 BUNDLED WITH
