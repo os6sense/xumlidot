@@ -5,6 +5,7 @@
 
 # xamin model diagram
 require 'active_support'
+require_relative 'model'
 
 module Xamin
   
@@ -61,7 +62,12 @@ module Xamin
     end
     
     def load_classes
-      without_stdout{ files.sort.each {|m| require m } }
+      without_stdout{ 
+        files.sort.each do |m| 
+          file = Dir.getwd + '/' + m
+          require file
+        end
+      }
     rescue LoadError
       print_error "model classes" && raise
     end

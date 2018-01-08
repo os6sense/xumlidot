@@ -1,13 +1,13 @@
 source 'https://rubygems.org'
 
-gem 'activesupport'
+gem 'pry'
+gem 'pry-byebug'
+gem 'sexp_processor'
+# https://github.com/seattlerb/sexp_processor
 
-group :development, :test do
-end
+gem 'rgl'
+# https://github.com/monora/rgl
 
 group :test do
-  gem 'activerecord'
-  gem 'sqlite3'
   gem 'rspec'
-  #gem 'mocha'
 end

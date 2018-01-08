@@ -1,5 +1,7 @@
 = Xamin
 
+TODO: Include Xamin copyright disclaimer (parts copyright blah)
+
 Outputs XMI for an app for use with UML readers like ArgoUml, Visual Paradigm, etc
 
 Its amazing the literal gems you can find digging about. Railroady has the --xmi flag 
@@ -10,6 +12,14 @@ saves an awful lot of digging trying to understand XMI.
 It sadly had not been updated in nine years (!!) so I've tweaked things a little so
 that it runs not just with rails applications but any ruby app (not everything that
 glitters runs on rails).
+
+One of the major problems with the approach taken by Xamin was that it just required
+the files hence all the dependencies would get pulled along. We are not interested in 
+whether something needs active record to run though - we just want to know the inheritance
+chain and the methods/constants defined.
+
+To overcome this we use ripper to parse the files into s-expressions and the absolutely awesome
+seattlerb/sexp_processor to derive method names, calls, structure constants etc.
 
 # USAGE
 

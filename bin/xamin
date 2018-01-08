@@ -21,10 +21,13 @@ if ['--version', '-v'].include?(ARGV.first)
   exit(0)
 end
 
+puts Dir.getwd
+
 #require 'rubygems'
-require 'active_support'
-require 'fileutils'
-require_relative '../lib/diagram'
+#require 'active_support'
+#require 'fileutils'
+require_relative '../lib/xamin/diagram'
+require 'active_record'
 #require 'model'
 #require 'method'
 #require 'attribute'
