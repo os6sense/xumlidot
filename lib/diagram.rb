@@ -35,7 +35,7 @@ private
   # Prevents Rails application from writing to STDOUT
   def disable_stdout
     @old_stdout = STDOUT.dup
-    STDOUT.reopen(PLATFORM =~ /mswin/ ? "NUL" : "/dev/null")
+    STDOUT.reopen("/dev/null")
   end
 
   def enable_stdout
