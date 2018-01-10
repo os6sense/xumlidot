@@ -12,22 +12,47 @@
   #end
 #end
 
-class Foo
-  class Bar
-  end
+#class Foo
+  #class Bar
+  #end
+#end
+
+#module FooM
+  #module FooI
+    #class BazC
+    #end
+  #end
+#end
+#
+
+
+class Bad::ClassWithOutInheritance
 end
-class MyAuthor < Author
-  def empty(a); end
-  def multiple(a, b, c = nil); end
-  def with_nil(a = nil); end
-  def empty_array(b = []); end
-  def populated_array(c = [:foo, 2]); end
-  def integer_default(d = 1); end
-  private
-  def string_default(e = 'hello'); end
-  def symbol_default(f = :hello); end
-  protected
-  def fwarg_default(g: :hello); end
+
+class Bad::ClassWithInheritance < Foo
+end
+
+class InheritsThreeWIthLeading < ::Foo::Bar::Baz
+end
+
+class InheritsTwo < Foo::Bar
+end
+
+class InheritsOne  < Foo
+end
+
+#class MyAuthor < Author
+  #def empty(a); end
+  #def multiple(a, b, c = nil); end
+  #def with_nil(a = nil); end
+  #def empty_array(b = []); end
+  #def populated_array(c = [:foo, 2]); end
+  #def integer_default(d = 1); end
+  #private
+  #def string_default(e = 'hello'); end
+  #def symbol_default(f = :hello); end
+  #protected
+  #def fwarg_default(g: :hello); end
 
   #private
 
@@ -53,7 +78,7 @@ class MyAuthor < Author
     #def private_klass_method
     #end
   #end
-end
+#end
 
 #module TopM
   #class SecondC

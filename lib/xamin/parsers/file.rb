@@ -66,8 +66,11 @@ module Xamin
       end
 
       def process_class(exp)
+        binding.pry
         super do
           CurrentMethodVisibility.public
+
+          binding.pry
           puts "CLASS: #{self.klass_name} INHERITS_FROM: "
           process_until_empty(exp)
         end
