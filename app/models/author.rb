@@ -18,6 +18,7 @@ class Foo
 end
 class MyAuthor < Author
   def empty(a); end
+  def multiple(a, b, c = nil); end
   def with_nil(a = nil); end
   def empty_array(b = []); end
   def populated_array(c = [:foo, 2]); end

@@ -10,10 +10,13 @@ module Xamin
     #
     # FOR CLASS DIAGRAM
     # - Inheritance is ignored need to parse and attach (for the graph)
-    # - need to identify if methods are public/private/protected
+    #
+    # - need to identify if methods are public/private/protected: DONE
+    #
     # - need to keep a track of the types of variables to that we know
     #   what the receivers class is i.e. uses.
-
+    #
+    # - Parse arguments: DONE (partially)
 
     # Takes a file contents (as a string) and parses it into
     # s expressions using ruby parser. The parse method uses

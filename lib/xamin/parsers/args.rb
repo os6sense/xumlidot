@@ -8,6 +8,7 @@ module Xamin
     # e.g. formats def method(a, b = nil)
     #      to a string 'a, b = nil'
     #
+    # 
     class Args < MethodBasedSexpProcessor
 
       # Container class
@@ -22,7 +23,7 @@ module Xamin
         attr_accessor :name, :assign, :default
 
         def to_s
-          "#{name} #{assign} #{default}"
+          [name, assign, default ? default.to_s : nil ].compact.join(' ')
         end
       end
 
@@ -77,9 +78,10 @@ module Xamin
         case @argument.default
         when Array
           @argument.default << exp.value
-        # TODO add when Sexp?
         when nil
           @argument.default = exp.value
+        when Sexp
+          binding.pry
         when hash
           binding.pry
         else
@@ -96,7 +98,7 @@ module Xamin
       end
 
       def process_args(exp)
-        args = exp.shift
+        exp.shift # remove :args
         exp.each do |arg|
           @argument = Argument.new
           if arg.is_a? Sexp

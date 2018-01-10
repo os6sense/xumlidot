@@ -2,7 +2,7 @@ require_relative 'directory_tree'
 require_relative 'parsers'
 
 # TODO: user input
-directories = ['../../app']
+directories = [ARGV[0]]
 
 tree = Xamin::DirectoryTree.new(directories)
 tree.find_all_rb_files do |path|
