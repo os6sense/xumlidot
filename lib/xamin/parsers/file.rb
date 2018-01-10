@@ -86,7 +86,7 @@ module Xamin
         super do
           args = exp.shift
           temp = Args.new(args).to_s
-          puts "METHOD  #{CurrentMethodVisibility.state} #{self.method_name} #{args}"
+          puts "METHOD  #{CurrentMethodVisibility.state} #{self.method_name} #{temp}"
           process_until_empty(exp)
         end
       rescue Exception => e

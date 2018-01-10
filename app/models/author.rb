@@ -17,8 +17,16 @@ class Foo
   end
 end
 class MyAuthor < Author
-  def my_author(a, b = [:foo, 2], f = [], d = 1 )
-  end
+  def empty(a); end
+  def with_nil(a = nil); end
+  def empty_array(b = []); end
+  def populated_array(c = [:foo, 2]); end
+  def integer_default(d = 1); end
+  private
+  def string_default(e = 'hello'); end
+  def symbol_default(f = :hello); end
+  protected
+  def fwarg_default(g: :hello); end
 
   #private
 

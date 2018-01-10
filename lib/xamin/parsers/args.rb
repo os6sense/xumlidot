@@ -3,13 +3,34 @@ require 'pry'
 
 module Xamin
   module Parsers
-    # Parser for arguments to a method
+    # Parser for the arguments to a method
+    #
+    # e.g. formats def method(a, b = nil)
+    #      to a string 'a, b = nil'
+    #
     class Args < MethodBasedSexpProcessor
+
+      # Container class
+      class Arguments < Array
+        def to_s
+          each.map(&:to_s).join(',')
+        end
+      end
+
+      # Value object for the actual argument
+      class Argument
+        attr_accessor :name, :assign, :default
+
+        def to_s
+          "#{name} #{assign} #{default}"
+        end
+      end
+
       def initialize(exp)
         super()
 
         @exp = exp
-        @arguments = []
+        @arguments = Arguments.new
       end
 
       def to_s
@@ -18,46 +39,47 @@ module Xamin
       end
 
       def process_nil(exp)
-        @argument_default = 'NIL'
+        @argument.default = 'nil'
         s()
       end
 
       def process_str(exp)
-        @argument_default = exp.value
+        @argument.default = exp.value
         s()
       end
 
       def process_hash(exp)
-        @argument_default = {}
+        @argument.default = {}
         s()
       end
 
       def process_array(exp)
-        @argument_default = []
+        @argument.default = []
 
-        exp.shift # :array
+        exp.shift # remove :array
         exp.each { |element| process(element) }
         s()
       end
 
       def process_lasgn(exp)
-        lasgn = exp.shift
-        name = exp.shift
+        exp.shift # remove :lasgn
+
+        @argument.name = exp.shift.to_s
         value = exp.shift
 
-        @argument_name = name
         process(value)
         s()
       end
 
       def process_lit(exp)
-        exp.shift # :lit
+        exp.shift # remove :lit
 
-        case @argument_default
+        case @argument.default
         when Array
-          @argument_default << exp.value
+          @argument.default << exp.value
+        # TODO add when Sexp?
         when nil
-          @argument_default = nil
+          @argument.default = exp.value
         when hash
           binding.pry
         else
@@ -67,9 +89,8 @@ module Xamin
       end
 
       def process_kwarg(exp)
-        lit = exp.shift
-        @argument_name = exp[0]
-        binding.pry
+        exp.shift # remove :kwarg
+        @argument.name = "#{exp[0]}:"
         process(exp)
         s()
       end
@@ -77,15 +98,15 @@ module Xamin
       def process_args(exp)
         args = exp.shift
         exp.each do |arg|
-          @argument_name = nil
-          @argument_default =  nil
+          @argument = Argument.new
           if arg.is_a? Sexp
+            @argument.assign = '='
             process(arg)
           else
-            @argument_name = arg
+            @argument.name = arg.to_s
           end
 
-          @arguments << [@argument_name, @argument_default]
+          @arguments << @argument
         end
       end
     end
