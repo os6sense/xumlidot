@@ -25,6 +25,17 @@
 #end
 #
 
+module Amod
+  class AClass < Foo
+    BLAH = []
+
+    somecall
+
+    def basl(a)
+    end
+
+  end
+end
 
 class Bad::ClassWithOutInheritance
 end
@@ -39,6 +50,9 @@ class InheritsTwo < Foo::Bar
 end
 
 class InheritsOne  < Foo
+end
+
+class InheritsZero
 end
 
 #class MyAuthor < Author

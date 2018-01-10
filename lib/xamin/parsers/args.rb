@@ -8,7 +8,7 @@ module Xamin
     # e.g. formats def method(a, b = nil)
     #      to a string 'a, b = nil'
     #
-    # 
+    #
     class Args < MethodBasedSexpProcessor
 
       # Container class
@@ -36,7 +36,7 @@ module Xamin
 
       def to_s
         process(@exp)
-        @arguments
+        @arguments.to_s
       end
 
       def process_nil(exp)

@@ -3,6 +3,7 @@ require 'ruby_parser'
 require 'pry'
 
 require_relative 'args'
+require_relative 'klass'
 
 module Xamin
   module Parsers
@@ -66,22 +67,23 @@ module Xamin
       end
 
       def process_class(exp)
-        binding.pry
-        super do
-          CurrentMethodVisibility.public
+        # Parses the class name and inheritance
+        k = ::Xamin::Parsers::Klass.new(exp.dup[0..2], @class_stack).to_s
+        puts "CLASS: #{k} "
 
-          binding.pry
-          puts "CLASS: #{self.klass_name} INHERITS_FROM: "
+        CurrentMethodVisibility.public
+        super do
           process_until_empty(exp)
         end
       rescue Exception => e
+        #binding.pry
         exp
       end
 
       def process_module(exp)
         super do
           CurrentMethodVisibility.public
-          puts "MODULE: #{self.klass_name}"
+          #puts "MODULE: #{self.klass_name}"
           process_until_empty(exp)
         end
       rescue Exception => e
@@ -92,7 +94,7 @@ module Xamin
         super do
           args = exp.shift
           temp = Args.new(args).to_s
-          puts "METHOD  #{CurrentMethodVisibility.state} #{self.method_name} #{temp}"
+          #puts "METHOD  #{CurrentMethodVisibility.state} #{self.method_name} #{temp}"
           process_until_empty(exp)
         end
       rescue Exception => e
@@ -102,7 +104,7 @@ module Xamin
 
       def process_defs(exp)
         super do
-          puts "CLASS METHOD #{self.method_name}"
+          #puts "CLASS METHOD #{self.method_name}"
           process_until_empty(exp)
         end
       rescue Exception => e
@@ -124,7 +126,7 @@ module Xamin
         when :protected
           CurrentMethodVisibility.protected
         else
-          puts "CALL RECV:#{recv unless recv.nil? || recv.empty?} NAME:#{name} ARGS:#{args unless args.nil? || args.empty?}"
+          #puts "CALL RECV:#{recv unless recv.nil? || recv.empty?} NAME:#{name} ARGS:#{args unless args.nil? || args.empty?}"
         end
         return exp
       rescue Exception => e
