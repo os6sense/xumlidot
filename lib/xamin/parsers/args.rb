@@ -24,8 +24,12 @@ module Xamin
         @arguments.to_s
       end
 
+      # Note - special case since a value of nil for default
+      # means we shouldn't display it and so we use the :nil
+      # symbol to represent an *actual assignment of nil* to 
+      # a variable.
       def process_nil(exp)
-        @argument.default = 'nil'
+        @argument.default = :nil
         s()
       end
 
@@ -37,6 +41,35 @@ module Xamin
       def process_hash(exp)
         @argument.default = {}
         s()
+      end
+
+      # const means that we have a constant assignment such as (a = Foo)
+      def process_const(exp)
+        @argument.default = exp.value
+        s()
+      end
+
+      # Colon2 means that we have a constant assignment such as (a = Foo::Bar)
+      def process_colon2(exp)
+        name = exp.flatten
+        name.delete :const
+        name.delete :colon2
+
+        # I'm not sure how best to proceed here.
+        # I can use const_set to start creating the constants heirachy 
+        # but this is complex since it needs to be inserted into the right
+        # place and for that I need the namespace...which suggests this ISNT
+        # the place to do that. I possibly need a fake class ...
+        @argument.default = name.map { |v| v.to_s }.to_a.join('::')
+        s()
+      end
+
+      # Colon2 means that we have a constant assignment such as (a = ::Foo::Bar)
+      # again see the note in colon2 about how to proceed
+      def process_colon3(exp)
+        process_colon2(exp)
+        @argument.default = "::#{argument.default}"
+        binding.pry
       end
 
       def process_array(exp)
@@ -51,8 +84,8 @@ module Xamin
         exp.shift # remove :lasgn
 
         @argument.name = exp.shift.to_s
-        value = exp.shift
 
+        value = exp.shift
         process(value)
         s()
       end

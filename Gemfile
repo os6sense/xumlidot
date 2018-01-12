@@ -15,3 +15,5 @@ gem 'rgl'
 group :test do
   gem 'rspec'
 end
+
+gem 'zeus'

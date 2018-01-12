@@ -32,6 +32,8 @@ GEM
       sexp_processor (~> 4.9)
     sexp_processor (4.10.0)
     stream (0.5)
+    zeus (0.15.14)
+      method_source (>= 0.6.7)
 
 PLATFORMS
   ruby
@@ -43,6 +45,7 @@ DEPENDENCIES
   rspec
   ruby_parser
   sexp_processor
+  zeus
 
 BUNDLED WITH
    1.16.0

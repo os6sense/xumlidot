@@ -3,7 +3,7 @@ module Xamin
     # Container class
     class Arguments < Array
       def to_s
-        each.map(&:to_s).join(',')
+        each.map(&:to_s).join(', ')
       end
     end
 
@@ -19,11 +19,27 @@ module Xamin
     #    def bar(a, b = nil)
     #
     # will have an assign of '=' and a default of nil
+    #
+    # Note that in Args, an assignment to a variable of nil 
+    # is parsed and the default value set to th symbol :nil
     class Argument
       attr_accessor :name, :assign, :default
 
       def to_s
-        [name, assign, default ? default.to_s : nil ].compact.join(' ')
+        str_default = case default
+                      when :nil 
+                        'nil'
+                      when String
+                        "\"#{default}\""
+                      when NilClass
+                        nil
+                      when Symbol
+                        ":#{default}"
+                      else
+                        default.to_s
+                      end
+
+        [name, assign, str_default ? str_default : nil ].compact.join(' ')
       end
     end
   end

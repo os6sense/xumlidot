@@ -55,7 +55,7 @@ module Xamin
             name = definition.flatten
             name.delete :const
             name.delete :colon2
-            name.each { |v| @_klass.name  << v.to_s }
+            name.each { |v| @_klass.name << v.to_s }
           when :colon3 then # Reached in the event that a name begins with ::
             @_klass.name << "::#{definition.last}"
           else
