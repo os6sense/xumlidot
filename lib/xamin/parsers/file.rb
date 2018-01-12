@@ -24,28 +24,6 @@ module Xamin
     # the SexpProcessors methods to contert to a graph
     class File < MethodBasedSexpProcessor
 
-      # Maintains current state of a methods visability
-      class CurrentMethodVisibility
-        class << self
-
-          def state
-            @state ||= :public
-          end
-
-          def public
-            @state = :public
-          end
-
-          def protected
-            @state = :protected
-          end
-
-          def private
-            @state = :private
-          end
-        end
-      end
-
       def initialize(file_contents)
         @parsed_file = RubyParser.new.parse(file_contents)
         super()
@@ -56,85 +34,90 @@ module Xamin
       end
 
       def process_sclass(exp)
+        set_visibility
         add_klass_to_graph(exp, 'SCLASS')
         super do
           process_until_empty(exp)
         end
       rescue Exception => e
+        puts "ERROR (#parse) #{e.message}"
+        exp
+      end
+
+      def process_class(exp)
+        set_visibility
+        add_klass_to_graph(exp, 'CLASS')
+        super do
+          process_until_empty(exp)
+        end
+      rescue Exception => e
+        puts "ERROR (#process_class) #{e.message}"
         exp
       end
 
       # Parses the class name and inheritance
       def add_klass_to_graph(exp, label)
         klass = ::Xamin::Parsers::Klass.new(exp.dup[0..2], @class_stack).to_s
-        CurrentMethodVisibility.public
         puts "#{label}: #{klass} "
-      end
-
-      def add_method_to_graph(exp, method_name, visibility)
-        args = Args.new(exp)
-        puts "METHOD: #{visibility} #{method_name} (#{args})"
-      end
-
-      def process_class(exp)
-        add_klass_to_graph(exp, 'CLASS')
-        super do
-          process_until_empty(exp)
-        end
-      rescue Exception => e
-        #binding.pry
-        exp
       end
 
       def process_module(exp)
         super do
-          CurrentMethodVisibility.public
+          set_visibility
           #puts "MODULE: #{self.klass_name}"
           process_until_empty(exp)
         end
       rescue Exception => e
+        puts "ERROR (#process_module) #{e.message}"
         exp
       end
 
       def process_defn(exp)
+        puts ::Xamin::Parsers::Methods.new(exp.dup[0..2]).to_s
         super do
-          add_method_to_graph(exp.shift, self.method_name, CurrentMethodVisibility.state) 
-          process_until_empty(exp)
+          process_until_empty(exp.shift)
         end
       rescue Exception => e
-        puts e
+        puts "ERROR (#process_defn) #{e.message}"
         exp
       end
 
       def process_defs(exp)
+        puts ::Xamin::Parsers::Methods.new(exp.dup[0..2]).to_s
         super do
-          add_method_to_graph(exp.shift, self.method_name, CurrentMethodVisibility.state) 
-          process_until_empty(exp)
+          process_until_empty(exp.shift)
         end
       rescue Exception => e
+        puts "ERROR (#process_defs) #{e.message}"
         exp
       end
 
       def process_call(exp)
         exp.shift # remove the :call
 
-        recv = process(exp.shift)
+        process(exp.shift) # recv
         name = exp.shift
-        args = process(exp.shift)
+        process(exp.shift) # args
 
         case name
-        when :private
-          CurrentMethodVisibility.private
-        when :public
-          CurrentMethodVisibility.public
-        when :protected
-          CurrentMethodVisibility.protected
+        when :private, :public, :protected
+          set_visibility(name)
         else
           #puts "CALL RECV:#{recv unless recv.nil? || recv.empty?} NAME:#{name} ARGS:#{args unless args.nil? || args.empty?}"
         end
         return exp
       rescue Exception => e
+        puts "ERROR (#process_call) #{e.message}"
         exp
+      end
+
+      # PRIVATE
+      def set_visibility(state = :public)
+        ::Xamin::Parsers::Methods::Visibility.send(state)
+      end
+
+      def get_visibility
+        ::Xamin::Parsers::Methods::Visibility.state
       end
     end
   end

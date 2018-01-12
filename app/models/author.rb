@@ -27,13 +27,26 @@
 
 module Amod
   class AClass < Foo
+
+    class << self
+
+    end
+
     BLAH = []
 
     somecall
 
-    def basl(a)
+    def public_method_number_1(a)
+      x = 1
+      y = ''
     end
 
+    private
+
+    def private_method_number_1(a)
+      x = 1
+      y = ''
+    end
   end
 end
 
