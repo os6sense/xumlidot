@@ -1,6 +1,8 @@
 require 'sexp_processor'
 require 'pry'
 
+require_relative '../types'
+
 module Xamin
   module Parsers
     # Parser for the arguments to a method
@@ -8,30 +10,13 @@ module Xamin
     # e.g. formats def method(a, b = nil)
     #      to a string 'a, b = nil'
     #
-    #
     class Args < MethodBasedSexpProcessor
-
-      # Container class
-      class Arguments < Array
-        def to_s
-          each.map(&:to_s).join(',')
-        end
-      end
-
-      # Value object for the actual argument
-      class Argument
-        attr_accessor :name, :assign, :default
-
-        def to_s
-          [name, assign, default ? default.to_s : nil ].compact.join(' ')
-        end
-      end
 
       def initialize(exp)
         super()
 
         @exp = exp
-        @arguments = Arguments.new
+        @arguments = ::Xamin::Types::Arguments.new
       end
 
       def to_s
@@ -100,7 +85,7 @@ module Xamin
       def process_args(exp)
         exp.shift # remove :args
         exp.each do |arg|
-          @argument = Argument.new
+          @argument = ::Xamin::Types::Argument.new
           if arg.is_a? Sexp
             @argument.assign = '='
             process(arg)

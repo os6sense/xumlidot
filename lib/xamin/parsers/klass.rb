@@ -1,6 +1,9 @@
 require 'sexp_processor'
 require 'pry'
 
+require_relative '../types'
+# Notes : including these here whil I work out how various parts are strutured
+#
 #class Bad::ClassWithOutInheritance
 #s(:class, s(:colon2, s(:const, :Bad), :ClassWithOutInheritance), nil)
 #
@@ -26,25 +29,13 @@ module Xamin
     #
     # The main parser will handle method,
     # constants, etc
-    class KlassVo
-      attr_accessor :name, :namespace, :superklass
-      def initialize
-        @name = []
-        @superklass = []
-      end
-
-      def to_s
-        "#{namespace} #{name} < #{superklass.reverse} "
-      end
-    end
-
     class Klass < MethodBasedSexpProcessor
       def initialize(exp, namespace = nil)
         super()
 
         @exp = exp
 
-        @_klass = KlassVo.new
+        @_klass = ::Xamin::Types::Klass.new
         @_klass.namespace = namespace
       end
 
@@ -60,16 +51,16 @@ module Xamin
         # Processes the name of the class
         if Sexp === definition
           case definition.sexp_type
-           when :colon2 then
-             name = definition.flatten
-             name.delete :const
-             name.delete :colon2
-             name.each { |v| @_klass.name  << v.to_s }
-           when :colon3 then
-             @_klass.name << "::#{definition.last}"
-           else
-             raise "unknown type #{exp.inspect}"
-           end
+          when :colon2 then # Reached in the event that a name is a compound
+            name = definition.flatten
+            name.delete :const
+            name.delete :colon2
+            name.each { |v| @_klass.name  << v.to_s }
+          when :colon3 then # Reached in the event that a name begins with ::
+            @_klass.name << "::#{definition.last}"
+          else
+            raise "unknown type #{exp.inspect}"
+          end
         else Symbol === definition
           #if we have a symbol we have the actual class name
           # e.g. class Foo; end

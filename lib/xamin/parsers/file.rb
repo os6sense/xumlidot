@@ -2,8 +2,8 @@ require 'sexp_processor'
 require 'ruby_parser'
 require 'pry'
 
-require_relative 'args'
-require_relative 'klass'
+require_relative '../types'
+require_relative '../parsers'
 
 module Xamin
   module Parsers
@@ -48,7 +48,6 @@ module Xamin
 
       def initialize(file_contents)
         @parsed_file = RubyParser.new.parse(file_contents)
-
         super()
       end
 
@@ -57,21 +56,28 @@ module Xamin
       end
 
       def process_sclass(exp)
+        add_klass_to_graph(exp, 'SCLASS')
         super do
-          CurrentMethodVisibility.public
-          puts "SCLASS: #{self.klass_name} INHERITS_FROM: "
           process_until_empty(exp)
         end
       rescue Exception => e
         exp
       end
 
-      def process_class(exp)
-        # Parses the class name and inheritance
-        k = ::Xamin::Parsers::Klass.new(exp.dup[0..2], @class_stack).to_s
-        puts "CLASS: #{k} "
-
+      # Parses the class name and inheritance
+      def add_klass_to_graph(exp, label)
+        klass = ::Xamin::Parsers::Klass.new(exp.dup[0..2], @class_stack).to_s
         CurrentMethodVisibility.public
+        puts "#{label}: #{klass} "
+      end
+
+      def add_method_to_graph(exp, method_name, visibility)
+        args = Args.new(exp)
+        puts "METHOD: #{visibility} #{method_name} (#{args})"
+      end
+
+      def process_class(exp)
+        add_klass_to_graph(exp, 'CLASS')
         super do
           process_until_empty(exp)
         end
@@ -92,9 +98,7 @@ module Xamin
 
       def process_defn(exp)
         super do
-          args = exp.shift
-          temp = Args.new(args).to_s
-          #puts "METHOD  #{CurrentMethodVisibility.state} #{self.method_name} #{temp}"
+          add_method_to_graph(exp.shift, self.method_name, CurrentMethodVisibility.state) 
           process_until_empty(exp)
         end
       rescue Exception => e
@@ -104,7 +108,7 @@ module Xamin
 
       def process_defs(exp)
         super do
-          #puts "CLASS METHOD #{self.method_name}"
+          add_method_to_graph(exp.shift, self.method_name, CurrentMethodVisibility.state) 
           process_until_empty(exp)
         end
       rescue Exception => e
