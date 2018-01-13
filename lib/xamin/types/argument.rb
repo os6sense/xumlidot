@@ -10,9 +10,9 @@ module Xamin
     # Value object for the actual argument
     #
     # Depending on the argument type, assign and default
-    # may be unpopulated e.g. 
+    # may be unpopulated e.g.
     #
-    #    def foo(a, b) 
+    #    def foo(a, b)
     #
     # will be parsed with an empty assign and default
     #
@@ -20,14 +20,18 @@ module Xamin
     #
     # will have an assign of '=' and a default of nil
     #
-    # Note that in Args, an assignment to a variable of nil 
+    # Note that in Args, an assignment to a variable of nil
     # is parsed and the default value set to th symbol :nil
     class Argument
-      attr_accessor :name, :assign, :default
+      attr_accessor :name, :assign, :default, :types
+
+      def initialize
+        @types = []
+      end
 
       def to_s
         str_default = case default
-                      when :nil 
+                      when :nil
                         'nil'
                       when String
                         "\"#{default}\""

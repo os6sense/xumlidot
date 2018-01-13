@@ -1,27 +1,40 @@
 module Xamin
   module Types
-    # Value object for the actual argument
+    # Container class
+    class Methods < Array
+      def to_s
+        each.map(&:to_s).join(', ')
+      end
+    end
+
+    # Value object for a method
     #
-    # Depending on the argument type, assign and default
-    # may be unpopulated e.g. 
-    #
-    #    def foo(a, b) 
-    #
-    # will be parsed with an empty assign and default
-    #
-    #    def bar(a, b = nil)
-    #
-    # will have an assign of '=' and a default of nil
-    #
-    # Note that in Args, an assignment to a variable of nil 
-    # is parsed and the default value set to th symbol :nil
+    # we store all the method details here including many
+    # which we are not yet using.
     class Method
-      attr_accessor :name, :args, :file, :line_number, :line_max, :visibility
+      attr_accessor :name,               # string
+                    :args,               # Argument
+                    :file,               # string
+                    :line_number,        # int  - these are areally a range
+                    :line_max,
+                    :visibility,         # symbol - :public, :private, or :protected
+                    :superclass_method   # true or false
 
       def to_s
         @name = @name.is_a?(Regexp) ? @name.inspect : @name.to_s
 
-        "#{@visibility} #{@name}(#{@args})"
+        "#{visibility_symbol} #{@name}(#{@args})"
+      end
+
+      def visibility_symbol
+        case @visibility
+        when :public
+          '+'
+        when :private
+          '-'
+        when :protected
+          '|'
+        end
       end
     end
   end

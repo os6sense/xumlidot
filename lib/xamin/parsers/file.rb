@@ -35,35 +35,16 @@ module Xamin
 
       def process_sclass(exp)
         set_visibility
-        add_klass_to_graph(exp, 'SCLASS')
-        super do
-          process_until_empty(exp)
-        end
+        puts ::Xamin::Parsers::Klass.new(exp.dup[0..2], @class_stack).to_s
+        super { process_until_empty(exp) }
       rescue Exception => e
         puts "ERROR (#parse) #{e.message}"
         exp
       end
 
-      def process_class(exp)
-        set_visibility
-        add_klass_to_graph(exp, 'CLASS')
-        super do
-          process_until_empty(exp)
-        end
-      rescue Exception => e
-        puts "ERROR (#process_class) #{e.message}"
-        exp
-      end
-
-      # Parses the class name and inheritance
-      def add_klass_to_graph(exp, label)
-        klass = ::Xamin::Parsers::Klass.new(exp.dup[0..2], @class_stack).to_s
-        puts "#{label}: #{klass} "
-      end
-
       def process_module(exp)
+        set_visibility
         super do
-          set_visibility
           #puts "MODULE: #{self.klass_name}"
           process_until_empty(exp)
         end
@@ -72,32 +53,40 @@ module Xamin
         exp
       end
 
+      def process_class(exp)
+        set_visibility
+        puts ::Xamin::Parsers::Klass.new(exp.dup[0..2], @class_stack).to_s
+        super { process_until_empty(exp) }
+      rescue Exception => e
+        puts "ERROR (#process_class) #{e.message}"
+        exp
+      end
+
+      # METHODS
       def process_defn(exp)
-        puts ::Xamin::Parsers::Methods.new(exp.dup[0..2]).to_s
-        super do
-          process_until_empty(exp.shift)
-        end
+        tmpexp = exp.dup
+        puts ::Xamin::Parsers::Methods.new(exp).to_s
+        super { process_until_empty(exp.shift) }
       rescue Exception => e
         puts "ERROR (#process_defn) #{e.message}"
         exp
       end
 
       def process_defs(exp)
-        puts ::Xamin::Parsers::Methods.new(exp.dup[0..2]).to_s
-        super do
-          process_until_empty(exp.shift)
-        end
+        puts ::Xamin::Parsers::Methods.new(exp.dup[0..2], superclass_method: true).to_s
+        super { process_until_empty(exp.shift) }
       rescue Exception => e
         puts "ERROR (#process_defs) #{e.message}"
         exp
       end
 
+      # CALLS
       def process_call(exp)
         exp.shift # remove the :call
 
-        process(exp.shift) # recv
+        recv = process(exp.shift) # recv
         name = exp.shift
-        process(exp.shift) # args
+        args = process(exp.shift) # args
 
         case name
         when :private, :public, :protected

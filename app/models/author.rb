@@ -25,48 +25,77 @@
 #end
 #
 
-module Amod
-  class AClass < Foo
-
-    class << self
-
+module Calls
+  class Foo
+    a_call_in_the_class
+    def baz(foo)
+      foo.bar
     end
 
-    BLAH = []
-
-    somecall
-
-    def public_method_number_1(a)
-      x = 1
-      y = ''
+    def bar
     end
+  end
 
-    private
-
-    def private_method_number_1(a)
-      x = 1
-      y = ''
+  class Bar
+    def create_foo
+      a = 1
+      b = 'bar'
+      c = [1,2,3]
+      e = {a: 1, b: 2}
+      foo = ::Calls::Foo.new
+      foo.baz(foo)
     end
   end
 end
 
-class Bad::ClassWithOutInheritance
-end
 
-class Bad::ClassWithInheritance < Foo
-end
+#module Amod
+  #class AClass < Foo
 
-class InheritsThreeWIthLeading < ::Foo::Bar::Baz
-end
+    #class << self
+    #end
 
-class InheritsTwo < Foo::Bar
-end
+    #BLAH = []
 
-class InheritsOne  < Foo
-end
+    #somecall
 
-class InheritsZero
-end
+    #def public_method_number_1(a)
+      #x = 1
+      #y = ''
+    #end
+
+    #private
+
+    #def private_method_number_1(a)
+      #y = ''
+    #end
+
+    #protected
+
+    #def protected_method_number_1(a)
+      #y = ''
+    #end
+
+  #end
+#end
+
+#class Bad::ClassWithOutInheritance
+#end
+
+#class Bad::ClassWithInheritance < Foo
+#end
+
+#class InheritsThreeWIthLeading < ::Foo::Bar::Baz
+#end
+
+#class InheritsTwo < Foo::Bar
+#end
+
+#class InheritsOne  < Foo
+#end
+
+#class InheritsZero
+#end
 
 #class MyAuthor < Author
   #def empty(a); end

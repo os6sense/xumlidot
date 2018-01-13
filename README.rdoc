@@ -1,6 +1,5 @@
-= Xamin
+= RUML-X-MIDOT Ruby UML XMI & DOT generator
 
-TODO: Include Xamin copyright disclaimer (parts copyright blah)
 
 Outputs XMI for an app for use with UML readers like ArgoUml, Visual Paradigm, etc
 
@@ -18,8 +17,12 @@ the files hence all the dependencies would get pulled along. We are not interest
 whether something needs active record to run though - we just want to know the inheritance
 chain and the methods/constants defined.
 
-To overcome this we use ripper to parse the files into s-expressions and the absolutely awesome
+To overcome this we parse the files into s-expressions via the absolutely awesome ruby parser and use
 seattlerb/sexp_processor to derive method names, calls, structure constants etc.
 
 # USAGE
 
+
+# Copyrights/attributions
+
+TODO: Include Xamin copyright disclaimer (parts copyright) in READM)

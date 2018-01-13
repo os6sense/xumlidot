@@ -2,26 +2,6 @@ require 'sexp_processor'
 require 'pry'
 
 require_relative '../types'
-# Notes : including these here whil I work out how various parts are strutured
-#
-#class Bad::ClassWithOutInheritance
-#s(:class, s(:colon2, s(:const, :Bad), :ClassWithOutInheritance), nil)
-#
-#class Bad::ClassWithInheritance < Foo
-#s(:class, s(:colon2, s(:const, :Bad), :ClassWithInheritance), s(:const, :Foo))
-#s(s(:const, :Foo))
-#
-#class InheritsThreeWIthLeading < ::Foo::Bar::Baz
-#s(:class, :InheritsThreeWIthLeading, s(:colon2, s(:colon2, s(:colon3, :Foo), :Bar), :Baz))
-#s(s(:colon2, s(:colon2, s(:colon3, :Foo), :Bar), :Baz))
-
-#class InheritsTwo < Foo::Bar
-#s(:class, :InheritsTwo, s(:colon2, s(:const, :Foo), :Bar))p
-#s(s(:colon2, s(:const, :Foo), :Bar))
-
-# class InheritsOne  < Foo
-# s(:class, :InheritsOne, s(:const, :Foo))
-# s(s(:const, :Foo))
 
 module Xamin
   module Parsers

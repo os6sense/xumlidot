@@ -34,38 +34,78 @@ module Xamin
         end
       end
 
-      def initialize(exp)
+      class Assignments < Hash
+      end
+
+      def initialize(exp, superclass_method: false)
         super()
 
         @method = ::Xamin::Types::Method.new
         @method.visibility = Visibility.state
-        @method.args = Args.new(exp.dup)
+        @method.args = Args.new(exp.dup[0..2]) # only pass the method definition into args
+        @method.superclass_method = superclass_method
 
-        process(exp.dup)
+        @assignments = Assignments.new
+
+        process(exp)
       end
 
       def to_s
         @method.to_s
       end
 
+      def to_method
+        @method
+      end
+
       def process_defn(exp)
         exp.shift unless auto_shift_type # node type
-        @method.name = exp.shift 
+        @method.name = exp.shift
         @method.file = exp.file
         @method.line_number = exp.line
         @method.line_max = exp.line_max
-        process_until_empty(exp)
+
+        more = exp.shift
+        process(more) if more.is_a?(Sexp) && !more.empty?
+        s()
+      rescue Exception => e
+        binding.pry
         s()
       end
-
-      ##
-      # Process a singleton method node until empty. Tracks your location.
-      # If you have to subclass and override this method, you can clall
-      # super with a block.
 
       def process_defs(exp)
         process_defn(exp)
       end
+
+      # CALLS
+      # TODO: We need a seperate assignment class to parse these
+      # especially assignments so that we can attempt to work out types
+      def process_call(exp)
+        exp.shift # remove the :call
+
+        recv = process(exp.shift) # recv
+        name = exp.shift
+        args = process(exp.shift) # args
+
+        exp
+      rescue Exception => e
+        puts "ERROR (#process_call) #{e.message}"
+        exp
+      end
+
+      def process_lasgn(exp)
+        exp.shift # remove :lasgn
+
+        name = exp.shift.to_s
+        value = exp.shift
+
+        @assignments[name] = value
+
+        process(value)
+        s()
+      end
+
+
     end
   end
 end
