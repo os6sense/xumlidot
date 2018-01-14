@@ -1,28 +1,32 @@
-= RUML-X-MIDOT Ruby UML XMI & DOT generator
+= MIDOT
 
-
+Ruby UML XMI and DOT generator
 Outputs XMI for an app for use with UML readers like ArgoUml, Visual Paradigm, etc
 
-Its amazing the literal gems you can find digging about. Railroady has the --xmi flag 
-but when you run it you eventually discover it is not implemented (and hasn't been for
-seven years) but floating around was this little piece of magic from DrBinary which 
-saves an awful lot of digging trying to understand XMI. 
+Railroady has the --xmi flag but when you run it you eventually discover it
+is not implemented (and hasn't been for seven years) 
 
-It sadly had not been updated in nine years (!!) so I've tweaked things a little so
-that it runs not just with rails applications but any ruby app (not everything that
-glitters runs on rails).
+One of the major problems with the approach taken by Xamin (and Railroady) is
+that they require files hence all the dependencies get pulled along, and they
+are heavily rails rather than ruby oriented.
 
-One of the major problems with the approach taken by Xamin was that it just required
-the files hence all the dependencies would get pulled along. We are not interested in 
-whether something needs active record to run though - we just want to know the inheritance
-chain and the methods/constants defined.
+Personally I am not interested in whether something needs active record to run
+though - I just want to know the inheritance chain and the
+methods/constants/attributes defined.
 
-To overcome this we parse the files into s-expressions via the absolutely awesome ruby parser and use
-seattlerb/sexp_processor to derive method names, calls, structure constants etc.
+To do this we parse the files into s-expressions via ruby parser and use
+seattlerb/sexp_processor to derive method names, calls, structure, constants
+etc.
 
 # USAGE
 
+--rails (TODO: Gets additional rails knowledge)
+--dot (TODO: output dot rather than xmi)
 
-# Copyrights/attributions
+# Copyrights/attributions/thanks
 
-TODO: Include Xamin copyright disclaimer (parts copyright) in READM)
+Thanks to Brian Lonsdorf for Xamin which I had initially hoped to just fork but ended up 
+using to just get an idea of the XMI structure
+
+Thanks to the seattlerb group for the excellent ruby-parser and sexp-processor which got
+me parsing ruby superfast.

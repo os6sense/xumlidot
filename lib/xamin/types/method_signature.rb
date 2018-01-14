@@ -1,7 +1,9 @@
+require_relative 'xmi/method'
+
 module Xamin
   module Types
     # Container class
-    class Methods < Array
+    class MethodSignatures < Array
       def to_s
         each.map(&:to_s).join(', ')
       end
@@ -11,7 +13,9 @@ module Xamin
     #
     # we store all the method details here including many
     # which we are not yet using.
-    class Method
+    class MethodSignature
+      include ::Xamin::Xmi::Method
+
       attr_accessor :name,               # string
                     :args,               # Argument
                     :file,               # string
@@ -20,11 +24,17 @@ module Xamin
                     :visibility,         # symbol - :public, :private, or :protected
                     :superclass_method   # true or false
 
+      def initialize
+        @superclass_method = false
+      end
+
       def to_s
         @name = @name.is_a?(Regexp) ? @name.inspect : @name.to_s
 
-        "#{visibility_symbol} #{@name}(#{@args})"
+        "#{klass} #{visibility_symbol} #{@name}(#{@args})"
       end
+
+      private
 
       def visibility_symbol
         case @visibility
@@ -35,6 +45,10 @@ module Xamin
         when :protected
           '|'
         end
+      end
+
+      def klass
+        @superclass_method ? 'S' : 'I'
       end
     end
   end

@@ -1,3 +1,66 @@
+
+
+module Foo
+
+
+  class Bar
+
+    class << self
+      def class_a(a, b, c)
+      end
+
+      private
+
+      def private_class_a
+      end
+    end
+
+    def self.foo
+    end
+
+    def instance_a(a)
+    end
+
+    private
+
+    def private_instance_a(a)
+    end
+
+    protected
+
+    def protected_instance_a(a)
+    end
+  end
+end
+
+#module Foo1
+  #module Foo2
+    #def foo2_module_method
+    #end
+    ##module_function :foo2_module_method
+
+    #class Foo3
+      #module Foo4
+        #class Baz
+        #end
+        #class Foo5 < Baz
+
+          ##class << self
+            ##def self.foo_5_class_method
+            ##end
+          ##end
+          ### Having problems with this one
+          ##def self.foo_5_self_class_method
+          ##end
+
+          #def foo_5_instance_method(a, b = 1)
+          #end
+        #end
+      #end
+    #end
+  #end
+#end
+
 #class Author < ActiveRecord::Base
   #has_many :books
 
@@ -25,28 +88,28 @@
 #end
 #
 
-module Calls
-  class Foo
-    a_call_in_the_class
-    def baz(foo)
-      foo.bar
-    end
+#module Calls
+  #class Foo
+    #a_call_in_the_class
+    #def baz(foo)
+      #foo.bar
+    #end
 
-    def bar
-    end
-  end
+    #def bar
+    #end
+  #end
 
-  class Bar
-    def create_foo
-      a = 1
-      b = 'bar'
-      c = [1,2,3]
-      e = {a: 1, b: 2}
-      foo = ::Calls::Foo.new
-      foo.baz(foo)
-    end
-  end
-end
+  #class Bar
+    #def create_foo
+      #a = 1
+      #b = 'bar'
+      #c = [1,2,3]
+      #e = {a: 1, b: 2}
+      #foo = ::Calls::Foo.new
+      #foo.baz(foo)
+    #end
+  #end
+#end
 
 
 #module Amod

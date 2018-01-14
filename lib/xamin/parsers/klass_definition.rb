@@ -5,23 +5,21 @@ require_relative '../types'
 
 module Xamin
   module Parsers
-    # Parser for the KLASS DEFINITION ONLY
+
+    # Parser for the KLASS DEFINITION ONLY and the name
+    # probably should be changed to reflect that
     #
-    # The main parser will handle method,
-    # constants, etc
-    class Klass < MethodBasedSexpProcessor
+    class KlassDefinition < MethodBasedSexpProcessor
+
+      attr_reader :definition
+
       def initialize(exp, namespace = nil)
         super()
 
-        @exp = exp
+        @definition = ::Xamin::Types::KlassDefinition.new
+        @definition.namespace = namespace
 
-        @_klass = ::Xamin::Types::Klass.new
-        @_klass.namespace = namespace
-      end
-
-      def to_s
-        process(@exp)
-        @_klass.to_s
+        process(exp)
       end
 
       def process_class(exp)
@@ -35,16 +33,18 @@ module Xamin
             name = definition.flatten
             name.delete :const
             name.delete :colon2
-            name.each { |v| @_klass.name << v.to_s }
+            name.each do |v|
+              @definition.name << ::Xamin::Types::Constant.new(v, @definition.namespace)
+            end
           when :colon3 then # Reached in the event that a name begins with ::
-            @_klass.name << "::#{definition.last}"
+            @definition.name << ::Xamin::Types::Constant.new(definition.last, '::')
           else
             raise "unknown type #{exp.inspect}"
           end
         else Symbol === definition
           #if we have a symbol we have the actual class name
           # e.g. class Foo; end
-          @_klass.name << definition.to_s
+          @definition.name << ::Xamin::Types::Constant.new(definition, @definition.namespace)
         end
 
         # Processess inheritance
@@ -54,21 +54,21 @@ module Xamin
       end
 
       def process_const(exp)
-        @_klass.superklass << exp.value.to_s
+        @definition.superklass << exp.value.to_s
         process_until_empty(exp)
         s()
       end
 
       def process_colon2(exp)
         exp.shift # remove :colon2
-        @_klass.superklass << exp.value.to_s
+        @definition.superklass << exp.value.to_s
         process_until_empty(exp)
         s()
       end
 
       def process_colon3(exp)
         exp.shift # remove :colon3
-        @_klass.superklass << "::#{exp.value}"
+        @definition.superklass << "::#{exp.value}"
         process_until_empty(exp)
         s()
       end
