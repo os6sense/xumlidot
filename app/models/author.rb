@@ -1,8 +1,6 @@
 
 
 module Foo
-
-
   class Bar
 
     class << self

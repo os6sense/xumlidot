@@ -18,6 +18,11 @@ module Xamin
 
         "#{@name} (#{ns})"
       end
+
+      def to_xmi
+        ns = @namespace.reverse.each(&:to_s).join('::')
+        "#{ns}::#{@name}"
+      end
     end
   end
 end

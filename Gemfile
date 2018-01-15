@@ -3,6 +3,8 @@ source 'https://rubygems.org'
 gem 'pry'
 gem 'pry-byebug'
 
+gem 'awesome_print'
+
 # https://github.com/seattlerb/ruby_parser
 gem 'ruby_parser'
 
