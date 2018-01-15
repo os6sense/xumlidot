@@ -1,4 +1,4 @@
-require 'secure_random'
+require 'securerandom'
 
 module Xamin
   module Xmi

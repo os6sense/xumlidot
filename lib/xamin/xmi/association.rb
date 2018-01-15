@@ -4,6 +4,8 @@ require_relative 'id'
 module Xamin
   module Xmi
     module Association
+      include ::Xamin::Xmi::ID
+
       def to_xmi
         %Q|
         <UML:Association name = '#{name}'>

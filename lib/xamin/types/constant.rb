@@ -1,3 +1,5 @@
+require_relative '../xmi'
+
 module Xamin
   module Types
     # Our representation of a constant - although just

@@ -16,4 +16,5 @@ dt.find_all_rb_files do |path|
   parser.parse(graph)
 end
 
-graph.to_dot
+graph.to_xmi
+#graph.to_dot

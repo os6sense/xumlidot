@@ -1,8 +1,12 @@
+require_relative '../xmi'
+
 module Xamin
   module Types
     # representation for class information
     #
     class Klass
+      include ::Xamin::Xmi::Klass
+
       attr_accessor :definition,
                     :instance_methods,
                     :class_methods

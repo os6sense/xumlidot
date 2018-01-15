@@ -1,4 +1,5 @@
 require_relative 'klass'
+require_relative '../xmi'
 
 module Xamin
   module Types

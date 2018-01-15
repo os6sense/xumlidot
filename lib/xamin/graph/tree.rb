@@ -41,7 +41,15 @@ module Xamin
 
     def to_dot
       #@tree.print_dotted_on
-      @tree.dotty
+      #@tree.dotty
+    end
+
+    def to_xmi
+      binding.pry
+      xmi = @tree.vertices[0].to_xmi
+      xmi = @tree.vertices[1].to_xmi
+      binding.pry
+
     end
   end
 end
