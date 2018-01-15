@@ -9,7 +9,7 @@ dt = Xamin::DirectoryTree.new(directories)
 graph = Xamin::Tree.new
 
 dt.find_all_rb_files do |path|
-  puts path
+  STDERR.puts path
   file_contents = File.read(path)
 
   parser = Xamin::Parsers::File.new(file_contents)

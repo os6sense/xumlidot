@@ -4,30 +4,28 @@ module Foo
   class Bar
 
     class << self
-      def class_a(a, b, c)
+      def class_a(a, &block)
       end
 
       private
 
-      def private_class_a
-      end
     end
 
-    def self.foo
-    end
+    #def self.foo
+    #end
 
-    def instance_a(a)
-    end
+    #def instance_a(a)
+    #end
 
-    private
+    #private
 
-    def private_instance_a(a)
-    end
+    #def private_instance_a(a)
+    #end
 
-    protected
+    #protected
 
-    def protected_instance_a(a)
-    end
+    #def protected_instance_a(a)
+    #end
   end
 end
 

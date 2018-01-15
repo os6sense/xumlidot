@@ -51,7 +51,7 @@ module Xamin
           set_visibility(temp_visibility)
         end
       rescue Exception => e
-        puts "ERROR (#process_sclass) #{e.message}"
+        STDERR.puts "ERROR (#process_sclass) #{e.message}"
         exp
       end
 
@@ -62,7 +62,7 @@ module Xamin
       def process_class(exp, definition_klass = ::Xamin::Parsers::KlassDefinition, definition_type = Xamin::Types::Klass)
         set_visibility
         definition = definition_klass.new(exp.dup[0..2], @class_stack).definition
-        puts definition.to_s
+        STDERR.puts definition.to_s
         super(exp) do
           temp_visibility = get_visibility
           @km_stack << definition_type.new(definition)
@@ -72,7 +72,7 @@ module Xamin
           set_visibility(temp_visibility)
         end
       rescue Exception => e
-        puts "ERROR (#process_class) #{e.message}"
+        STDERR.puts "ERROR (#process_class) #{e.message}"
         exp
       end
 
@@ -80,12 +80,12 @@ module Xamin
       def process_defn(exp, superclass_method = false)
         method = ::Xamin::Parsers::MethodSignature.new(exp, superclass_method || @sclass.last)
         @km_stack.last.add_method(method)
-        puts method.to_s
-        super(exp) { process_until_empty(exp) }
+        STDERR.puts method.to_s
+        #super(exp) { process_until_empty(exp) } # DISABLING since parsing the method is crahing
+        s()
       rescue Exception => e
-        puts "ERROR (#process_def#{superclass_method ? 's' : 'n'}) #{e.message}"
-        puts e.backtrace.reverse
-        exp
+        STDERR.puts "ERROR (#process_def#{superclass_method ? 's' : 'n'}) #{e.message}"
+        s()
       end
 
       def process_defs(exp)
@@ -110,10 +110,10 @@ module Xamin
         else
           #puts "CALL RECV:#{recv unless recv.nil? || recv.empty?} NAME:#{name} ARGS:#{args unless args.nil? || args.empty?}"
         end
-        return exp
+        s()
       rescue Exception => e
-        puts "ERROR (#process_call) #{e.message}"
-        exp
+        STDERR.puts "ERROR (#process_call) #{e.message}"
+        s()
       end
 
       # PRIVATE

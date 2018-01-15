@@ -51,14 +51,16 @@ module Xamin
       diagram_ids = []
 
 
-      xml = @tree.vertices.map do |v| 
+      xml = @tree.vertices.map do |v|
         diagram_ids << v.id
-        v.to_xmi 
+        v.to_xmi
       end
 
       xml = [xmi_header, xml, xmi_footer(diagram_ids)].join(' ')
       doc = Document.new(xml)
-      puts doc.to_s
+      formatter = REXML::Formatters::Pretty.new
+      formatter.compact = true
+      formatter.write(doc, $stdout)
     end
 
     def xmi_header
@@ -89,7 +91,6 @@ module Xamin
         </xmi:XMI>
       )
     end
-
 
     def xmi_diagram_element(id)
       #%Q(<uml:DiagramElement geometry="0,0,149,138" preferredShapeType="Class" subject="#{id}" xmi:id="WSFKnwaFYHEAAQkB">

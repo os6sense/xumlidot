@@ -89,7 +89,7 @@ module Xamin
 
         exp
       rescue Exception => e
-        puts "ERROR (#process_call) #{e.message}"
+        STDERR.puts "ERROR (#process_call) #{e.message}"
         exp
       end
 

@@ -27,10 +27,15 @@ module Xamin
     class Argument
       include ::Xamin::Xmi::Argument
 
-      attr_accessor :name, :assign, :default, :types
+      attr_accessor :assign, :default, :types
+      attr_reader :name
 
       def initialize
         @types = []
+      end
+
+      def name=(val)
+        name = val.tr("&", '')
       end
 
       def to_s
