@@ -1,4 +1,3 @@
-# Keeping this but its really a rails related concept
 require_relative 'id'
 
 module Xamin

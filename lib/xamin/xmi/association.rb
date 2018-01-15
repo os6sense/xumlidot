@@ -1,3 +1,6 @@
+require_relative 'id'
+
+# Keeping this but its really a rails related concept
 module Xamin
   module Xmi
     module Association

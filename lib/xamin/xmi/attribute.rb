@@ -1,3 +1,5 @@
+require_relative 'id'
+
 module Xamin
   module Xmi
     module Attribute

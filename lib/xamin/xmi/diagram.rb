@@ -1,4 +1,5 @@
 require_relative 'model'
+require_relative 'id'
 
 module Xamin
   module Xmi

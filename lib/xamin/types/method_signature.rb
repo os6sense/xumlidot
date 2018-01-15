@@ -1,4 +1,4 @@
-require_relative 'xmi/method'
+require_relative '../xmi'
 
 module Xamin
   module Types
@@ -17,7 +17,7 @@ module Xamin
       include ::Xamin::Xmi::Method
 
       attr_accessor :name,               # string
-                    :args,               # Argument
+                    :args,               # Arguments
                     :file,               # string
                     :line_number,        # int  - these are areally a range
                     :line_max,
