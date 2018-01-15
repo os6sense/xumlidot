@@ -104,9 +104,9 @@ module Xamin
         when :private, :public, :protected
           set_visibility(name)
         when :include
-          binding.pry
+         #  binding.pry
         when :extend
-          binding.pry
+         #  binding.pry
         else
           #puts "CALL RECV:#{recv unless recv.nil? || recv.empty?} NAME:#{name} ARGS:#{args unless args.nil? || args.empty?}"
         end
