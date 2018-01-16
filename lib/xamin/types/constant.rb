@@ -6,22 +6,30 @@ module Xamin
     # a string we need to be able to be unabigous in
     # our representation.
     class Constant
-      attr_accessor :name, :namespace
+      attr_reader :name, 
+                  :namespace
 
       def initialize(name, namespace = nil)
         @name = name
-        @namespace = namespace
+        @namespace = namespace.dup
       end
 
       def to_s
-        ns = @namespace.reverse.each(&:to_s).join('::')
-
-        "#{@name} (#{ns})"
+        "#{@name} (#{formatted_namespace})"
       end
 
       def to_xmi
-        ns = @namespace.reverse.each(&:to_s).join('::')
-        "#{ns}::#{@name}"
+        "#{formatted_namespace}::#{@name}"
+      end
+
+      private 
+
+      def root
+        return '::' if @namespace.empty?
+      end
+
+      def formatted_namespace
+        [@namespace].flatten.reverse.each(&:to_s).join('::')
       end
     end
   end

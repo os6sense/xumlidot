@@ -73,6 +73,7 @@ module Xamin
         end
       rescue Exception => e
         STDERR.puts "ERROR (#process_class) #{e.message}"
+        STDERR.puts e.backtrace.reverse
         exp
       end
 

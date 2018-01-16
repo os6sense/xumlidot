@@ -35,7 +35,7 @@ module Xamin
       end
 
       def name=(val)
-        name = val.tr("&", '')
+        @name = val.tr("&", '')
       end
 
       def to_s
@@ -52,7 +52,7 @@ module Xamin
                         default.to_s
                       end
 
-        [name, assign, str_default ? str_default : nil ].compact.join(' ')
+        [@name, @assign, str_default ? str_default : nil ].compact.join(' ')
       end
     end
   end
