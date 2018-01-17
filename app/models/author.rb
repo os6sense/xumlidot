@@ -1,31 +1,18 @@
+class E::F
+  BAR = :bar
+end
 
-
-module Foo
-  class Bar
-
-    class << self
-      def class_a(a, &block)
-      end
-
-      private
-
+module A
+  class B
+    class C < E::F
+      FOO = :foo
     end
 
-    #def self.foo
-    #end
-
-    #def instance_a(a)
-    #end
-
-    #private
-
-    #def private_instance_a(a)
-    #end
-
-    #protected
-
-    #def protected_instance_a(a)
-    #end
+    class << self
+      BAZ = :baz
+      def class_a(a, &block)
+      end
+    end
   end
 end
 

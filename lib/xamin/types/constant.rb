@@ -2,6 +2,16 @@ require_relative '../xmi'
 
 module Xamin
   module Types
+
+    # Container class
+    #
+    # I'm thinking a hash to make lookup quicker but 
+    # an array may work just as well
+    class Constants < Hash
+
+    end
+
+
     # Our representation of a constant - although just
     # a string we need to be able to be unabigous in
     # our representation.

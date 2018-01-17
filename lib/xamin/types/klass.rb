@@ -1,31 +1,56 @@
 require_relative '../xmi'
+require_relative '../types'
+
+require 'forwardable'
 
 module Xamin
   module Types
-    # representation for class information
-    #
+
+    class Methods < Array
+    end
+
+    class InstanceMethods < Methods
+    end
+
+    class ClassMethods < Methods
+    end
+
+
+    # representation for a class 
     class Klass
       include ::Xamin::Xmi::Klass
 
+      # Definition currently holds the superclass ... may change these to nesting and
+      # ancestors yet...
       attr_accessor :definition,
+                    # we *could* just have a single methods type
+                    # and construct the instance/class list dynamically...
                     :instance_methods,
                     :class_methods,
                     # New additions as I attempt to resolve ancestry
 
+                    # Okay so lets say we keep in constants all constants,
+                    # modules and clasess (to make it easy to iterate over everything)
+                    # are there any drawbacks ... well, well have to test each ...
+                    # lets go with it
+                    #
+                    # Technically (for our purposes) a class, a module, and a constant are 
+                    # the same thing apart from being semantically different so the constants
+                    # within a module or class with hold actual constants such as FOO = 1,
+                    # but also Modules and Klasses
                     :constants, 
-                    :classes,
-                    :modules, 
-                    # So technically a class, module and constant are 
-                    # the same thing apart from being semantically different
-                    
-                    :calls
 
-      # Maybe delegate superklass to definition?
+                    :calls # Not yet implemented
+
+      extend Forwardable
+      def_delegator :@definition, :superklass, :superklass
       
       def initialize(definition)
         @definition = definition
-        @instance_methods = []
-        @class_methods = []
+
+        @instance_methods = InstanceMethods.new
+        @class_methods = ClassMethods.new
+        @constants = Constants.new
       end
 
       def to_s

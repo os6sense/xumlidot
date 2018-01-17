@@ -34,7 +34,7 @@ module Xamin
       end
 
       def parse(graph = nil)
-        @graph = graph
+        # @graph = graph
         process(@parsed_file)
       end
 
@@ -66,7 +66,9 @@ module Xamin
         super(exp) do
           temp_visibility = get_visibility
           @km_stack << definition_type.new(definition)
-          @graph.add_class(@km_stack.last)
+
+          # @graph.add_class(@km_stack.last) # doing this was fine for a rough test
+          #
           process_until_empty(exp)
           @km_stack.pop
           set_visibility(temp_visibility)
