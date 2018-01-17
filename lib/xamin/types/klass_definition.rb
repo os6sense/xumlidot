@@ -17,8 +17,10 @@ module Xamin
       end
 
       attr_accessor :name,
-                    :namespace,
-                    :superklass
+                    :namespace, # seem to be using this in coth 
+                                # here and constant, one or the other
+                    
+                    :superklass # superklass or superklasses?
 
       def initialize
         @name = Name.new

@@ -9,8 +9,19 @@ module Xamin
 
       attr_accessor :definition,
                     :instance_methods,
-                    :class_methods
+                    :class_methods,
+                    # New additions as I attempt to resolve ancestry
 
+                    :constants, 
+                    :classes,
+                    :modules, 
+                    # So technically a class, module and constant are 
+                    # the same thing apart from being semantically different
+                    
+                    :calls
+
+      # Maybe delegate superklass to definition?
+      
       def initialize(definition)
         @definition = definition
         @instance_methods = []
