@@ -1,18 +1,21 @@
-class E::F
-  BAR = :bar
+class A
+  class B
+    class G
+    end
+  end
 end
 
 module A
   class B
-    class C < E::F
+    class C #< ::A::B::G
       FOO = :foo
     end
 
-    class << self
-      BAZ = :baz
-      def class_a(a, &block)
-      end
-    end
+    #class << self
+      #BAZ = :baz
+      #def class_a(a, &block)
+      #end
+    #end
   end
 end
 

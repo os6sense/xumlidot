@@ -13,7 +13,7 @@ dt.find_all_rb_files do |path|
   file_contents = File.read(path)
 
   parser = Xamin::Parsers::File.new(file_contents)
-  parser.parse(graph)
+  parser.parse()#graph)
 end
 
 graph.to_xmi

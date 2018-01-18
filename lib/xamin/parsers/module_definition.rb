@@ -19,7 +19,7 @@ module Xamin
         super()
 
         @definition = ::Xamin::Types::ModuleDefinition.new
-        @definition.namespace = namespace
+        @namespace = namespace.dup
 
         process(exp)
       end
@@ -36,7 +36,7 @@ module Xamin
             name.delete :const
             name.delete :colon2
             name.each do |v|
-              @definition.name << ::Xamin::Types::Constant.new(v, @definition.namespace)
+              @definition.name << ::Xamin::Types::Constant.new(v, @namespace)
             end
           when :colon3 then # Reached in the event that a name begins with ::
             @definition.name << ::Xamin::Types::Constant.new(definition.last, '::')
@@ -46,7 +46,7 @@ module Xamin
         else Symbol === definition
           #if we have a symbol we have the actual module name
           # e.g. module Foo; end
-          @definition.name << ::Xamin::Types::Constant.new(definition, @definition.namespace)
+          @definition.name << ::Xamin::Types::Constant.new(definition, @namespace)
         end
         s()
       end

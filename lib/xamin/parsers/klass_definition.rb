@@ -17,7 +17,7 @@ module Xamin
         super()
 
         @definition = ::Xamin::Types::KlassDefinition.new
-        @definition.namespace = namespace
+        @namespace = namespace.dup
 
         process(exp)
       end
@@ -34,7 +34,7 @@ module Xamin
             name.delete :const
             name.delete :colon2
             name.each do |v|
-              @definition.name << ::Xamin::Types::Constant.new(v, @definition.namespace)
+              @definition.name << ::Xamin::Types::Constant.new(v, @namespace)
             end
           when :colon3 then # Reached in the event that a name begins with ::
             @definition.name << ::Xamin::Types::Constant.new(definition.last, '::')
@@ -44,7 +44,7 @@ module Xamin
         else Symbol === definition
           #if we have a symbol we have the actual class name
           # e.g. class Foo; end
-          @definition.name << ::Xamin::Types::Constant.new(definition, @definition.namespace)
+          @definition.name << ::Xamin::Types::Constant.new(definition, @namespace)
         end
 
         # Processess inheritance

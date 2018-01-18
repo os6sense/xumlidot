@@ -5,11 +5,21 @@ module Xamin
 
     # representation for class information
     class KlassDefinition
+
       class Name < Array
         def to_xmi
           map do |constant|
             constant.to_xmi
           end.join
+        end
+
+        def to_namespace
+          map &:name
+        end
+
+        def ==(other)
+          binding.pry
+          other.to_namespace == to_namespace
         end
       end
 
@@ -17,14 +27,14 @@ module Xamin
       end
 
       attr_accessor :name,
-                    :namespace, # seem to be using this in coth 
+                    #:namespace, # seem to be using this in coth
                                 # here and constant, one or the other
-                    
+
                     :superklass # superklass or superklasses?
 
       def initialize
         @name = Name.new
-        @superklass = Superklass.new 
+        @superklass = Superklass.new
       end
 
       def to_s
