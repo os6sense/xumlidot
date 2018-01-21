@@ -6,15 +6,18 @@ require_relative 'graph/tree'
 directories = [ARGV[0]]
 
 dt = Xamin::DirectoryTree.new(directories)
-graph = Xamin::Tree.new
+constants = ::Xamin::Parsers::Stack::Constants.new
+
 
 dt.find_all_rb_files do |path|
   STDERR.puts path
   file_contents = File.read(path)
 
-  parser = Xamin::Parsers::File.new(file_contents)
-  parser.parse()#graph)
+  @parser = Xamin::Parsers::File.new(file_contents, constants)
+  @parser.parse
 end
 
+binding.pry
+graph = Xamin::Tree.new
 graph.to_xmi
 #graph.to_dot

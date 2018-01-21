@@ -54,21 +54,22 @@ module Xamin
       end
 
       def process_const(exp)
-        @definition.superklass << exp.value.to_s
+        @definition.superklass << exp.value
         process_until_empty(exp)
         s()
       end
 
       def process_colon2(exp)
         exp.shift # remove :colon2
-        @definition.superklass << exp.value.to_s
+        @definition.superklass << exp.value
         process_until_empty(exp)
         s()
       end
 
       def process_colon3(exp)
         exp.shift # remove :colon3
-        @definition.superklass << "::#{exp.value}"
+        @definition.superklass << '::'
+        @definition.superklass << exp.value
         process_until_empty(exp)
         s()
       end

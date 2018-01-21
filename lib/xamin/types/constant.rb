@@ -8,25 +8,46 @@ module Xamin
     # I'm thinking a hash to make lookup quicker but
     # an array may work just as well
     class Constants < Array
-      def find(constant)
-        each do |klass|
-          # dont add the same modules twice
-          if klass.definition.name == constant.definition.name &&
-            klass.definition.name.to_namespace == constant.definition.name.to_namespace
-            return nil
-          end
 
-          if klass.definition.name.to_namespace == constant.definition.namespace
-            binding.pry
-            return klass
-          else
-            binding.pry
+      # return exact matches
+      def find_first(constant)
+        found = find do |klass|
+          klass.definition == constant.definition
+        end
+        return found unless found.nil?
+
+        each do |_k|
+          _k.constants.each do |klass|
+             found = klass.constants.find_first(constant)
+             return found unless found.nil?
           end
         end
         nil
       end
-    end
 
+      # find any constant that is the root of the namespace for
+      # the supplied constant
+      def root_namespace_for(constant)
+        found = find do |klass|
+          klass.definition.root_namespace_for?(constant)
+        end
+
+        return found unless found.nil?
+
+        each do |_k|
+          _k.constants.each do |klass|
+            return klass if klass.definition.root_namespace_for?(constant)
+            found = klass.constants.root_namespace_for(constant)
+            return found unless found.nil?
+          end
+        end
+        nil
+      end
+
+      def to_xmi
+
+      end
+    end
 
     # Our representation of a constant - although just
     # a string we need to be able to be unabigous in
@@ -37,7 +58,7 @@ module Xamin
 
       def initialize(name, namespace = nil)
         @name = name
-        @namespace = namespace.dup
+        @namespace = namespace ? namespace.dup : []
       end
 
       def to_s

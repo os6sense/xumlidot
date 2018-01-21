@@ -14,11 +14,12 @@ module Xamin
 
     module Stack
       class Constants
+        attr_reader :last_added
 
         def initialize
-
           # This should be main or object
           @nesting = Xamin::Types::Klass.new(nil)
+          @last_added = @nesting
         end
 
         # when we add a constant we might want to add to the top of the tree
@@ -34,15 +35,17 @@ module Xamin
         # add(Module C, Module B)
         #
         def add(c)
-          found = @nesting.constants.find(c)
+          return if @nesting.constants.find_first(c)
 
-          if found == nil
+          namespace_root = @nesting.constants.root_namespace_for(c)
+
+          if namespace_root.nil?
             @nesting.constants <<  c
           else
-            binding.pry
-            found.constants << c
+            namespace_root.constants << c
           end
 
+          @last_added = c
         end
       end
     end
@@ -56,13 +59,12 @@ module Xamin
     # The File processor was getting too busy and its obvious we want to share
     # some bits of the processing
     class Generic < MethodBasedSexpProcessor
+      attr_reader :constants
 
-      def initialize(string)
+      def initialize(string, constants = Stack::Constants.new)
         @parsed = RubyParser.new.parse(string)
-        @km_stack = [Xamin::Types::Klass.new(nil)]
+        @constants = constants
 
-
-        @constants = Stack::Constants.new
         super()
       end
 
@@ -100,11 +102,8 @@ module Xamin
         super(exp) do
           Scope.public do
             klass_or_module = type.new(definition)
-            @km_stack << klass_or_module
             @constants.add(klass_or_module)
-            # @graph.add_class(@km_stack.last) # doing this was fine for a rough test
             process_until_empty(exp)
-            @km_stack.pop
           end
         end
       rescue Exception => e
@@ -113,19 +112,10 @@ module Xamin
         exp
       end
 
-
-
-
-
-
-
-
-
-
       # METHODS & METHOD SIGNATURES
       def process_defn(exp, superclass_method = false)
         method = ::Xamin::Parsers::MethodSignature.new(exp, superclass_method || @sclass.last)
-        @km_stack.last.add_method(method)
+        @constants.last_added.add_method(method)
         STDERR.puts method.to_s
         #super(exp) { process_until_empty(exp) } # DISABLING since parsing the method is crashing
         s()

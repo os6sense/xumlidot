@@ -1,23 +1,29 @@
-class A
-  class B
-    class G
-    end
-  end
-end
 
 module A
   class B
-    class C #< ::A::B::G
-      FOO = :foo
+    class Gee < ::A::B::C
     end
 
-    #class << self
-      #BAZ = :baz
-      #def class_a(a, &block)
-      #end
-    #end
+    class C
+    end
   end
 end
+
+
+
+#module A
+  #class B
+    #class C #< ::A::B::G
+      #FOO = :foo
+    #end
+
+    ##class << self
+      ##BAZ = :baz
+      ##def class_a(a, &block)
+      ##end
+    ##end
+  #end
+#end
 
 #module Foo1
   #module Foo2
