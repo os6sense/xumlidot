@@ -6,6 +6,8 @@ require_relative 'graph/tree'
 directories = [ARGV[0]]
 
 dt = Xamin::DirectoryTree.new(directories)
+
+# THis is our tree of klasses/modules etc
 constants = ::Xamin::Parsers::Stack::Constants.new
 
 dt.find_all_rb_files do |path|
@@ -27,10 +29,9 @@ end
 # rules definind in the resolver
 #
 # and what ... we want to add a reference too it?
-constants.resolve_inheritance(RubyResolver.new)
+#
+# This REALLY should be done whenever we add a superklass
+constants.resolve_inheritance()
 
-binding.pry
-graph = Xamin::Tree.new
-
-graph.to_xmi
-#graph.to_dot
+#graph = Xamin::Tree.new(constants)
+#graph.to_xmi

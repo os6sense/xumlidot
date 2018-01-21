@@ -4,6 +4,7 @@ require_relative 'constant'
 module Xamin
   module Types
 
+
     class Superklass < ::Xamin::Types::Constant
 
       def initialize(name, namespace = nil)
@@ -19,6 +20,14 @@ module Xamin
 
         @namespace << constant unless @name.nil?
         @name ||= constant
+      end
+
+      # Create a klass from the superclass for adding
+      # to the list of constants.
+      def to_klass
+        definition = KlassDefinition.new
+        definition.name << ::Xamin::Types::Constant.new(@name, @namespace)
+        Klass.new(definition)
       end
     end
 
@@ -85,10 +94,12 @@ module Xamin
       #  This allows us to work out is this is a klass under which the other
       #  class should be nested in a class or module namespace heirarchy.
       def root_namespace_for?(other)
-        #binding.pry if other.definition.name.name == [:V1]
         [@name.name, @name.namespace].flatten == other.definition.name.namespace
       end
 
+      def superklass_of?(other)
+        [@name.name, @name.namespace].flatten == [other.name, other.namespace].flatten
+      end
     end
   end
 end

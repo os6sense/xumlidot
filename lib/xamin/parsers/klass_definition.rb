@@ -5,10 +5,7 @@ require_relative '../types'
 
 module Xamin
   module Parsers
-
-    # Parser for the KLASS DEFINITION ONLY and the name
-    # probably should be changed to reflect that
-    #
+    # Parser for the KLASS DEFINITION ONLY
     class KlassDefinition < MethodBasedSexpProcessor
 
       attr_reader :definition

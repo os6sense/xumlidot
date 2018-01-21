@@ -43,6 +43,16 @@ module Xamin
         nil
       end
 
+      def traverse(&block)
+        each do |_k|
+          yield _k if block_given?
+          _k.constants.each do |klass|
+            yield klass if block_given?
+            klass.constants.traverse(&block)
+          end
+        end
+      end
+
       def to_xmi
 
       end
@@ -54,8 +64,9 @@ module Xamin
     class Constant
       attr_reader :name,
                   :namespace
-                  :namespace_reference # TODO: Namespace so needs to
-                                       #       be a class
+
+      attr_accessor :reference # TODO: Namespace so needs to
+                             #       be a class
 
       def initialize(name, namespace = nil)
         @name = name
@@ -68,6 +79,10 @@ module Xamin
 
       def to_xmi
         "#{formatted_namespace}::#{@name}"
+      end
+
+      def empty?
+        @name.nil? && @namespace == []
       end
 
       private

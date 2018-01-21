@@ -1,12 +1,11 @@
 
 class A
+ class A2 < Foo::Bar::Baz
+ end
 end
 
 class B
-  class B1 < A::A1
+  class A2 < Foo::Bar::Baz
   end
 end
 
-class C
-
-end
