@@ -8,6 +8,30 @@ require_relative '../parsers'
 module Xamin
   module Parsers
 
+    # PRIVATE
+    #
+    # Save current visibility and restore it after processing
+    #
+    module Scope
+      def public(&block)
+        temp_visibility = get_visibility
+        set_visibility
+        yield if block_given?
+        set_visibility(temp_visibility)
+      end
+      module_function :public
+
+      def set_visibility(state = :public)
+        ::Xamin::Parsers::MethodSignature::Visibility.send(state)
+      end
+      module_function :set_visibility
+
+      def get_visibility
+        ::Xamin::Parsers::MethodSignature::Visibility.state
+      end
+      module_function :get_visibility
+    end
+
     # We are treating modules, classes and constants the same in terms of how
     # they are defined so this constant stack will contain all three.
     #
@@ -130,49 +154,13 @@ module Xamin
 
       # CALLS
       def process_call(exp)
-        exp.shift # remove the :call
-
-        recv = process(exp.shift) # recv
-        name = exp.shift
-        args = process(exp.shift) # args
-
-        case name
-        when :private, :public, :protected
-          Scope.set_visibility(name)
-        when :include, :extend
-         # TODO : treat include and extend as expressions of multiple inheritance
-         #  binding.pry
-        else
-          #puts "CALL RECV:#{recv unless recv.nil? || recv.empty?} NAME:#{name} ARGS:#{args unless args.nil? || args.empty?}"
-        end
+        ::Xamin::Parsers::Call.new(exp, @constants.last_added)
         s()
       rescue Exception => e
         STDERR.puts "ERROR (#process_call) #{e.message}"
         s()
       end
 
-      # PRIVATE
-      #
-      # save current visibility and restore it after processing
-      module Scope
-        def public(&block)
-          temp_visibility = get_visibility
-          set_visibility
-          yield if block_given?
-          set_visibility(temp_visibility)
-        end
-        module_function :public
-
-        def set_visibility(state = :public)
-          ::Xamin::Parsers::MethodSignature::Visibility.send(state)
-        end
-        module_function :set_visibility
-
-        def get_visibility
-          ::Xamin::Parsers::MethodSignature::Visibility.state
-        end
-        module_function :get_visibility
-      end
     end
   end
 end

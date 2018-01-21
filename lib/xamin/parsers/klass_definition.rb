@@ -54,6 +54,7 @@ module Xamin
       end
 
       def process_const(exp)
+        # TODO: may have removed a shift by mistake
         @definition.superklass << exp.value
         process_until_empty(exp)
         s()

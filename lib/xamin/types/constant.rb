@@ -5,8 +5,7 @@ module Xamin
 
     # Container class
     #
-    # I'm thinking a hash to make lookup quicker but
-    # an array may work just as well
+    # I'm thinking a hash to make lookup quicker ...
     class Constants < Array
 
       # return exact matches
@@ -55,6 +54,8 @@ module Xamin
     class Constant
       attr_reader :name,
                   :namespace
+                  :namespace_reference # TODO: Namespace so needs to
+                                       #       be a class
 
       def initialize(name, namespace = nil)
         @name = name

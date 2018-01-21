@@ -4,6 +4,34 @@ require_relative 'constant'
 module Xamin
   module Types
 
+    class Superklass < ::Xamin::Types::Constant
+
+      def initialize(name, namespace = nil)
+        super
+        @has_root = false
+      end
+
+      def <<(constant)
+        if constant == '::'
+          @has_root = true
+          return
+        end
+
+        @namespace << constant unless @name.nil?
+        @name ||= constant
+      end
+    end
+
+    class InheritedModule < Superklass
+      def initialize(name, namespace = nil)
+        super
+        @has_root = false
+        @extend = false
+        @include = false
+      end
+    end
+
+
     # representation for class information
     class KlassDefinition
 
@@ -28,30 +56,6 @@ module Xamin
           namespace == other.namespace &&
             name == other.name
         end
-      end
-
-      class Superklass < ::Xamin::Types::Constant
-
-        def initialize(name, namespace = nil)
-          super
-          @has_root = false
-        end
-
-        def <<(constant)
-          if constant == '::'
-            @has_root = true
-            return
-          end
-
-          @namespace << constant unless @name.nil?
-          @name ||= constant
-        end
-      end
-
-      class InheritedModule
-        attr_accessor :includes,
-                      :extends,
-                      :name
       end
 
       attr_accessor :name,
