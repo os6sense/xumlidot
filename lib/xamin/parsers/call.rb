@@ -17,6 +17,7 @@ module Xamin
         @modules = ::Xamin::Types::InheritedModule.new(nil)
         process(exp)
         klass.definition.inherited_modules << @modules
+        @klass = klass
       end
 
       def process_call(exp)
@@ -31,6 +32,10 @@ module Xamin
           ::Xamin::Parsers::Scope.set_visibility(name)
         when :include, :extend
           process(args)
+        when :module_function
+          # will make a method into a class method on the module
+          # Find the method name and change it to a superklass one
+
         else
           #puts "CALL RECV:#{recv unless recv.nil? || recv.empty?} NAME:#{name} ARGS:#{args unless args.nil? || args.empty?}"
         end

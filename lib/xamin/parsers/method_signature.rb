@@ -2,6 +2,7 @@ require 'sexp_processor'
 require 'pry'
 
 require_relative '../types'
+require_relative '../parsers'
 
 module Xamin
   module Parsers
@@ -11,28 +12,6 @@ module Xamin
     #      to a string 'a, b = nil'
     #
     class MethodSignature < MethodBasedSexpProcessor
-
-      # Maintains current state of method visability
-      class Visibility
-        class << self
-
-          def state
-            @state ||= :public
-          end
-
-          def public
-            @state = :public
-          end
-
-          def protected
-            @state = :protected
-          end
-
-          def private
-            @state = :private
-          end
-        end
-      end
 
       # Container for values assigned to a variable
       #class Assignments < Hash
@@ -44,7 +23,7 @@ module Xamin
         super()
 
         @definition = ::Xamin::Types::MethodSignature.new
-        @definition.visibility = Visibility.state
+        @definition.visibility = Scope.get_visibility
         @definition.args = Args.new(exp.dup[0..2]).definition # only pass the method definition into args
         @definition.superclass_method = superclass_method
 

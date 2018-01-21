@@ -5,23 +5,46 @@ module Xamin
 
     # Save current visibility and restore it after processing
     module Scope
+      # Maintains current state of method visability
+      class Visibility
+        class << self
+
+          def state
+            @state ||= :public
+          end
+
+          def public
+            @state = :public
+          end
+
+          def protected
+            @state = :protected
+          end
+
+          def private
+            @state = :private
+          end
+        end
+      end
+
       def public(&block)
         temp_visibility = get_visibility
         set_visibility
         yield if block_given?
         set_visibility(temp_visibility)
       end
-      module_function :public
 
       def set_visibility(state = :public)
-        ::Xamin::Parsers::MethodSignature::Visibility.send(state)
+        Visibility.send(state)
       end
-      module_function :set_visibility
 
       def get_visibility
-        ::Xamin::Parsers::MethodSignature::Visibility.state
+        Visibility.state
       end
+
+      module_function :set_visibility
       module_function :get_visibility
+      module_function :public
     end
 
   end
