@@ -41,7 +41,7 @@ class_inheritance = %Q(
 
 
 # Hmm I think we're decribing the parser here
-describe ::Xamine::Types::Klass do
+describe ::Xumlidote::Types::Klass do
 
   describe 'module_nesting' do
 
