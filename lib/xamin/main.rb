@@ -1,6 +1,6 @@
 require_relative 'directory_tree'
 require_relative 'parsers'
-require_relative 'graph/tree'
+#require_relative 'graph/tree'
 
 # TODO: user input
 directories = [ARGV[0]]
@@ -31,6 +31,7 @@ end
 # and what ... we want to add a reference too it?
 #
 # This REALLY should be done whenever we add a superklass
+# i.e. yeah, its a hack
 constants.resolve_inheritance()
 
 #graph = Xamin::Tree.new(constants)

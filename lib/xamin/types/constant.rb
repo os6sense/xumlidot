@@ -1,4 +1,6 @@
-require_relative '../xmi'
+# frozen_string_literal: true
+
+require_relative '../types'
 
 module Xamin
   module Types
@@ -11,7 +13,7 @@ module Xamin
                   :namespace
 
       attr_accessor :reference # TODO: Namespace so needs to
-                             #       be a class
+                               #       be a class
 
       def initialize(name, namespace = nil)
         @name = name

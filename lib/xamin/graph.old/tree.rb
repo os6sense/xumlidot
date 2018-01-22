@@ -2,7 +2,7 @@ require 'rgl/adjacency'
 require 'rgl/implicit'
 require 'rgl/traversal'
 
-        require "rexml/document"
+require "rexml/document"
 require_relative 'dot'
 require 'awesome_print'
 

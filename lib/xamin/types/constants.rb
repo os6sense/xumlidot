@@ -1,4 +1,6 @@
-require_relative '../xmi'
+# frozen_string_literal: true
+
+require_relative '../types'
 
 module Xamin
   module Types
@@ -52,10 +54,6 @@ module Xamin
           end
         end
       end
-
-      def to_xmi
-
-      end
     end
-
-
+  end
+end

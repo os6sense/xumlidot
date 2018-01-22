@@ -1,57 +1,20 @@
-require_relative '../xmi'
-require_relative 'constant'
+# frozen_string_literal: true
+
+require_relative '../types'
 
 module Xamin
   module Types
-
-
-    class Superklass < ::Xamin::Types::Constant
-
-      def initialize(name, namespace = nil)
-        super
-        @has_root = false
-      end
-
-      def <<(constant)
-        if constant == '::'
-          @has_root = true
-          return
-        end
-
-        @namespace << constant unless @name.nil?
-        @name ||= constant
-      end
-
-      # Create a klass from the superclass for adding
-      # to the list of constants.
-      def to_klass
-        definition = KlassDefinition.new
-        definition.name << ::Xamin::Types::Constant.new(@name, @namespace)
-        Klass.new(definition)
-      end
-    end
-
-    class InheritedModule < Superklass
-      def initialize(name, namespace = nil)
-        super
-        @has_root = false
-        @extend = false
-        @include = false
-      end
-    end
-
-
     # representation for class information
     class KlassDefinition
 
       # TODO: I think the name could be a constant rather than
       # an array of constants
       class Name < Array
-        def to_xmi
-          map do |constant|
-            constant.to_xmi
-          end.join
-        end
+        #def to_xmi
+          #map do |constant|
+            #constant.to_xmi
+          #end.join
+        #end
 
         def name
           map(&:name).flatten

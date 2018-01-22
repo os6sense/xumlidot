@@ -4,8 +4,7 @@ require_relative '../types'
 
 module Xamin
   module Types
-    # representation for module information
-    class Module < Klass
+    class InstanceMethods < Methods
     end
   end
 end

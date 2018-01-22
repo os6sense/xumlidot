@@ -1,4 +1,6 @@
-require_relative '../xmi'
+# frozen_string_literal: true
+
+require_relative '../types'
 
 module Xamin
   module Types
@@ -14,7 +16,7 @@ module Xamin
     # we store all the method details here including many
     # which we are not yet using.
     class MethodSignature
-      include ::Xamin::Xmi::Method
+      #include ::Xamin::Xmi::Method
 
       attr_accessor :name,               # string
                     :args,               # Arguments
