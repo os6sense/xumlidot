@@ -28,16 +28,19 @@ module Xamin
 
         @stack.traverse do |klass|
           klass.extend(::Xamin::Diagram::Dot::Klass)
-          klass.constants.each do |composee|
-            puts klass.draw_composition(composee)
-          end
+          output = klass.draw_inheritence
+          puts output unless output.nil?
 
+          klass.constants.each do |k|
+            puts klass.draw_composition(k)
+          end
         end
+
       end
 
       def draw_header
         puts "digraph graph_title {"
-        puts "  graph[overlap=false, splines=true, bgcolor=\"none\"]"
+        puts "  graph[overlap=false, splines=true, bgcolor=\"white\"]"
       end
 
       def draw_footer

@@ -10,17 +10,23 @@ module Xamin
         end
 
         def draw_klass
-          "\"#{draw_identifier(@definition)}\" [shape=Mrecord, label=\"{#{draw_name}|#{draw_methods}}\"]"
+          label = draw_identifier(@definition)
+          "\"#{draw_identifier(@definition)}\" [shape=Mrecord, label=\"{#{label}|#{draw_methods}}\"]"
         end
 
         def draw_composition(composee)
           "\"#{draw_identifier(@definition)}\" -> \"#{draw_identifier(composee.definition)}\" [label=\"\", arrowhead=\"odiamond\", arrowtail=\"onormal\"]"
         end
 
+        def draw_inheritence
+          return nil if @definition.superklass.empty?
+          "\"#{draw_identifier(@definition)}\" -> \"#{draw_ancestor(@definition.superklass)}\" [label=\"\", arrowhead=\"empty\", arrowtail=\"onormal\"]"
+        end
+
         private
 
         def draw_identifier(d)
-          [d.name.namespace, d.name.name].flatten.join('::')
+          [d.name.name, d.name.namespace.reverse].reverse.flatten.join('::')
         end
 
         def draw_name
@@ -36,13 +42,8 @@ module Xamin
           km += "\\l" if !km.end_with?('\\l')
         end
 
-        def draw_ancestors
-          nil
-          #"\"ApplicationController\" -> \"Test::ExternalController\" [label=\"\", arrowhead=\"none\", arrowtail=\"onormal\"]"
-        end
-
-        def draw_inheritence
-          nil
+        def draw_ancestor(d)
+          [d.name, d.namespace.reverse].reverse.flatten.join('::')
         end
 
       end

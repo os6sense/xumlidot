@@ -1,32 +1,50 @@
-= MIDOT
+= XUMLIDOT
 
-Ruby UML XMI and DOT generator
-Outputs XMI for an app for use with UML readers like ArgoUml, Visual Paradigm, etc
+A Ruby UML XMI and DOT generator
 
-Railroady has the --xmi flag but when you run it you eventually discover it
-is not implemented (and hasn't been for seven years) 
+Why?
 
-One of the major problems with the approach taken by Xamin (and Railroady) is
-that they require files hence all the dependencies get pulled along, and they
-are heavily rails rather than ruby oriented.
+The main reason for this is that I am a fan of Model Driven Engineering and
+whilst there are tools like Railroady out there, the focus on Rails makes it
+less useful than I would like. Combined with the fact that whilst railroady
+has the --xmi flag but when you run it you eventually discover it is not
+implemented (and hasn't been for seven years) 
+
+n addition, one of the major problems (IMO) with the approach taken by Xamin
+(and Railroady) is that they *require* files hence all the dependencies get
+pulled along.
 
 Personally I am not interested in whether something needs active record to run
 though - I just want to know the inheritance chain and the
 methods/constants/attributes defined.
 
-To do this we parse the files into s-expressions via ruby parser and use
-seattlerb/sexp_processor to derive method names, calls, structure, constants
-etc.
-
 # USAGE
 
---rails (TODO: Gets additional rails knowledge)
---dot (TODO: output dot rather than xmi)
+xumlidot OPTIONS dir_a dir_b
 
-# Copyrights/attributions/thanks
+# OPTIONS
+
+--rails (TODO: Gets additional rails knowledge)
+--dot (TODO: output dot)
+--xmi (TODO: output xmi )
+--debug (TODO: output debug info)
+
+--no-inheritance
+--no-composition
+--no-uses
+
+--split=n
+--sequence=CLASS.method_name
+
+# EXAMPLES
+
+# DEPENDENCIES 
+
+
+# COPYRIGHTS/ATTTRIBUTIONS/THANKs
 
 Thanks to Brian Lonsdorf for Xamin which I had initially hoped to just fork but ended up 
-using to just get an idea of the XMI structure
+using to just get an idea of the XMI structure.
 
 Thanks to the seattlerb group for the excellent ruby-parser and sexp-processor which got
 me parsing ruby superfast.

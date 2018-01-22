@@ -31,12 +31,21 @@ module Xamin
       end
 
       def to_s
-        @name = @name.is_a?(Regexp) ? @name.inspect : @name.to_s
-
-        "#{klass} #{visibility_symbol} #{@name}(#{@args})"
+        "#{klass} #{visibility_symbol} #{clean_name}(#{@args})"
       end
 
       private
+
+      def clean_name
+        tmp = @name.is_a?(Regexp) ? @name.inspect : @name.to_s
+
+        case tmp
+        when '<<'
+          '&lt;&lt;'
+        else
+          tmp
+        end
+      end
 
       def visibility_symbol
         case @visibility
