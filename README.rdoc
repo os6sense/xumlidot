@@ -2,15 +2,17 @@
 
 A Ruby UML XMI and DOT generator
 
+= PRERELEASE VERSION - May work, may not!
+
 Why?
 
 The main reason for this is that I am a fan of Model Driven Engineering and
-whilst there are tools like Railroady out there, the focus on Rails makes it
-less useful than I would like. Combined with the fact that whilst railroady
-has the --xmi flag but when you run it you eventually discover it is not
-implemented (and hasn't been for seven years) 
+whilst there are tools like Railroady and Xamin out there, the focus on Rails
+makes it less useful than I would like. Combined with the fact that whilst
+railroady has the --xmi flag but when you run it you eventually discover it is
+not implemented (and hasn't been for seven years) 
 
-n addition, one of the major problems (IMO) with the approach taken by Xamin
+In addition, one of the major problems (IMO) with the approach taken by Xamin
 (and Railroady) is that they *require* files hence all the dependencies get
 pulled along.
 
@@ -18,11 +20,11 @@ Personally I am not interested in whether something needs active record to run
 though - I just want to know the inheritance chain and the
 methods/constants/attributes defined.
 
-# USAGE
+= USAGE
 
 xumlidot OPTIONS dir_a dir_b
 
-# OPTIONS
+= OPTIONS
 
 --rails (TODO: Gets additional rails knowledge)
 --dot (TODO: output dot)
@@ -36,12 +38,19 @@ xumlidot OPTIONS dir_a dir_b
 --split=n
 --sequence=CLASS.method_name
 
-# EXAMPLES
+= EXAMPLES
 
-# DEPENDENCIES 
+= DEPENDENCIES 
+
+= TODO
+
+- I forgot about attributes (lol the simplist case)!!
+- Process for v. large files (svg looks promising)
+- options parser (yawn)
+- reintegrate xmi
 
 
-# COPYRIGHTS/ATTTRIBUTIONS/THANKs
+= COPYRIGHTS/ATTTRIBUTIONS/THANKs
 
 Thanks to Brian Lonsdorf for Xamin which I had initially hoped to just fork but ended up 
 using to just get an idea of the XMI structure.
