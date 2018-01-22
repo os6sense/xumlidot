@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 module Xamin
-  module Diagram
+  class Diagram
     module Dot
       module Klass
 
         def draw
-          [draw_klass, draw_inheritence, draw_ancestors].join('\r')
+          [draw_klass, draw_inheritence, draw_ancestors].compact.join('\r\n')
         end
 
         private
@@ -20,16 +20,19 @@ module Xamin
         end
 
         def draw_methods
-          km = @class_methods.map(&:to_s).join('\l')
-          km += "|\l|"
-          km = @instance_methods.map(&:to_s).join('\l')
+          km = ''
+          km += @class_methods.map(&:to_s).join('\l')
+          km += "|\l|" if km != '' && @instance_methods.size > 0
+          km += @instance_methods.map(&:to_s).join('\l')
         end
 
         def draw_ancestors
-          "\"ApplicationController\" -> \"Test::ExternalController\" [label=\"\", arrowhead=\"none\", arrowtail=\"onormal\"]"
+          nil
+          #"\"ApplicationController\" -> \"Test::ExternalController\" [label=\"\", arrowhead=\"none\", arrowtail=\"onormal\"]"
         end
 
         def draw_inheritence
+          nil
         end
 
       end

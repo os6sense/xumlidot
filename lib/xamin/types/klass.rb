@@ -9,7 +9,7 @@ module Xamin
 
     # representation for a class
     class Klass
-      include ::Xamin::Xmi::Klass
+      #include ::Xamin::Xmi::Klass
 
       # Definition currently holds the superclass ... may change these to nesting and
       # ancestors yet...

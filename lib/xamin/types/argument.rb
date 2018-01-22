@@ -20,7 +20,7 @@ module Xamin
     # Note that in Args, an assignment to a variable of nil
     # is parsed and the default value set to th symbol :nil
     class Argument
-      include ::Xamin::Xmi::Argument
+      #include ::Xamin::Xmi::Argument
 
       attr_accessor :assign, :default, :types
       attr_reader :name

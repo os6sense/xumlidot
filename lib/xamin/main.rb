@@ -1,6 +1,6 @@
 require_relative 'directory_tree'
 require_relative 'parsers'
-#require_relative 'graph/tree'
+require_relative 'diagram'
 
 # TODO: user input
 directories = [ARGV[0]]
@@ -34,5 +34,5 @@ end
 # i.e. yeah, its a hack
 constants.resolve_inheritance()
 
-#graph = Xamin::Tree.new(constants)
-#graph.to_xmi
+diagram = ::Xamin::Diagram.new(constants, :Dot)
+diagram.draw

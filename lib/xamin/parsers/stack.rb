@@ -13,6 +13,10 @@ module Xamin
           @last_added = @nesting
         end
 
+        def traverse(&block)
+          @nesting.constants.traverse(&block)
+        end
+
         # when we add a constant we might want to add to the top of the tree
         # e.g.
         # Module A
@@ -34,7 +38,6 @@ module Xamin
         end
 
         class ExternalKlassReferences < Array
-
           def <<(external_klass)
             return if find do |klass|
               klass.definition == external_klass.definition
@@ -43,7 +46,6 @@ module Xamin
             super(external_klass)
           end
         end
-
 
         def resolve_inheritance(constant = nil)
           external_klasses = ExternalKlassReferences.new
@@ -57,7 +59,6 @@ module Xamin
           @nesting.constants.traverse do |klass|
             next if klass.definition.superklass.empty?
 
-            reference_set = false
             # If we reach here we have a superklass
             @nesting.constants.traverse do |other_klass|
               if other_klass.definition.superklass_of?(klass.definition.superklass)
@@ -67,7 +68,7 @@ module Xamin
               end
             end
 
-            if klass.superklass.reference == nil
+            if klass.superklass.reference.nil?
               # See if we have added it already to the list of external_klasses
               found = external_klasses.find do |external_klass|
                 klass.definition == external_klass.definition
@@ -89,5 +90,3 @@ module Xamin
     end
   end
 end
-
-
