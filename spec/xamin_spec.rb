@@ -1,10 +1,10 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
-describe "Xamin" do
+describe "Xumlidot" do
   before(:each) do
-    allow_any_instance_of(Xamin::Diagram).to receive(:load_environment).and_return(true)
-    allow_any_instance_of(Xamin::Diagram).to receive(:files).and_return(["app/models/author.rb", "app/models/book.rb"])
-    @diagram = Xamin::Diagram.new
+    allow_any_instance_of(Xumlidot::Diagram).to receive(:load_environment).and_return(true)
+    allow_any_instance_of(Xumlidot::Diagram).to receive(:files).and_return(["app/models/author.rb", "app/models/book.rb"])
+    @diagram = Xumlidot::Diagram.new
     @xmi = @diagram.to_xmi
   end
   

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ::Xamin::Parsers::Args do
+describe ::Xumlidot::Parsers::Args do
 
   let(:parsed) do 
     RubyParser.new.parse(method).tap { |sexp| 2.times { sexp.shift }}.first
