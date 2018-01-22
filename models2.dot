@@ -1,0 +1,8 @@
+digraph graph_title {
+  graph[overlap=false, splines=true, bgcolor="none"]
+"A" [shape=Mrecord, label="{A|}"]
+"A2" [shape=Mrecord, label="{A2|S + class_method()\l|I + public_method()\lI - private_method()\l}"]
+"B" [shape=Mrecord, label="{B|}"] 
+"A2" [shape=Mrecord, label="{A2|}"] 
+"A2" [shape=Mrecord, label="{Baz|}"]
+}

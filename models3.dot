@@ -1,0 +1,9 @@
+digraph graph_title {
+  graph[overlap=false, splines=true, bgcolor="none"]
+"A" [shape=Mrecord, label="{A|}"]
+"A::A2" [shape=Mrecord, label="{A2|S + class_method()\l|I + public_method()\lI - private_method()\l}"]
+"B" [shape=Mrecord, label="{B|}"]
+"B::A2" [shape=Mrecord, label="{A2|}"]
+"Bar::Foo::Baz" [shape=Mrecord, label="{Baz|}"]
+"DeviseMailer" [shape=Mrecord, label="{DeviseMailer|\l|I + confirmation_instructions(user, token, opts = Hash)\lI + reset_password_instructions(user, token, opts = {])\l}"]
+}

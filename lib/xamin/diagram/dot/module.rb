@@ -2,7 +2,7 @@
 
 module Xamin
   class Diagram
-    module Dot
+    class Dot
       module Module
         include ::Xamin::Diagram::Dot::Klass
       end

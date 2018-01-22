@@ -38,11 +38,13 @@ module Xamin
                       when :nil
                         'nil'
                       when String
-                        "\"#{default}\""
+                        "#{default}"
                       when NilClass
                         nil
                       when Symbol
                         ":#{default}"
+                      when Hash
+                        'Hash'
                       else
                         default.to_s
                       end
