@@ -1,13 +1,17 @@
-require_relative 'directory_tree'
-require_relative 'parsers'
-require_relative 'diagram'
+#!/usr/bin/env ruby
+
+require_relative '../lib/xumlidot'
+
+options = OptparseExample.parse(ARGV)
 
 # TODO: user input
 directories = [ARGV[0]]
 
 dt = Xumlidot::DirectoryTree.new(directories)
 
-# THis is our tree of klasses/modules etc
+# This is our tree of klasses/modules etc
+# since we can't assume rails conventions for naming 
+# in a Ruby program.
 constants = ::Xumlidot::Parsers::Stack::Constants.new
 
 dt.find_all_rb_files do |path|
