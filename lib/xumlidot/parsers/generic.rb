@@ -1,6 +1,7 @@
 require 'sexp_processor'
 require 'ruby_parser'
 require 'pry'
+require 'ostruct'
 
 require_relative '../types'
 require_relative '../parsers'
@@ -8,8 +9,6 @@ require_relative '../parsers'
 module Xumlidot
   module Parsers
 
-    # Formerly File
-    #
     # We need a level of indirection between the actual parser
     # and MethodBasedSexpProcessor since we will probably end up inheriting
     # from SexpProcessor directly eventually
@@ -19,10 +18,9 @@ module Xumlidot
     class Generic < MethodBasedSexpProcessor
       attr_reader :constants
 
-      def initialize(string, constants = Stack::Constants.new)
+      def initialize(string, constants = Stack::Constants.new )
         @parsed = RubyParser.new.parse(string)
         @constants = constants
-
         super()
       end
 
@@ -39,7 +37,8 @@ module Xumlidot
           Scope.public { process_until_empty(exp) } # Process the superclass with public visibility
         end
       rescue Exception => e
-        STDERR.puts "ERROR (#process_sclass) #{e.message}"
+        STDERR.puts "ERROR (#process_sclass) #{e.message}" 
+        STDERR.puts e.backtrace.reverse
         exp
       end
 
@@ -56,7 +55,7 @@ module Xumlidot
         Scope.set_visibility
         definition = definition_parser.new(exp.dup[0..2], @class_stack).definition
 
-        STDERR.puts definition.to_s
+        STDERR.puts definition.to_s if ::Xumlidot::Options.debug == true
         super(exp) do
           Scope.public do
             klass_or_module = type.new(definition)
@@ -74,7 +73,7 @@ module Xumlidot
       def process_defn(exp, superclass_method = false)
         method = ::Xumlidot::Parsers::MethodSignature.new(exp, superclass_method || @sclass.last)
         @constants.last_added.add_method(method)
-        STDERR.puts method.to_s
+        STDERR.puts method.to_s if ::Xumlidot::Options.debug == true
         #super(exp) { process_until_empty(exp) } # DISABLING since parsing the method is crashing
         s()
       rescue Exception => e
@@ -92,6 +91,7 @@ module Xumlidot
         s()
       rescue Exception => e
         STDERR.puts "ERROR (#process_call) #{e.message}"
+        STDERR.puts e.backtrace.reverse
         s()
       end
 

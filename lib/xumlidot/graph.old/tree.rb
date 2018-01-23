@@ -26,8 +26,6 @@ module Xumlidot
     end
 
     def add_module(m)
-      binding.pry
-
       parent = find(m.definition.superklass)
       if parent
         parent.add_edge(m)

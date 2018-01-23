@@ -62,7 +62,9 @@ module Xumlidot
             # If we reach here we have a superklass
             @nesting.constants.traverse do |other_klass|
               if other_klass.definition.superklass_of?(klass.definition.superklass)
-                STDERR.puts "SETTING SUPERKLASS REFERENCE FOR #{klass} to #{other_klass}"
+                if ::Xumlidot::Options.debug == true
+                  STDERR.puts "SETTING SUPERKLASS REFERENCE FOR #{klass} to #{other_klass}"
+                end
                 klass.superklass.reference = other_klass
                 break
               end

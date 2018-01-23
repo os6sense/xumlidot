@@ -2,7 +2,7 @@
 
 require_relative '../lib/xumlidot'
 
-options = OptparseExample.parse(ARGV)
+::Xumlidot::Options.parse(ARGV)
 
 # TODO: user input
 directories = [ARGV[0]]
@@ -14,8 +14,9 @@ dt = Xumlidot::DirectoryTree.new(directories)
 # in a Ruby program.
 constants = ::Xumlidot::Parsers::Stack::Constants.new
 
+# TODO: move into directory tree
 dt.find_all_rb_files do |path|
-  STDERR.puts path
+  STDERR.puts path if ::Xumlidot::Options.debug == true
   file_contents = File.read(path)
 
   @parser = Xumlidot::Parsers::File.new(file_contents, constants)

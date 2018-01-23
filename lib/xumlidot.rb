@@ -1,9 +1,9 @@
 require 'rubygems'
 require 'fileutils'
+require_relative 'xumlidot/directory_tree'
+require_relative 'xumlidot/parsers'
+require_relative 'xumlidot/diagram'
+require_relative 'xumlidot/options'
 
 module Xumlidot
-  require 'xumlidot/directory_tree'
-  require 'xumlidot/parsers'
-  require 'xumlidot/diagram'
-  require 'xumlidot/options'
 end
