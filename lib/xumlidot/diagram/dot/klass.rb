@@ -15,7 +15,7 @@ module Xumlidot
         end
 
         def draw_composition(composee)
-          "\"#{draw_identifier(@definition)}\" -> \"#{draw_identifier(composee.definition)}\" [label=\"\", arrowhead=\"odiamond\", arrowtail=\"onormal\"]"
+          "\"#{draw_identifier(@definition)}\" -> \"#{draw_identifier(composee.definition)}\" [label=\"\", arrowhead=\"diamond\", arrowtail=\"diamond\"]"
         end
 
         def draw_inheritence
@@ -35,6 +35,8 @@ module Xumlidot
 
         def draw_methods
           km = ''
+          km += @attributes.map(&:to_s).join('\l')
+          km += "\\l" if !km.end_with?('\\l')
           km += @class_methods.map(&:to_s).join('\l')
           km += "\\l" if !km.end_with?('\\l')
           km += "|" if instance_methods.size > 0

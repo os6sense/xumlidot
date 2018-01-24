@@ -1,29 +1,26 @@
-require 'sexp_processor'
-require 'pry'
+# frozen_string_literal: true
 
-require_relative '../types'
 require_relative '../parsers'
+require_relative '../types'
 
 module Xumlidot
   module Parsers
-
     class Call < MethodBasedSexpProcessor
-
       attr_reader :definition
 
       def initialize(exp, klass)
         super()
 
+        @klass = klass
         @modules = ::Xumlidot::Types::InheritedModule.new(nil)
         process(exp)
         klass.definition.inherited_modules << @modules
-        @klass = klass
       end
 
       def process_call(exp)
         exp.shift # remove the :call
 
-        recv = process(exp.shift) # recv
+        recv = process(exp.shift)
         name = exp.shift
         args = exp.shift
 
@@ -33,17 +30,28 @@ module Xumlidot
         when :include, :extend
           process(args)
         when :module_function
-          # will make a method into a class method on the module
-          # Find the method name and change it to a superklass one
-
-        else
-          #puts "CALL RECV:#{recv unless recv.nil? || recv.empty?} NAME:#{name} ARGS:#{args unless args.nil? || args.empty?}"
+          # TODO: expose as an instance method on the module
+        when :attr_reader
+          add_attributes(args, exp, read: true)
+        when :attr_writer
+          add_attributes(args, exp, write: true)
+        when :attr_accessor
+          add_attributes(args, exp, read: true, write: true)
+        # else
+          # puts "CALL RECV:#{recv unless recv.nil? || recv.empty?} NAME:#{name} ARGS:#{args unless args.nil? || args.empty?}"
         end
         s()
       end
 
+      def add_attributes(name, exp, read: false, write: false)
+        @klass.attributes << ::Xumlidot::Types::Attribute.new(name.value, read, write)
+        exp.each do |attribute|
+          @klass.attributes << ::Xumlidot::Types::Attribute.new(attribute.value, read, write)
+        end
+      end
+
       def process_const(exp)
-        #exp.shift # remove :const
+        # exp.shift # remove :const
         @modules << exp.value
         process_until_empty(exp)
         s()

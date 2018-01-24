@@ -16,6 +16,7 @@ module Xumlidot
       attr_accessor :definition,
                     # we *could* just have a single methods type
                     # and construct the instance/class list dynamically...
+                    :attributes,#
                     :instance_methods,
                     :class_methods,
                     # New additions as I attempt to resolve ancestry
@@ -41,6 +42,7 @@ module Xumlidot
 
         @instance_methods = InstanceMethods.new
         @class_methods = KlassMethods.new
+        @attributes = Attributes.new
         @constants = Constants.new
       end
 

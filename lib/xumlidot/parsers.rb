@@ -1,3 +1,8 @@
+require 'ruby_parser'
+require 'sexp_processor'
+require 'ostruct'
+require 'pry'
+
 require_relative 'parsers/generic'
 require_relative 'parsers/args'
 require_relative 'parsers/call'

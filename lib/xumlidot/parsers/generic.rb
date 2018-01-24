@@ -1,10 +1,7 @@
-require 'sexp_processor'
-require 'ruby_parser'
-require 'pry'
-require 'ostruct'
+# frozen_string_literal: true
 
-require_relative '../types'
 require_relative '../parsers'
+require_relative '../types'
 
 module Xumlidot
   module Parsers
@@ -37,8 +34,8 @@ module Xumlidot
           Scope.public { process_until_empty(exp) } # Process the superclass with public visibility
         end
       rescue Exception => e
-        STDERR.puts "ERROR (#process_sclass) #{e.message}" 
         STDERR.puts e.backtrace.reverse
+        STDERR.puts "ERROR (#process_sclass) #{e.message}"
         exp
       end
 
@@ -64,8 +61,8 @@ module Xumlidot
           end
         end
       rescue Exception => e
-        STDERR.puts "ERROR (#process_class) #{e.message}"
         STDERR.puts e.backtrace.reverse
+        STDERR.puts "ERROR (#process_class) #{e.message}"
         exp
       end
 
@@ -77,6 +74,7 @@ module Xumlidot
         #super(exp) { process_until_empty(exp) } # DISABLING since parsing the method is crashing
         s()
       rescue Exception => e
+        STDERR.puts e.backtrace.reverse
         STDERR.puts "ERROR (#process_def#{superclass_method ? 's' : 'n'}) #{e.message}"
         s()
       end
@@ -90,8 +88,8 @@ module Xumlidot
         ::Xumlidot::Parsers::Call.new(exp, @constants.last_added)
         s()
       rescue Exception => e
-        STDERR.puts "ERROR (#process_call) #{e.message}"
         STDERR.puts e.backtrace.reverse
+        STDERR.puts "ERROR (#process_call) #{e.message}"
         s()
       end
 

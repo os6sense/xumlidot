@@ -1,8 +1,7 @@
-require 'sexp_processor'
-require 'pry'
+# frozen_string_literal: true
 
-require_relative '../types'
 require_relative '../parsers'
+require_relative '../types'
 
 module Xumlidot
   module Parsers
@@ -49,7 +48,7 @@ module Xumlidot
         process(more) if more.is_a?(Sexp) && !more.empty?
         s()
       rescue Exception => e
-        STDERR.puts "ERROR (MethodSignature#process_defn) #{e.message}" 
+        STDERR.puts "ERROR (MethodSignature#process_defn) #{e.message}"
         STDERR.puts e.backtrace.reverse
         s()
       end
@@ -70,7 +69,7 @@ module Xumlidot
 
         exp
       rescue Exception => e
-        STDERR.puts "ERROR (MethodSignature#process_call) #{e.message}" 
+        STDERR.puts "ERROR (MethodSignature#process_call) #{e.message}"
         STDERR.puts e.backtrace.reverse
         exp
       end
