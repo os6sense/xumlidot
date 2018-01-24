@@ -54,7 +54,7 @@ module Xumlidot
         when :private
           '-'
         when :protected
-          '|'
+          '#'
         end
       end
 
