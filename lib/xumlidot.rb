@@ -1,11 +1,9 @@
 require 'rubygems'
-require 'active_support'
 require 'fileutils'
+require_relative 'xumlidot/directory_tree'
+require_relative 'xumlidot/parsers'
+require_relative 'xumlidot/diagram'
+require_relative 'xumlidot/options'
 
 module Xumlidot
-  require 'xamin/diagram'
-  require 'xamin/model'
-  require 'xamin/method'
-  require 'xamin/attribute'
-  require 'xamin/association'
 end

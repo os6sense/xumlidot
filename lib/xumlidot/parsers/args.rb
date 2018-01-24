@@ -104,7 +104,7 @@ module Xumlidot
           @argument.default = exp.value
         when Sexp
           binding.pry
-        when hash
+        when hash # WTF? TODO
           binding.pry
         else
           binding.pry
