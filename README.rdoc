@@ -8,17 +8,15 @@ Why?
 
 The main reason for this is that I am a fan of Model Driven Engineering and
 whilst there are tools like Railroady and Xamin out there, the focus on Rails
-makes it less useful than I would like. Combined with the fact that whilst
-railroady has the --xmi flag but when you run it you eventually discover it is
-not implemented (and hasn't been for seven years) 
+makes them less useful than I would like. Combined with the fact that railroady
+has a non-working --xmi flag  
 
-In addition, one of the major problems (IMO) with the approach taken by Xamin
-(and Railroady) is that they *require* files hence all the dependencies get
-pulled along.
+In addition, one of the major problems (IMO) with the approach taken by other tools
+is that they *require* files hence all the dependencies get pulled along.
 
-Personally I am not interested in whether something needs active record to run
-though - I just want to know the inheritance chain and the
-methods/constants/attributes defined.
+Personally I am not interested in whether something needs ActiveRecord to run,
+I want to know inheritance and the methods/constants/attributes defined. I *also*
+want to know how classes are linked via usage, but thats on the todo list.
 
 = USAGE
 
@@ -44,8 +42,8 @@ xumlidot OPTIONS dir_a dir_b
 
 = TODO
 
+- Process for v. large files (svg looks promising) - works well on a mac
 - I forgot about attributes (lol the simplist case)!!
-- Process for v. large files (svg looks promising)
 - options parser (yawn)
 - reintegrate xmi
 

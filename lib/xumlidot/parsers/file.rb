@@ -1,9 +1,7 @@
-require 'sexp_processor'
-require 'ruby_parser'
-require 'pry'
+# frozen_string_literal: true
 
-require_relative '../types'
 require_relative '../parsers'
+require_relative '../types'
 
 module Xumlidot
   module Parsers
