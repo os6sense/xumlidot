@@ -8,14 +8,6 @@ module Xumlidot
       def initialize(stack, options = nil)
         @stack = stack
         @options = options
-
-        # Holds any superclass relationships (applies to dot, possibly
-        # not to xmi
-        @inheritance = []
-
-        # Holds ancenser tree relationships (applies to dot, possibly
-        # not to xmi
-        #@composition = []
       end
 
       # I 'think' that we have to draw any connecting labels AFTER

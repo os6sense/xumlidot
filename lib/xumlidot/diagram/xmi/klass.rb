@@ -5,21 +5,21 @@ module Xumlidot
     module Klass
       include ::Xumlidot::Xmi::ID
 
-      def to_xmi
+      def draw
         klass_xmi = "<ownedMember isAbstract=\"false\" isActive=\"false\" isLeaf=\"false\" name=\"#{definition.name.to_xmi}\" visibility=\"public\" xmi:id=\"#{id}\" xmi:type=\"uml:Class\">"
 
-        class_methods.each do |method| 
-          klass_xmi += method.to_xmi
+        class_methods.each do |method|
+          klass_xmi += method.draw
         end
 
-        instance_methods.each do |method| 
-          klass_xmi += method.to_xmi
+        instance_methods.each do |method|
+          klass_xmi += method.draw
         end
 
         klass_xmi += "</ownedMember>"
       end
 
-      private 
+      private
 
       def class_methods_to_xmi
       end
