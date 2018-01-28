@@ -10,12 +10,6 @@ module Xumlidot
       # TODO: I think the name could be a constant rather than
       # an array of constants
       class Name < Array
-        #def to_xmi
-          #map do |constant|
-            #constant.to_xmi
-          #end.join
-        #end
-
         def name
           map(&:name).flatten
         end

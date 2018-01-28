@@ -13,6 +13,7 @@ module Xumlidot
       # I 'think' that we have to draw any connecting labels AFTER
       # we have drawn the klasses in order to have something to connect
       def draw
+        draw_header
         @stack.traverse do |klass|
           klass.extend(::Xumlidot::Diagram::Dot::Klass)
           puts klass.draw
@@ -27,8 +28,10 @@ module Xumlidot
             puts klass.draw_composition(k)
           end
         end
-
+        draw_footer
       end
+
+      private
 
       def draw_header
         puts "digraph graph_title {"
