@@ -13,6 +13,7 @@ module Xumlidot
         def name_to_xmi
           return '&lt;&lt;' if name == :<<
           return '&gt;&gt;' if name == :>>
+          name
         end
 
         def draw

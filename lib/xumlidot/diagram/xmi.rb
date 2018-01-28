@@ -14,22 +14,59 @@ module Xumlidot
 
       include REXML
 
+      # Lookup table for namespace to id
+      class NamespaceToId
+        def initialize
+          @namespace_to_id = {}
+        end
+
+        def add(full_namespace, id)
+          @namespace_to_id[full_namespace] = id
+        end
+
+        def has?(full_namespace)
+          @namespace_to_id[full_namespace] != nil
+        end
+
+      end
+
       def initialize(stack, options = nil)
         @stack = stack
         @options = options
-        # We need to keep track of the ids assigned in the body for
-        # each class.
-        @diagram_ids = []
+        # We need to keep track of the ids assigned in the body for each
+        # class.
+
+        @model = [] # We need both model and diagram elements
+        @diagram = []
       end
 
+      # Look closely at how its done in dot - thats the right way to go
       def draw
         xml = draw_header
-
+        # First traversal we're just assigning ids to
+        # everything so that when we come to draw things
+        # we can do a lookup on the ids.
         @stack.traverse do |klass|
           klass.extend(::Xumlidot::Diagram::Xmi::Klass)
 
-          @diagram_ids << klass.id
-          xml += klass.draw
+          unless @namespace_to_id.has?(klass.draw_identifier)
+            @namespace_to_id[klass.draw_identifier] = klass.id
+
+            # we also need to get the id of any superklass
+            @namespace_to_id[klass.superklass.draw_identifier] = klass.superklass.id
+          end
+        end
+
+        # Second traversal we are drawing everything
+        @stack.traverse do |klass|
+          klass.extend(::Xumlidot::Diagram::Xmi::Klass)
+
+          full_namespace = klass.draw_identifier
+          unless @namespace_to_id.has?(full_namespace)
+            @namespace_to_id[full_namespace] = id
+            @model << klass.draw_model
+            @diagram << klass.draw_diagram
+          end
         end
 
         xml += draw_footer
@@ -40,7 +77,7 @@ module Xumlidot
       private
 
       def draw_header
-        xml = %(<?xml version="1.0" encoding="UTF-8"?>
+         %(<?xml version="1.0" encoding="UTF-8"?>
         <xmi:XMI xmi:version="2.1" xmlns:uml="http://schema.omg.org/spec/UML/2.0" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1">
           <xmi:Documentation exporter="Visual Paradigm" exporterVersion="7.0.2">
           </xmi:Documentation>
@@ -67,15 +104,6 @@ module Xumlidot
       end
 
       private
-
-      def xmi_diagram_element(id)
-        xml = %(<uml:DiagramElement preferredShapeType="Class" subject="#{id}" xmi:id="#{id}de">
-             <elementFill color1="Cr:122,207,245,255" color2="" style="1" transparency="0" type="1"/>
-             <elementFont bold="false" color="Cr:0,0,0,255" italic="false" name="Dialog" size="11" style="0"/>
-             <elementLine color="Cr:0,0,0,255" style="1" transparency="0" weight="1.0"/>
-             <CompartmentFont value="none"/>
-           </uml:DiagramElement>)
-      end
 
       def pretty_print(xml)
         doc = Document.new(xml)
