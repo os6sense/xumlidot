@@ -6,38 +6,43 @@ require_relative 'id'
 module Xumlidot
   class Diagram
     class Xmi
+
+      module Superklass
+        include ::Xumlidot::Diagram::Xmi::ID
+
+        def draw_identifier
+          [name, namespace.reverse].reverse.flatten.join('::')
+        end
+      end
+
       module Klass
         include ::Xumlidot::Diagram::Xmi::ID
 
         module Name
           def to_xmi
-            map do |constant|
-              constant.to_xmi
-            end.join
+            map { |constant| constant.to_xmi }.join
           end
-        end
-
-        module Superklass
-
         end
 
         def draw_model
           definition.name.extend(Name)
           xmi = "<ownedMember isAbstract=\"false\" isActive=\"false\" isLeaf=\"false\" name=\"#{definition.name.to_xmi}\" visibility=\"public\" xmi:id=\"#{id}\" xmi:type=\"uml:Class\">"
           # TODO# Add generalization for superclass
+          
+          
           xmi += extend_and_draw(attributes)
           xmi += extend_and_draw(class_methods)
           xmi += extend_and_draw(instance_methods)
           xmi += "</ownedMember>"
         end
 
-        # I think ill need
         def draw_superklass
 
         end
 
+        # Draws a diagram element i.e. the part which is rendered
         def draw_diagram
-          xml = %(<uml:DiagramElement preferredShapeType="Class" subject="#{id}" xmi:id="#{id}de">
+          %(<uml:DiagramElement preferredShapeType="Class" subject="#{id}" xmi:id="#{id}de">
                <elementFill color1="Cr:122,207,245,255" color2="" style="1" transparency="0" type="1"/>
                <elementFont bold="false" color="Cr:0,0,0,255" italic="false" name="Dialog" size="11" style="0"/>
                <elementLine color="Cr:0,0,0,255" style="1" transparency="0" weight="1.0"/>
@@ -75,8 +80,6 @@ module Xumlidot
           d = @definition
           [d.name, d.namespace.reverse].reverse.flatten.join('::')
         end
-
-
 
       end
 

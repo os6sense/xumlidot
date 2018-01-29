@@ -28,6 +28,9 @@ module Xumlidot
           @namespace_to_id[full_namespace] != nil
         end
 
+        def []=(name, value)
+          @namespace_to_id[name] = value 
+        end
       end
 
       def initialize(stack, options = nil)
@@ -38,35 +41,35 @@ module Xumlidot
 
         @model = [] # We need both model and diagram elements
         @diagram = []
+
+        @namespace_to_id = NamespaceToId.new
       end
 
       # Look closely at how its done in dot - thats the right way to go
       def draw
         xml = draw_header
-        # First traversal we're just assigning ids to
-        # everything so that when we come to draw things
-        # we can do a lookup on the ids.
+        # First traversal we're just assigning ids to everything so that when
+        # we come to draw things we can do a lookup on the ids for any composition
+        # aggregation or subclass relationships.
         @stack.traverse do |klass|
           klass.extend(::Xumlidot::Diagram::Xmi::Klass)
+          #klass.superklass.extend(::Xumlidot::Diagram::Xmi::Superklass)
 
           unless @namespace_to_id.has?(klass.draw_identifier)
+            binding.pry
             @namespace_to_id[klass.draw_identifier] = klass.id
 
-            # we also need to get the id of any superklass
-            @namespace_to_id[klass.superklass.draw_identifier] = klass.superklass.id
+            #unless klass.superklass.name.nil?
+              #@namespace_to_id[klass.superklass.draw_identifier] = klass.superklass.id
+            #end
           end
         end
+        binding.pry
 
         # Second traversal we are drawing everything
         @stack.traverse do |klass|
-          klass.extend(::Xumlidot::Diagram::Xmi::Klass)
-
-          full_namespace = klass.draw_identifier
-          unless @namespace_to_id.has?(full_namespace)
-            @namespace_to_id[full_namespace] = id
-            @model << klass.draw_model
-            @diagram << klass.draw_diagram
-          end
+          @model << klass.draw_model
+          @diagram << klass.draw_diagram
         end
 
         xml += draw_footer
