@@ -7,16 +7,21 @@ A Ruby UML XMI and DOT generator
 Why?
 
 The main reason for this is that I am a fan of Model Driven Engineering and
-whilst there are tools like Railroady and Xamin out there, the focus on Rails
-makes them less useful than I would like. Combined with the fact that railroady
-has a non-working --xmi flag  
+whilst there are *great* tools like Railroady and Xamin out there, the focus on
+Rails makes them less useful than I personally would like since Ruby != Rails and
+Railroady has never had a working xmi option meaning that we can't import the output
+into tools such as Visual Paradigm. 
 
-In addition, one of the major problems (IMO) with the approach taken by other tools
-is that they *require* files hence all the dependencies get pulled along.
+In addition, one of the major problems (IMO) with the approach taken by other
+tools is that they ```require``` files hence you need a project with all the
+dependencies set up and working; fine most of the time but I've come across
+more than one project so environment dependent that even the specs would not
+run without vagrant or docker. 
 
-Personally I am not interested in whether something needs ActiveRecord to run,
-I want to know inheritance and the methods/constants/attributes defined. I *also*
-want to know how classes are linked via usage, but thats on the todo list.
+I want a tool where I can quickly get a high level view of the code from an
+Object Oriented perspective.
+
+Hence xumlidot ... or whatever I end up calling it.
 
 = USAGE
 
@@ -24,34 +29,36 @@ xumlidot OPTIONS dir_a dir_b
 
 = OPTIONS
 
---title 
+--title (TODO: Give the diagram a time)
 --rails (TODO: Gets additional rails knowledge)
 --dot (TODO: output dot)
 --xmi (TODO: output xmi )
 --debug (TODO: output debug info)
 
---no-inheritance
---no-composition
---no-uses
+--no-inheritance (TODO: dont output inheritence links)
+--no-composition (TODO: dont output composition links)
+--no-uses (TODO: totally)
 
---split=n
---sequence=CLASS.method_name
+--split=n (TOTALLY TODO: Split into n diagrams)
+--sequence=CLASS.method_name (TODO: Sequence diagram output starting with )
 
 = EXAMPLES
 
+  ```xumlidot app lib```
+
+  should produce a reasonable complete class diagram.
+
 = DEPENDENCIES 
 
-= TODO
+= DEVELOPMENT PLAN/TODO
 
-- Process for v. large files (svg looks promising) - works well on a mac
-- I forgot about attributes (lol the simplist case)!!
-- options parser (yawn)
-- reintegrate xmi
-- title
+- options parser (yawn) for title, dot, and xmi
+- Documentation for Process for v. large files (svg looks promising) - works well on a mac
 - SPECS!
 - fix the terrible traversal code
-
-
+- fix the terrible XMI code
+- Put the bits that Xamin and Railroadie get right (i.e. Rails Integration) in.
+- Sequence diagrams
 
 = COPYRIGHTS/ATTTRIBUTIONS/THANKs
 
@@ -60,3 +67,5 @@ using to just get an idea of the XMI structure.
 
 Thanks to the seattlerb group for the excellent ruby-parser and sexp-processor which got
 me parsing ruby superfast.
+
+Thanks to MyMedsAndMe for the 10% time to work on this project.
