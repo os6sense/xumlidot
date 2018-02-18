@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.1" xmlns:uml="http://schema.omg.org/spec/UML/2.0" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1">
+	<xmi:Documentation exporter="Visual Paradigm" exporterVersion="7.0.2">
+	</xmi:Documentation>
+
+	<uml:Model name="untitled" xmi:id="k9MQfIaD.AACAQk_">
+		<ownedMember isAbstract="false" isActive="false" isLeaf="false" name="Subclass" visibility="public" xmi:id="4eyQfIaD.AACAQzM" xmi:type="uml:Class">
+			<generalization general="qPaQfIaD.AACAQzS" name="" xmi:id="FhWQfIaD.AACAQzf" xmi:type="uml:Generalization">
+			</generalization>
+		</ownedMember>
+		<ownedMember isAbstract="false" isActive="false" isLeaf="false" name="Superclass" visibility="public" xmi:id="qPaQfIaD.AACAQzS" xmi:type="uml:Class">
+		</ownedMember>
+		<ownedMember isAbstract="false" isActive="false" isLeaf="false" name="Containerclass" visibility="public" xmi:id="KwBQfIaD.AACAQzw" xmi:type="uml:Class">
+			<ownedAttribute aggregation="none" isDerived="false" isDerivedUnion="false" isID="false" isLeaf="false" isReadOnly="false" isStatic="false" name="attribute" visibility="private" xmi:id="u98kfIaD.AACARRd" xmi:type="uml:Property">
+			</ownedAttribute>
+			<ownedOperation isAbstract="false" isLeaf="false" isOrdered="false" isQuery="false" isStatic="false" isUnique="true" name="method" visibility="public" xmi:id="lYckfIaD.AACARRU" xmi:type="uml:Operation">
+				<ownedParameter kind="return" xmi:id="lYckfIaD.AACARRU_return" xmi:type="uml:Parameter"/>
+			</ownedOperation>
+		</ownedMember>
+		<ownedMember isAbstract="false" isDerived="false" isLeaf="false" name="foo" xmi:id="LPJQfIaD.AACAQ0D" xmi:type="uml:Association">
+			<memberEnd xmi:idref="LPJQfIaD.AACAQ0E"/>
+			<ownedEnd aggregation="none" isDerived="false" isDerivedUnion="false" isLeaf="false" isNavigable="true" isReadOnly="false" isStatic="false" name="" type="KwBQfIaD.AACAQzw" xmi:id="LPJQfIaD.AACAQ0E" xmi:type="uml:Property">
+			</ownedEnd>
+			<memberEnd xmi:idref="LPJQfIaD.AACAQ0G"/>
+			<ownedEnd aggregation="shared" isDerived="false" isDerivedUnion="false" isLeaf="false" isNavigable="true" isReadOnly="false" isStatic="false" name="" type="4eyQfIaD.AACAQzM" xmi:id="LPJQfIaD.AACAQ0G" xmi:type="uml:Property">
+			</ownedEnd>
+		</ownedMember>
+	</uml:Model>
+
+	<uml:Diagram diagramType="ClassDiagram" documentation="" name="Class Diagram1" toolName="Visual Paradigm" xmi:id="Su.IfIaD.AACARQ0">
+		<uml:Diagram.element>
+			<uml:DiagramElement geometry="75,167,80,40" preferredShapeType="Class" subject="4eyQfIaD.AACAQzM" xmi:id="Su.IfIaD.AACARQ2">
+				<elementFill color1="Cr:122,207,245,255" color2="" style="1" transparency="0" type="1"/>
+				<elementFont bold="false" color="Cr:0,0,0,255" italic="false" name="Dialog" size="11" style="0"/>
+				<elementLine color="Cr:0,0,0,255" style="1" transparency="0" weight="1.0"/>
+				<CompartmentFont value="none"/>
+			</uml:DiagramElement>
+			<uml:DiagramElement geometry="20,20,80,40" preferredShapeType="Class" subject="qPaQfIaD.AACAQzS" xmi:id="Ku.IfIaD.AACARQ4">
+				<elementFill color1="Cr:122,207,245,255" color2="" style="1" transparency="0" type="1"/>
+				<elementFont bold="false" color="Cr:0,0,0,255" italic="false" name="Dialog" size="11" style="0"/>
+				<elementLine color="Cr:0,0,0,255" style="1" transparency="0" weight="1.0"/>
+				<CompartmentFont value="none"/>
+			</uml:DiagramElement>
+			<uml:DiagramElement fromDiagramElement="Ku.IfIaD.AACARQ4" geometry="59,61;59,100;75,166;" preferredShapeType="Generalization" subject="FhWQfIaD.AACAQzf" toDiagramElement="Su.IfIaD.AACARQ2" xmi:id="qu.IfIaD.AACARQ6">
+				<elementFont bold="false" color="Cr:0,0,0,255" italic="false" name="Dialog" size="11" style="0"/>
+				<elementLine color="Cr:0,0,0,255" style="1" transparency="0" weight="1.0"/>
+			</uml:DiagramElement>
+			<uml:DiagramElement geometry="119,20,102,68" preferredShapeType="Class" subject="KwBQfIaD.AACAQzw" xmi:id="Gu.IfIaD.AACARQ8">
+				<elementFill color1="Cr:122,207,245,255" color2="" style="1" transparency="0" type="1"/>
+				<elementFont bold="false" color="Cr:0,0,0,255" italic="false" name="Dialog" size="11" style="0"/>
+				<elementLine color="Cr:0,0,0,255" style="1" transparency="0" weight="1.0"/>
+				<CompartmentFont value="none"/>
+			</uml:DiagramElement>
+			<uml:DiagramElement fromDiagramElement="Gu.IfIaD.AACARQ8" geometry="170,89;170,107;155,166;" preferredShapeType="Association" subject="LPJQfIaD.AACAQ0D" toDiagramElement="Su.IfIaD.AACARQ2" xmi:id="Wu.IfIaD.AACARQ.">
+				<elementFont bold="false" color="Cr:0,0,0,255" italic="false" name="Dialog" size="11" style="0"/>
+				<elementLine color="Cr:0,0,0,255" style="1" transparency="0" weight="1.0"/>
+			</uml:DiagramElement>
+		</uml:Diagram.element>
+	</uml:Diagram>
+</xmi:XMI>

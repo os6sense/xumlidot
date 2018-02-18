@@ -71,7 +71,7 @@ module Xumlidot
 
     end
 
-        include REXML  # so that we don't have to prefix everything with REXML::...
+    include REXML  # so that we don't have to prefix everything with REXML::...
     def xmi_footer(diagram_ids)
       xml = %Q(
           </uml:Model>
@@ -91,7 +91,6 @@ module Xumlidot
     end
 
     def xmi_diagram_element(id)
-      #%Q(<uml:DiagramElement geometry="0,0,149,138" preferredShapeType="Class" subject="#{id}" xmi:id="WSFKnwaFYHEAAQkB">
       %Q(<uml:DiagramElement preferredShapeType="Class" subject="#{id}" xmi:id="#{id}de">
            <elementFill color1="Cr:122,207,245,255" color2="" style="1" transparency="0" type="1"/>
            <elementFont bold="false" color="Cr:0,0,0,255" italic="false" name="Dialog" size="11" style="0"/>

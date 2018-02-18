@@ -24,6 +24,7 @@ xumlidot OPTIONS dir_a dir_b
 
 = OPTIONS
 
+--title 
 --rails (TODO: Gets additional rails knowledge)
 --dot (TODO: output dot)
 --xmi (TODO: output xmi )
@@ -46,6 +47,10 @@ xumlidot OPTIONS dir_a dir_b
 - I forgot about attributes (lol the simplist case)!!
 - options parser (yawn)
 - reintegrate xmi
+- title
+- SPECS!
+- fix the terrible traversal code
+
 
 
 = COPYRIGHTS/ATTTRIBUTIONS/THANKs

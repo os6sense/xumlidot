@@ -1,21 +1,36 @@
+# frozen_string_literal: true
+
+require_relative '../../types'
 require_relative 'id'
 
 module Xumlidot
-  module Xmi
-    module Method
-      include ::Xumlidot::Xmi::ID
+  class Diagram
+    class Xmi
+      module MethodSignature
+        include ::Xumlidot::Diagram::Xmi::ID
 
-      def return_id
-        @_return_id ||= new_id
-      end
-
-      def to_xmi
-        method_xmi = "<ownedOperation isAbstract=\"false\" isLeaf=\"false\" isOrdered=\"false\" isQuery=\"false\" isStatic=\"#{superclass_method}\" isUnique=\"true\" name=\"#{name}\" visibility=\"#{visibility}\" xmi:id=\"#{id}\" xmi:type=\"uml:Operation\">"
-        method_xmi += "<ownedParameter kind=\"return\" xmi:id=\"#{return_id}\" xmi:type=\"uml:Parameter\"/>"
-        args.each do |argument|
-          method_xmi += argument.to_xmi
+        # Ugh
+        def name_to_xmi
+          return '&lt;&lt;' if name == :<<
+          return '&gt;&gt;' if name == :>>
+          name
         end
-        method_xmi += "</ownedOperation>"
+
+        def draw
+          xmi = "<ownedOperation isAbstract=\"false\" isLeaf=\"false\" isOrdered=\"false\" isQuery=\"false\" isStatic=\"#{superclass_method}\" isUnique=\"true\" name=\"#{name_to_xmi}\" visibility=\"#{visibility}\" xmi:id=\"#{id}\" xmi:type=\"uml:Operation\">"
+          xmi += "<ownedParameter kind=\"return\" xmi:id=\"#{return_id}\" xmi:type=\"uml:Parameter\"/>"
+          args.each do |argument|
+            argument.extend(::Xumlidot::Diagram::Xmi::Argument)
+            xmi += argument.draw
+          end
+          xmi += "</ownedOperation>"
+        end
+
+        private
+
+        def return_id
+          @_return_id ||= new_id
+        end
       end
     end
   end

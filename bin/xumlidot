@@ -23,7 +23,6 @@ dt.find_all_rb_files do |path|
   @parser.parse
 end
 
-#resolve inheritance tree
 # If a class is inherited from but does not exist in the constants
 # we will create a dummy class.
 #

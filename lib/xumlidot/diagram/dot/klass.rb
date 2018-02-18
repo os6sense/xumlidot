@@ -33,21 +33,22 @@ module Xumlidot
           @definition.name.name.join('::')
         end
 
-        def draw_methods
-          km = ''
-          km += @attributes.map(&:to_s).join('\l')
-          km += "\\l" if !km.end_with?('\\l')
-          km += @class_methods.map(&:to_s).join('\l')
-          km += "\\l" if !km.end_with?('\\l')
-          km += "|" if instance_methods.size > 0
-          km += @instance_methods.map(&:to_s).join('\l')
-          km += "\\l" if !km.end_with?('\\l')
-        end
-
         def draw_ancestor(d)
           [d.name, d.namespace.reverse].reverse.flatten.join('::')
         end
 
+        def draw_methods
+          km = ''
+          km += @attributes.map(&:to_s).join('\l')
+          km += "\\l" if !km.end_with?('\\l')
+
+          km += @class_methods.map(&:to_s).join('\l')
+          km += "\\l" if !km.end_with?('\\l')
+          km += "|" if instance_methods.size > 0
+
+          km += @instance_methods.map(&:to_s).join('\l')
+          km += "\\l" if !km.end_with?('\\l')
+        end
       end
     end
   end

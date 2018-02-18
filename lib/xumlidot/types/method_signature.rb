@@ -18,7 +18,7 @@ module Xumlidot
     class MethodSignature
       #include ::Xumlidot::Xmi::Method
 
-      attr_accessor :name,               # string
+      attr_accessor :name,               # symbol
                     :args,               # Arguments
                     :file,               # string
                     :line_number,        # int  - these are areally a range

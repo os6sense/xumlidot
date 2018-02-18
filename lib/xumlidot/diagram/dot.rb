@@ -8,25 +8,19 @@ module Xumlidot
       def initialize(stack, options = nil)
         @stack = stack
         @options = options
-
-        # Holds any superclass relationships (applies to dot, possibly
-        # not to xmi
-        @inheritance = []
-
-        # Holds ancenser tree relationships (applies to dot, possibly
-        # not to xmi
-        #@composition = []
       end
 
       # I 'think' that we have to draw any connecting labels AFTER
       # we have drawn the klasses in order to have something to connect
       def draw
+        draw_header
         @stack.traverse do |klass|
           klass.extend(::Xumlidot::Diagram::Dot::Klass)
           puts klass.draw
         end
 
         @stack.traverse do |klass|
+          # Check - i shouldnt need to extend twice
           klass.extend(::Xumlidot::Diagram::Dot::Klass)
           output = klass.draw_inheritence
           puts output unless output.nil?
@@ -35,8 +29,10 @@ module Xumlidot
             puts klass.draw_composition(k)
           end
         end
-
+        draw_footer
       end
+
+      private
 
       def draw_header
         puts "digraph graph_title {"
