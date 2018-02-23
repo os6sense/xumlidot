@@ -2,7 +2,7 @@
 
 require_relative '../lib/xumlidot'
 
-::Xumlidot::Options.parse(ARGV)
+options = ::Xumlidot::Options.parse(ARGV)
 
 # TODO: user input
 directories = [ARGV[0]]
@@ -10,7 +10,7 @@ directories = [ARGV[0]]
 dt = Xumlidot::DirectoryTree.new(directories)
 
 # This is our tree of klasses/modules etc
-# since we can't assume rails conventions for naming 
+# since we can't assume rails conventions for naming
 # in a Ruby program.
 constants = ::Xumlidot::Parsers::Stack::Constants.new
 
@@ -35,5 +35,5 @@ end
 # i.e. yeah, its a hack
 constants.resolve_inheritance()
 
-diagram = ::Xumlidot::Diagram.new(constants, :Dot)
+diagram = ::Xumlidot::Diagram.new(constants, options)
 diagram.draw

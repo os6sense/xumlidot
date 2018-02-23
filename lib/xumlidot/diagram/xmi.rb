@@ -15,6 +15,12 @@ module Xumlidot
       include REXML
 
       class Elements < Array
+
+        def initialize(options)
+          super()
+          @options = options
+        end
+
         def draw
           xml = header
           each { |de| xml += de }
@@ -37,7 +43,7 @@ module Xumlidot
         private
 
         def header
-          %(<uml:Model name="SIMPLE XMI TEST" xmi:id="jcBKnwaFYHEAAQV_">)
+          %(<uml:Model name="#{@options[:model_name]}" xmi:id="jcBKnwaFYHEAAQV_">)
         end
 
         def footer
@@ -49,7 +55,7 @@ module Xumlidot
         private
 
         def header
-          %(<uml:Diagram diagramType="ClassDiagram" documentation="" name="This is the title of the diagram" toolName="Visual Paradigm" xmi:id="QfZKnwaFYHEAAQj3">
+          %(<uml:Diagram diagramType="ClassDiagram" documentation="" name="#{@options[:title]}" toolName="Visual Paradigm" xmi:id="QfZKnwaFYHEAAQj3">
               <uml:Diagram.element>)
         end
 
@@ -87,10 +93,10 @@ module Xumlidot
         @options = options
         @namespace_to_id = NamespaceToId.new
 
-        @model = ModelElements.new
-        @diagram = DiagramElements.new
-        @model_associations = ModelAssociationElements.new
-        @diagram_associations = DiagramAssociationElements.new
+        @model = ModelElements.new(options)
+        @diagram = DiagramElements.new(options)
+        @model_associations = ModelAssociationElements.new(options)
+        @diagram_associations = DiagramAssociationElements.new(options)
       end
 
       # Look closely at how its done in dot - thats the right way to go
