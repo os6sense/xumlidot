@@ -28,6 +28,8 @@ module Xumlidot
       @options.split = 1
       @options.sequence = ''
 
+      ENV.delete("XUMLIDOT_DEBUG")
+
       opt_parser = OptionParser.new do |opts|
         opts.banner = "Usage: xumlidot.rb [options]"
 
@@ -52,6 +54,7 @@ module Xumlidot
 
         opts.on("-d", "--[no-]debug", "Output debug information") do |v|
           @options.debug = v
+          ENV["XUMLIDOT_DEBUG"] = '1'
         end
 
         opts.on("-i", "--[no-]inheritence", "Output inheritence links on the diagram") do |v|

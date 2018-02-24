@@ -34,8 +34,10 @@ module Xumlidot
           Scope.public { process_until_empty(exp) } # Process the superclass with public visibility
         end
       rescue Exception => e
-        STDERR.puts e.backtrace.reverse
-        STDERR.puts "ERROR (#process_sclass) #{e.message}"
+        if ENV["XUMLIDOT_DEBUG"]
+          STDERR.puts e.backtrace.reverse
+          STDERR.puts "ERROR (#process_sclass) #{e.message}"
+        end
         exp
       end
 
@@ -61,8 +63,10 @@ module Xumlidot
           end
         end
       rescue Exception => e
-        STDERR.puts e.backtrace.reverse
-        STDERR.puts "ERROR (#process_class) #{e.message}"
+        if ENV["XUMLIDOT_DEBUG"]
+          STDERR.puts e.backtrace.reverse
+          STDERR.puts "ERROR (#process_class) #{e.message}"
+        end
         exp
       end
 
@@ -74,8 +78,10 @@ module Xumlidot
         #super(exp) { process_until_empty(exp) } # DISABLING since parsing the method is crashing
         s()
       rescue Exception => e
-        STDERR.puts e.backtrace.reverse
-        STDERR.puts "ERROR (#process_def#{superclass_method ? 's' : 'n'}) #{e.message}"
+        if ENV["XUMLIDOT_DEBUG"]
+          STDERR.puts e.backtrace.reverse
+          STDERR.puts "ERROR (#process_def#{superclass_method ? 's' : 'n'}) #{e.message}"
+        end
         s()
       end
 
@@ -88,8 +94,10 @@ module Xumlidot
         ::Xumlidot::Parsers::Call.new(exp, @constants.last_added)
         s()
       rescue Exception => e
-        STDERR.puts e.backtrace.reverse
-        STDERR.puts "ERROR (#process_call) #{e.message}"
+        if ENV["XUMLIDOT_DEBUG"]
+          STDERR.puts e.backtrace.reverse
+          STDERR.puts "ERROR (#process_call) #{e.message}"
+        end
         s()
       end
 

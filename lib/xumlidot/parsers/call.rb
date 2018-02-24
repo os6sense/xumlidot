@@ -24,7 +24,7 @@ module Xumlidot
         begin
         recv = process(exp.shift)
         rescue => e
-          STDERR.puts " ** unable to calculate reciever for #{exp}"
+          STDERR.puts " ** bug: unable to calculate reciever for #{exp}"
         end
 
         name = exp.shift
