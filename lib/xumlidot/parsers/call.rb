@@ -14,13 +14,19 @@ module Xumlidot
         @klass = klass
         @modules = ::Xumlidot::Types::InheritedModule.new(nil)
         process(exp)
+        return if klass.definition.nil?
         klass.definition.inherited_modules << @modules
       end
 
       def process_call(exp)
         exp.shift # remove the :call
 
+        begin
         recv = process(exp.shift)
+        rescue => e
+          STDERR.puts " ** unable to calculate reciever for #{exp}"
+        end
+
         name = exp.shift
         args = exp.shift
 

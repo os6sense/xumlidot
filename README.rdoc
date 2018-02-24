@@ -63,8 +63,10 @@ xumlidot --xmi --title="My Class Diagram" app lib
 
 = DEVELOPMENT PLAN/TODO
 
+- Ensure that the the parser is at least crash free with the rails codebase.
 - Documentation for Process for v. large files (svg looks promising) - works well on a mac
 - SPECS!
+- add an ingore option: e.g. it would be nice to ignore rails test classes.
 - fix the terrible traversal code
 - fix the terrible XMI code
 - Put the bits that Xamin and Railroadie get right (i.e. Rails Integration) in.

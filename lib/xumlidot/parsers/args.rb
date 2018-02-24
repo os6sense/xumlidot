@@ -18,6 +18,9 @@ module Xumlidot
         @arguments = ::Xumlidot::Types::Arguments.new
 
         process(exp)
+
+      rescue => e
+        STDERR.puts " ** bug: unable to process args #{exp} "
       end
 
       def to_s
@@ -102,10 +105,14 @@ module Xumlidot
           @argument.default << exp.value
         when nil
           @argument.default = exp.value
+        when Symbol
+          @argument.default = exp.value.to_s
+        when String
+          @argument.default = exp.value.to_s
         when Sexp
           binding.pry
         when hash # WTF? TODO
-          binding.pry
+          #binding.pry
         else
           binding.pry
         end
@@ -116,6 +123,9 @@ module Xumlidot
         exp.shift # remove :kwarg
         @argument.name = "#{exp[0]}:"
         process(exp)
+        s()
+      rescue => e
+        STDERR.puts " ** bug: unable to process kwarg #{exp}; failure to parse default value? "
         s()
       end
 
@@ -132,6 +142,8 @@ module Xumlidot
 
           @arguments << @argument
         end
+      rescue => e
+        STDERR.puts " ** bug: unable to process args #{exp}; failure to parse default value? "
       end
     end
   end
