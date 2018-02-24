@@ -2,7 +2,11 @@
 
 A Ruby UML XMI and DOT generator
 
-= PRERELEASE VERSION - May work, may not!
+= PRERELEASE VERSION (i.e. work in progress/not production ready)
+  - dot output works quite nicely.
+  - xmi output is duplicating base classes (next issue to fix).
+  - can parse rails so *should* work on you project - please let me know if it doesn't
+  - missing a lot of QoL options.
 
 Why?
 
