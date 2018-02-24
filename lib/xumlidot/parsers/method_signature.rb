@@ -48,8 +48,11 @@ module Xumlidot
         process(more) if more.is_a?(Sexp) && !more.empty?
         s()
       rescue Exception => e
-        STDERR.puts "ERROR (MethodSignature#process_defn) #{e.message}"
-        STDERR.puts e.backtrace.reverse
+        STDERR.puts " ** bug: unable to proces defn #{exp}"
+        if ENV["XUMLIDOT_DEBUG"]
+          STDERR.puts "ERROR (MethodSignature#process_defn) #{e.message}"
+          STDERR.puts e.backtrace.reverse
+        end
         s()
       end
 
@@ -69,8 +72,10 @@ module Xumlidot
 
         exp
       rescue Exception => e
-        STDERR.puts "ERROR (MethodSignature#process_call) #{e.message}"
-        STDERR.puts e.backtrace.reverse
+        if ENV["XUMLIDOT_DEBUG"]
+          STDERR.puts "ERROR (MethodSignature#process_call) #{e.message}"
+          STDERR.puts e.backtrace.reverse
+        end
         exp
       end
 
