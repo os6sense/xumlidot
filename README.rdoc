@@ -5,10 +5,10 @@ A Ruby UML XMI and DOT generator
 = PRERELEASE VERSION (i.e. work in progress/not production ready)
 
 - dot output works quite nicely (see examples folder).
-- xmi output has some issues with xml characters and large diagrams do not layout properly in
-  VP (raising that with them as a suscriber).
+- xmi output works however there are a few buggy cases.
+- large diagrams do not layout properly in VP (raising that with them as a subcriber).
 - can parse rails so *should* work on your project - please let me know if it doesn't.
-- missing a lot of QoL options.
+- missing some of the QoL options.
 
 Why?
 
@@ -34,42 +34,47 @@ xumlidot OPTIONS dir_a dir_b dir_c ...
 
 = OPTIONS
 
---title Provides a title to use for the diagram
+  --title Provides a title to use for the diagram
 
---model Provides a name for the model
+  --model Provides a name for the model
 
---dot Output diagram using dot
+  --dot Output diagram using dot
 
---xmi Output diagram using xmi
+  --xmi Output diagram using xmi
 
---debug Output (possibly too much) debug info.
+  --debug Output (possibly too much) debug info.
 
---exclude exclude directories or filenames matching string or pattern
+  --exclude exclude directories or filenames matching string or pattern
 
---rails (TODO: Gets additional rails knowledge such as model attributes)
+  --no-inheritance (TODO: dont output inheritence links; note that this may be
+  neccessary with large diagrams and VP)
 
---no-inheritance (TODO: dont output inheritence links; note that this may be neccessary with large diagrams and VP)
+  --no-composition (TODO: dont output composition links; note that this may be
+  neccessary with large diagrams and VP)
 
---no-composition (TODO: dont output composition links; note that this may be neccessary with large diagrams and VP)
+  --no-uses (TODO: totally, incorporate include/extend as inheritence)
 
---no-uses (TODO: totally, incorporate include/extend as inheritence)
+  --rails (TODO: Gets additional rails knowledge such as model attributes)
 
---split=n (TOTALLY TODO: Split into n diagrams where there are distinct class clusters)
+  --split=n (TODO: Split into n diagrams where there are distinct class
+  clusters)
 
---sequence=CLASS.method_name (TODO: Sequence diagram output starting with )
+  --sequence=CLASS.method_name (TODO: Sequence diagram output starting with )
 
---no-consolodate (TODO: Use only a single path between each class - is
-now the default in order to reduce the number of paths that have to be
-drawn)
+  --no-consolodate (TODO: Use only a single path between each class - is now
+  the default in order to reduce the number of paths that have to be drawn)
 
 
 = EXAMPLE
 
   xumlidot --xmi --title="My Class Diagram" app lib
 
-Should produce a reasonable complete class diagram for a rails project.
+Should produce a reasonable complete class diagram for a rails project - you *may* need to do seperate
+diagrams for different areas if you hit some limits in e.g. VP.
 
 = LIMITATIONS AND WORK AROUNDS
+
+- if your diagrams are too big, is there anything you can exclude with the --exclude option? e.g. specs/tests
 
 = DEPENDENCIES
 
@@ -77,11 +82,9 @@ You will need graphviz installed in order to parse the dot output.
 
 = DEVELOPMENT PLAN/TODO
 
-- fix xml bugs (e.g. where a method name contains << <=> * etc.)
-- add an ignore option: e.g. it would be nice to ignore rails test classes.
 - inheritence/composition options
 - specs
-- fix ** bugs seen in some codebases (e.g. rails)
+- fix ** bugs seen in some codebases (e.g. rails) (probably will be fixed as I work on specs)
 - fix the terrible traversal code
 - fix the terrible XMI code
 - Put the bits that Xamin and Railroady get right (i.e. Rails Integration) in.
