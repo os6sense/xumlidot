@@ -1,8 +1,8 @@
-= XUMLIDOT
+# XUMLIDOT
 
 A Ruby UML XMI and DOT generator
 
-= PRERELEASE VERSION (i.e. work in progress/not production ready)
+## PRERELEASE VERSION (i.e. work in progress/not production ready)
 
 - dot output works quite nicely (see examples folder).
 - xmi output works however there are a few buggy cases.
@@ -28,11 +28,11 @@ level view of the code from an Object Oriented perspective.
 
 Hence xumlidot ... or whatever I end up calling it.
 
-= USAGE
+## USAGE
 
 xumlidot OPTIONS dir_a dir_b dir_c ...
 
-= OPTIONS
+## OPTIONS
 
   --title Provides a title to use for the diagram
 
@@ -65,14 +65,14 @@ xumlidot OPTIONS dir_a dir_b dir_c ...
   the default in order to reduce the number of paths that have to be drawn)
 
 
-= EXAMPLE
+## EXAMPLE
 
   xumlidot --xmi --title="My Class Diagram" app lib
 
 Should produce a reasonable complete class diagram for a rails project - you *may* need to do seperate
 diagrams for different areas if you hit some limits in e.g. VP.
 
-= LIMITATIONS AND WORK AROUNDS
+## LIMITATIONS AND WORK AROUNDS
 
 - if your diagrams are too big, is there anything you can exclude with the --exclude option? e.g. specs/tests
 
@@ -80,7 +80,7 @@ diagrams for different areas if you hit some limits in e.g. VP.
 
 You will need graphviz installed in order to parse the dot output.
 
-= DEVELOPMENT PLAN/TODO
+## DEVELOPMENT PLAN/TODO
 
 - inheritence/composition options
 - specs
@@ -91,7 +91,7 @@ You will need graphviz installed in order to parse the dot output.
 - Put the bits that Xamin and Railroady get right (i.e. Rails Integration) in.
 - Sequence diagrams(!! not sure how viable but ...)
 
-= COPYRIGHTS/ATTTRIBUTIONS/THANKS
+## COPYRIGHTS/ATTTRIBUTIONS/THANKS
 
 - Thanks to the seattlerb group for the excellent ruby-parser and sexp-processor which got
 me parsing ruby superfast.
