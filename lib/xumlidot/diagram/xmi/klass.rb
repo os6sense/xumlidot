@@ -6,7 +6,6 @@ require_relative 'id'
 module Xumlidot
   class Diagram
     class Xmi
-
       module Superklass
         include ::Xumlidot::Diagram::Xmi::ID
 
@@ -48,7 +47,7 @@ module Xumlidot
           return xml if @definition.superklass.empty?
 
           # Diagram generalization
-          xml += %(<uml:DiagramElement fromDiagramElement="#{id}de" preferredShapeType="Generalization" subject="#{gen_id}" toDiagramElement="#{@definition.superklass.id}de">
+          xml += %(<uml:DiagramElement fromDiagramElement="#{@definition.superklass.id}de" preferredShapeType="Generalization" subject="#{gen_id}" toDiagramElement="#{id}de">
           </uml:DiagramElement>)
         end
 

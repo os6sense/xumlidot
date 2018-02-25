@@ -8,41 +8,43 @@ module Xumlidot
       def initialize(stack, options = nil)
         @stack = stack
         @options = options
+        @output = []
       end
 
-      # I 'think' that we have to draw any connecting labels AFTER
-      # we have drawn the klasses in order to have something to connect
+      # We have to draw any connecting labels AFTER we have drawn the klasses
+      # in order to have something to connect.
       def draw
-        draw_header
+        @output << header
         @stack.traverse do |klass|
           klass.extend(::Xumlidot::Diagram::Dot::Klass)
-          puts klass.draw
+          @output << klass.draw
         end
 
         @stack.traverse do |klass|
           # Check - i shouldnt need to extend twice
           klass.extend(::Xumlidot::Diagram::Dot::Klass)
           output = klass.draw_inheritence
-          puts output unless output.nil?
+          @output << output unless output.nil?
 
           klass.constants.each do |k|
-            puts klass.draw_composition(k)
+            @output << klass.draw_composition(k)
           end
         end
-        draw_footer
+        @output << footer
+
+        @output.uniq.each { |l| puts l }
       end
 
       private
 
-      def draw_header
-        puts "digraph graph_title {"
-        puts "  graph[overlap=false, splines=true, bgcolor=\"white\"]"
+      def header
+        %(digraph graph_title {
+            graph[overlap=false, splines=true, bgcolor="white"])
       end
 
-      def draw_footer
-        puts "}"
+      def footer
+        '}'
       end
-
     end
   end
 end
