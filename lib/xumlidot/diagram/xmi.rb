@@ -1,12 +1,9 @@
 require_relative 'xmi/argument'
-#require_relative 'xmi/association'
 require_relative 'xmi/attribute'
-#require_relative 'xmi/diagram'
 require_relative 'xmi/klass'
 require_relative 'xmi/method'
-#require_relative 'xmi/module'
 
-require "rexml/document"
+require 'rexml/document'
 
 module Xumlidot
   class Diagram
@@ -23,19 +20,25 @@ module Xumlidot
 
         def draw
           xml = header
-          each { |de| xml += de }
+          uniq.each { |de| xml += de }
           xml += yield if block_given?
           xml += footer
         end
 
         private
 
-        def header; '' end
-        def footer; '' end
+        def header
+          ''
+        end
+
+        def footer
+          ''
+        end
       end
 
       class ModelAssociationElements < Elements
       end
+
       class DiagramAssociationElements < Elements
       end
 
@@ -69,10 +72,12 @@ module Xumlidot
       class NamespaceToId
         def initialize
           @namespace_to_id = {}
+          @id_to_namespace = {}
         end
 
-        def add(full_namespace, id)
-          @namespace_to_id[full_namespace] = id
+        # reverse lookup
+        def has_value?(id)
+          @id_to_namespace[id] != nil
         end
 
         def has?(full_namespace)
@@ -83,8 +88,9 @@ module Xumlidot
           @namespace_to_id[name]
         end
 
-        def []=(name, value)
-          @namespace_to_id[name] = value
+        def []=(name, id)
+          @namespace_to_id[name] = id
+          @id_to_namespace[id] = name
         end
       end
 
@@ -95,11 +101,11 @@ module Xumlidot
 
         @model = ModelElements.new(options)
         @diagram = DiagramElements.new(options)
+
         @model_associations = ModelAssociationElements.new(options)
         @diagram_associations = DiagramAssociationElements.new(options)
       end
 
-      # Look closely at how its done in dot - thats the right way to go
       def draw
         # First traversal we're just assigning ids to everything so that when
         # we come to draw things we can do a lookup on the ids for any composition
@@ -114,18 +120,27 @@ module Xumlidot
 
         # Second traversal we are drawing everything
         @stack.traverse do |klass|
+
           # resolve the superclass id to that of an existing class with an id
+          # we do this in the second loop so that all the classes are present
           unless klass.superklass.name.nil?
             id = @namespace_to_id[klass.superklass.draw_identifier]
             klass.superklass.force_id(id)
           end
 
+          # if we have not added an id for this element it is likely a duplicate
+          # so do not draw it.
+          next unless @namespace_to_id.has_value?(klass.id)
+
           @model << klass.draw_klass
           @diagram << klass.draw_diagram
 
           klass.constants.each do |k|
+            # Likewise to the above, unless we have an id for the class
+            # we don't want to draw the relationships
+            next unless @namespace_to_id.has_value?(k.id)
             @model_associations << klass.draw_model_composition(k)
-            @diagram_associations<< klass.draw_diagram_composition(k)
+            @diagram_associations << klass.draw_diagram_composition(k)
           end
         end
 
@@ -133,13 +148,14 @@ module Xumlidot
         xml += @model.draw { @model_associations.draw }
         xml += @diagram.draw { @diagram_associations.draw }
         xml += footer
+
         pretty_print(xml)
       end
 
       private
 
       def header
-         %(<?xml version="1.0" encoding="UTF-8"?>
+        %(<?xml version="1.0" encoding="UTF-8"?>
         <xmi:XMI xmi:version="2.1" xmlns:uml="http://schema.omg.org/spec/UML/2.0" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1">
           <xmi:Documentation exporter="Visual Paradigm" exporterVersion="7.0.2">
           </xmi:Documentation>)
@@ -148,8 +164,6 @@ module Xumlidot
       def footer
         %(</xmi:XMI>)
       end
-
-      private
 
       def pretty_print(xml)
         doc = Document.new(xml)

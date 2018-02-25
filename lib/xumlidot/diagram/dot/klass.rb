@@ -4,7 +4,6 @@ module Xumlidot
   class Diagram
     class Dot
       module Klass
-
         def draw
           [draw_klass].compact.join('\r\n')
         end
@@ -15,7 +14,7 @@ module Xumlidot
         end
 
         def draw_composition(composee)
-          "\"#{draw_identifier(@definition)}\" -> \"#{draw_identifier(composee.definition)}\" [label=\"\", arrowhead=\"diamond\", arrowtail=\"diamond\"]"
+          "\"#{draw_identifier(composee.definition)}\" -> \"#{draw_identifier(@definition)}\" [label=\"\", arrowhead=\"diamond\", arrowtail=\"diamond\"]"
         end
 
         def draw_inheritence
@@ -40,14 +39,15 @@ module Xumlidot
         def draw_methods
           km = ''
           km += @attributes.map(&:to_s).join('\l')
-          km += "\\l" if !km.end_with?('\\l')
+          km += '\\l' unless km.end_with?('\\l')
 
           km += @class_methods.map(&:to_s).join('\l')
-          km += "\\l" if !km.end_with?('\\l')
-          km += "|" if instance_methods.size > 0
+          km += '\\l' unless km.end_with?('\\l')
+          km += '|' if instance_methods.size.positive?
 
           km += @instance_methods.map(&:to_s).join('\l')
-          km += "\\l" if !km.end_with?('\\l')
+          km += '\\l' unless km.end_with?('\\l')
+          km
         end
       end
     end
