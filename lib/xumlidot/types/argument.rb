@@ -44,7 +44,7 @@ module Xumlidot
                       when Symbol
                         ":#{default}"
                       when Hash
-                        'Hash'
+                        '{}'
                       else
                         default.to_s
                       end

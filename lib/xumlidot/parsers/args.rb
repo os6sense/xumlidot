@@ -18,7 +18,6 @@ module Xumlidot
         @arguments = ::Xumlidot::Types::Arguments.new
 
         process(exp)
-
       rescue => e
         STDERR.puts " ** bug: unable to process args #{exp} "
       end
@@ -52,7 +51,7 @@ module Xumlidot
 
       # const means that we have a constant assignment such as (a = Foo)
       def process_const(exp)
-        @argument.default = exp.value
+        @argument.default = exp.value.to_s
         s()
       end
 
@@ -62,13 +61,22 @@ module Xumlidot
         name.delete :const
         name.delete :colon2
 
+        leader = ''
+        if name.first == :colon3
+          leader = '::'
+          name.delete :colon3
+        end
+
         # I'm not sure how best to proceed here.
         #
         # I can use const_set to start creating the constants heirachy
         # but this is complex since it needs to be inserted into the right
         # place and for that I need the namespace...which suggests this ISNT
         # the place to do that. I possibly need a fake class ...
-        @argument.default = name.map { |v| v.to_s }.to_a.join('::')
+        @argument.default = leader + name.map do |v|
+          v.to_s
+        end.to_a.join('::')
+
         s()
       end
 
@@ -111,11 +119,12 @@ module Xumlidot
           @argument.default = exp.value.to_s
         when Sexp
           binding.pry
-        when hash # WTF? TODO
-          #binding.pry
+        when Hash
+          binding.pry
         else
           binding.pry
         end
+        exp.shift
         s()
       end
 
