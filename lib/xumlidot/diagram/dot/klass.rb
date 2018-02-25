@@ -3,6 +3,20 @@
 module Xumlidot
   class Diagram
     class Dot
+      module Method
+        def to_dot
+          to_s.gsub('{}', '\{\}')
+        end
+      end
+
+      module Attribute
+        def to_dot
+          to_s
+        end
+      end
+
+
+
       module Klass
         def draw
           [draw_klass].compact.join('\r\n')
@@ -37,15 +51,20 @@ module Xumlidot
         end
 
         def draw_methods
+          @attributes.each { |a| a.extend(Attribute) }
+          @class_methods.each { |a| a.extend(Method) }
+          @instance_methods.each { |a| a.extend(Method) }
+
+
           km = ''
-          km += @attributes.map(&:to_s).join('\l')
+          km += @attributes.map(&:to_dot).join('\l')
           km += '\\l' unless km.end_with?('\\l')
 
-          km += @class_methods.map(&:to_s).join('\l')
+          km += @class_methods.map(&:to_dot).join('\l')
           km += '\\l' unless km.end_with?('\\l')
           km += '|' if instance_methods.size.positive?
 
-          km += @instance_methods.map(&:to_s).join('\l')
+          km += @instance_methods.map(&:to_dot).join('\l')
           km += '\\l' unless km.end_with?('\\l')
           km
         end

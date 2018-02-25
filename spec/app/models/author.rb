@@ -7,6 +7,12 @@ end
 module Outside
   class A
     attr_reader :class_a
+
+    def a_method(foo, bar = 1, baz = [], bat: nil)
+    end
+
+    def b_method(foo, bar = "string", baz = {}, bat:)
+    end
   end
 
   class B < A
