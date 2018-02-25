@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe ::Xumlidot::Parsers::Args do
-
-  let(:parsed) do 
+  let(:parsed) do
     RubyParser.new.parse(method).tap { |sexp| 2.times { sexp.shift }}.first
   end
   let(:method) { "def method(#{arguments}); end" }
@@ -55,7 +56,7 @@ describe ::Xumlidot::Parsers::Args do
           let(:arguments) { 'a = ::Foo::Bar' }
           it { is_expected.to eq 'a = ::Foo::Bar' }
         end
- 
+
       end
 
       # TODO: I know that ["1", 2] is breaking
@@ -70,10 +71,15 @@ describe ::Xumlidot::Parsers::Args do
       end
     end
 
+    # I'd never come across this syntax before
+    context 'when using (*, max_identifier_length: 63, **)' do
+      let(:arguments) { '*, max_identifier_length: 63, **' }
+      it { is_expected.to eq '*, max_identifier_length: = 63, **' }
+    end
+
     context 'when it has multiple arguments' do
       let(:arguments) { 'a,b,c' }
       it { is_expected.to eq 'a, b, c' }
     end
-
   end
 end
