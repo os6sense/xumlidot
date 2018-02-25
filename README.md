@@ -85,6 +85,7 @@ You will need graphviz installed in order to parse the dot output.
 - inheritence/composition options
 - specs
 - fix ** bugs seen in some codebases (e.g. rails) (probably will be fixed as I work on specs)
+- Add full namespace lookup - fixes 'dangling' classes
 - fix the terrible traversal code
 - fix the terrible XMI code
 - Put the bits that Xamin and Railroady get right (i.e. Rails Integration) in.
