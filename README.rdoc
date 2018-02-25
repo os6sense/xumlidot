@@ -44,6 +44,8 @@ xumlidot OPTIONS dir_a dir_b dir_c ...
 
 --debug Output (possibly too much) debug info.
 
+--exclude exclude directories or filenames matching string or pattern
+
 --rails (TODO: Gets additional rails knowledge such as model attributes)
 
 --no-inheritance (TODO: dont output inheritence links; note that this may be neccessary with large diagrams and VP)
@@ -60,7 +62,6 @@ xumlidot OPTIONS dir_a dir_b dir_c ...
 now the default in order to reduce the number of paths that have to be
 drawn)
 
---exclude (TODO: exclude either certain directories or class names ... to be decided)
 
 = EXAMPLE
 

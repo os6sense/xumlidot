@@ -10,8 +10,12 @@ module Xumlidot
 
         # TODO - public/private visibility on attributes
         def draw
-          attribute_xmi = "<ownedAttribute aggregation=\"none\" isDerived=\"false\" isDerivedUnion=\"false\" isID=\"false\" isLeaf=\"false\" isReadOnly=\"false\" isStatic=\"false\" name=\"#{name}\" visibility=\"public\" xmi:id=\"#{id}\" xmi:type=\"uml:Property\">"
+          attribute_xmi = "<ownedAttribute aggregation=\"none\" isDerived=\"false\" isDerivedUnion=\"false\" isID=\"false\" isLeaf=\"false\" isReadOnly=\"false\" isStatic=\"false\" name=\"#{name_to_xmi}\" visibility=\"public\" xmi:id=\"#{id}\" xmi:type=\"uml:Property\">"
           attribute_xmi += "</ownedAttribute>"
+        end
+
+        def name_to_xmi
+          name.encode(:xml => :text) if name
         end
 
       end

@@ -7,7 +7,7 @@ options = ::Xumlidot::Options.parse(ARGV)
 # TODO: user input
 directories = [ARGV[0]]
 
-dt = Xumlidot::DirectoryTree.new(directories)
+dt = Xumlidot::DirectoryTree.new(directories, options)
 
 # This is our tree of klasses/modules etc
 # since we can't assume rails conventions for naming

@@ -27,6 +27,7 @@ module Xumlidot
       @options.usage = true
       @options.split = 1
       @options.sequence = ''
+      @options.exclude = ''
 
       ENV.delete("XUMLIDOT_DEBUG")
 
@@ -67,6 +68,10 @@ module Xumlidot
 
         opts.on("-c", "--[no-]composition", "Output composition links on the diagram") do |v|
           @options.composition = v
+        end
+
+        opts.on("-e", "--exclude [TEXT[", "Output usage links on the diagram") do |v|
+          @options.exclude = v
         end
 
         opts.on("-u", "--[no-]usage", "Output usage links on the diagram") do |v|
