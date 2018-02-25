@@ -5,10 +5,13 @@ A Ruby UML XMI and DOT generator
 ## PRERELEASE VERSION (i.e. work in progress/not production ready)
 
 - dot output works quite nicely (see examples folder).
-- xmi output works however there are a few buggy cases.
+- xmi output works however there are a few buggy cases. 
 - large diagrams do not layout properly in VP (raising that with them as a subcriber).
 - can parse rails so *should* work on your project - please let me know if it doesn't.
 - missing some of the QoL options.
+- works with any ruby project (will break on broken code though)
+- works with rails but doesn't add the model attributes (yet)
+- pretty comprehensive output but missing delegation (TODO), dynamic methods, etc. etc.
 
 Why?
 
@@ -23,14 +26,14 @@ In addition, one of the major problems (IMO) with the approach taken by other
 tools is that they ```require``` files hence you need a project with all the
 dependencies set up and working; fine most of the time but I've come across
 more than one project so environment dependent that even the specs would not
-run without vagrant or docker.  I want a tool where I can quickly get a high
+run without vagrant or docker.  I want a tool where I can **quickly** get a high
 level view of the code from an Object Oriented perspective.
 
 Hence xumlidot ... or whatever I end up calling it.
 
 ## USAGE
 
-xumlidot OPTIONS dir_a dir_b dir_c ...
+    xumlidot OPTIONS dir_a dir_b dir_c ...
 
 ## OPTIONS
 
