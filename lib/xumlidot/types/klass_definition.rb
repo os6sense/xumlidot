@@ -6,7 +6,6 @@ module Xumlidot
   module Types
     # representation for class information
     class KlassDefinition
-
       # TODO: I think the name could be a constant rather than an array of
       # constants
       class Name < Array

@@ -4,6 +4,9 @@ require_relative '../types'
 
 module Xumlidot
   module Types
+    # Value object for an attribute, i.e. accessor defined
+    # via attr_reader, attr_writer or attribute
+    #
     class Attribute
       attr_accessor :read,
                     :write,
@@ -22,9 +25,9 @@ module Xumlidot
       private
 
       def accessibility
-        return 'r/w' if @read == true && @write == true
-        return 'ro' if @read == true && @write == false
-        return 'wo' if @read == false && @write == true
+        return 'r+w' if @read && @write
+        return 'ro' if @read && !@write
+        return 'wo' if !@read && @write
       end
     end
   end

@@ -4,33 +4,38 @@ require_relative '../types'
 
 module Xumlidot
   module Types
-    # Value object for the actual argument
+    # Value object for an argument as specified within a methods definition.
     #
-    # Depending on the argument type, assign and default
-    # may be unpopulated e.g.
+    # e.g. def foo(a, b)
+    #
+    # a and b are the arguments
+    #
+    # Depending on the argument; type (TODO), assign and default may be
+    # unpopulated e.g.
     #
     #    def foo(a, b)
     #
-    # will be parsed with an empty assign and default
+    # will be parsed with an empty assign and default, whereas
     #
-    #    def bar(a, b = nil)
+    #    def bar(a = 1, b = nil)
     #
-    # will have an assign of '=' and a default of nil
+    # will both have an assign of '=' and defaults of 1 and :nil respectively.
     #
-    # Note that in Args, an assignment to a variable of nil
-    # is parsed and the default value set to th symbol :nil
+    # This is :nil rather than nill since an assignment to a variable of nil
+    # is parsed in Args and the default value set to the *symbol* :nil
     class Argument
-      #include ::Xumlidot::Xmi::Argument
+      attr_accessor :assign,
+                    :default
+                    # :types # TODO: determine the type of the argument
 
-      attr_accessor :assign, :default, :types
       attr_reader :name
 
       def initialize
-        @types = []
+        # @types = []
       end
 
       def name=(val)
-        @name = val.tr("&", '')
+        @name = val.tr('&', '')
       end
 
       def to_s
@@ -38,18 +43,18 @@ module Xumlidot
                       when :nil
                         'nil'
                       when String
-                        "#{default}"
+                        default
                       when NilClass
                         nil
                       when Symbol
                         ":#{default}"
                       when Hash
-                        '{}'
+                        '{}' # TODO: Some hashes were crashing the parser, why?
                       else
                         default.to_s
                       end
 
-        [@name, @assign, str_default ? str_default : nil ].compact.join(' ')
+        [@name, @assign, str_default || nil].compact.join(' ')
       end
     end
   end
