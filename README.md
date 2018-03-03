@@ -57,7 +57,8 @@ when you make a tool and then find it works!)
 
   --xmi Output diagram using xmi
 
-  --yuml Output diagram using yuml (TODO; lower on my list)
+  --puml Output diagram using plantuml syntax (TODO; low on my list)
+  --yuml Output diagram using yuml syntax (TODO; lower on my list)
 
   --debug Output (possibly too much) debug info.
 
