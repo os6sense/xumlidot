@@ -97,6 +97,7 @@ module Xumlidot
       def initialize(stack, options = nil)
         @stack = stack
         @options = options
+
         @namespace_to_id = NamespaceToId.new
 
         @model = ModelElements.new(options)
@@ -120,7 +121,6 @@ module Xumlidot
 
         # Second traversal we are drawing everything
         @stack.traverse do |klass|
-
           # resolve the superclass id to that of an existing class with an id
           # we do this in the second loop so that all the classes are present
           unless klass.superklass.name.nil?
@@ -132,15 +132,17 @@ module Xumlidot
           # so do not draw it.
           next unless @namespace_to_id.has_value?(klass.id)
 
-          @model << klass.draw_klass
-          @diagram << klass.draw_diagram
+          @model << klass.draw_klass(@options)
+          @diagram << klass.draw_diagram(@options)
 
-          klass.constants.each do |k|
-            # Likewise to the above, unless we have an id for the class
-            # we don't want to draw the relationships
-            next unless @namespace_to_id.has_value?(k.id)
-            @model_associations << klass.draw_model_composition(k)
-            @diagram_associations << klass.draw_diagram_composition(k)
+          if @options.composition
+            klass.constants.each do |k|
+              # Likewise to the above, unless we have an id for the class
+              # we don't want to draw the relationships
+              next unless @namespace_to_id.has_value?(k.id)
+              @model_associations << klass.draw_model_composition(k)
+              @diagram_associations << klass.draw_diagram_composition(k)
+            end
           end
         end
 

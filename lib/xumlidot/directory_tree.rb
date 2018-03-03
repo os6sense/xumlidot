@@ -11,7 +11,6 @@ module Xumlidot
 
     def find_all_rb_files(&block)
       @directories.each do |directory|
-
         Find.find(directory) do |path|
           next if path =~ @exluded
 
