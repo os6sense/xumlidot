@@ -16,8 +16,6 @@ module Xumlidot
     # we store all the method details here including many
     # which we are not yet using.
     class MethodSignature
-      #include ::Xumlidot::Xmi::Method
-
       attr_accessor :name,               # symbol
                     :args,               # Arguments
                     :file,               # string

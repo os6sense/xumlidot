@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative '../shared/naming'
+
 module Xumlidot
   class Diagram
     class Dot
@@ -15,9 +17,8 @@ module Xumlidot
         end
       end
 
-
-
       module Klass
+        include ::Xumlidot::Diagram::Shared::Naming
         def draw
           [draw_klass].compact.join('\r\n')
         end
@@ -38,23 +39,10 @@ module Xumlidot
 
         private
 
-        def draw_identifier(d)
-          [d.name.name, d.name.namespace.reverse].reverse.flatten.join('::')
-        end
-
-        def draw_name
-          @definition.name.name.join('::')
-        end
-
-        def draw_ancestor(d)
-          [d.name, d.namespace.reverse].reverse.flatten.join('::')
-        end
-
         def draw_methods
           @attributes.each { |a| a.extend(Attribute) }
           @class_methods.each { |a| a.extend(Method) }
           @instance_methods.each { |a| a.extend(Method) }
-
 
           km = ''
           km += @attributes.map(&:to_dot).join('\l')

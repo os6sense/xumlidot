@@ -2,24 +2,24 @@
 
 require_relative '../../types'
 require_relative 'id'
+require_relative 'constant'
+require_relative 'superklass'
+require_relative '../shared/naming'
 
 module Xumlidot
   class Diagram
     class Xmi
-      module Superklass
-        include ::Xumlidot::Diagram::Xmi::ID
-
-        def draw_identifier
-          [name, namespace.reverse].reverse.flatten.join('::')
-        end
-      end
-
+      # Draw the klass
       module Klass
         include ::Xumlidot::Diagram::Xmi::ID
+        include ::Xumlidot::Diagram::Shared::Naming
 
         module Name
           def to_xmi
-            map { |constant| constant.to_xmi }.join
+            map do |constant|
+              constant.extend(::Xumlidot::Diagram::Xmi::Constant) unless constant.respond_to?(:to_xmi)
+              constant.to_xmi
+            end.join
           end
         end
 
@@ -52,8 +52,6 @@ module Xumlidot
           </uml:DiagramElement>)
         end
 
-        #private
-
         # Inheritance has to be drawn both as part of the model
         # and as a part of the diagram
         #
@@ -82,7 +80,7 @@ module Xumlidot
           </uml:DiagramElement>)
         end
 
-        # Im not happy with this design - xmi should not have to
+        # Im not happy with this - xmi should not have to
         # know about types and it should be a method
         def extend_and_draw(collection)
           collection.map do |member|
@@ -94,21 +92,6 @@ module Xumlidot
             end
             member.draw
           end.join(' ')
-        end
-
-        # Cut and paste from the dot version
-        def draw_identifier
-          d = @definition
-          [d.name.name, d.name.namespace.reverse].reverse.flatten.join('::')
-        end
-
-        def draw_name
-          @definition.name.name.join('::')
-        end
-
-        def draw_ancestor
-          d = @definition
-          [d.name, d.namespace.reverse].reverse.flatten.join('::')
         end
       end
     end

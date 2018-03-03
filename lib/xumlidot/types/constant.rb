@@ -4,16 +4,23 @@ require_relative '../types'
 
 module Xumlidot
   module Types
-
     # Our representation of a constant - although just
-    # a string we need to be able to be unabigous in
-    # our representation.
+    # a string we need to be able to be unambigous in
+    # the representation.
+    #
+    # name is a single constant, namespace is the remaining full path
+    #
+    # e.g
+    # For ::Xumlidot::Types::Constant tne name would be Constant and the
+    # namespace [Types, Xumlidot]
+    #
+    # Note I am REALLY not happy with this design ...
     class Constant
       attr_reader :name,
                   :namespace
 
-      attr_accessor :reference # TODO: Namespace so needs to
-                               #       be a class
+      attr_accessor :reference # TODO: What IS this? I think I may have thrown this
+                               # in to fix a traversal issue if so...hack!
 
       def initialize(name, namespace = nil)
         @name = name
@@ -24,12 +31,8 @@ module Xumlidot
         "#{@name} (#{formatted_namespace})"
       end
 
-      def to_xmi
-        "#{formatted_namespace}::#{@name}"
-      end
-
       def empty?
-        @name.nil? && @namespace == []
+        @name.nil? && @namespace.empty?
       end
 
       private

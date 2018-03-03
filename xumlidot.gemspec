@@ -1,32 +1,27 @@
 Gem::Specification.new do |s|
+  s.authors = ['Adrian Lee Jackson']
+  s.date = "2018-03-02"
+  s.default_executable = 'xumlidot'
+  s.description = %()
+  s.email = ['xumlidot@librely.com']
+  s.executables = ['xumlidot']
+  s.homepage = 'http://github.com/os6sense/xumlidot'
+  s.license = 'MIT'
+  s.name = 'xumlidot'
+  s.summary = %(Generates DOT and XMI for Ruby and Rails UML Class Diagrams. )
+  s.rubygems_version = '1.3.6'
 
-  s.name = %q{xumlidot}
-  s.version = "0.0.1"
-
-  #s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["Adrian Lee Jackson"]
-  s.date = %q{2018-01-26}
-  s.default_executable = %q{xumlidot}
-  s.description = %q{Generates DOT and XMI for Ruby and Rails.}
-  s.email = ["xumlidot@librely.com"]
-  s.executables = ["xumlidot"]
-
+  s.require_paths = %w[lib]
   s.files = Dir['lib/*.rb'] + Dir['bin/*']
-  s.homepage = %q{http://github.com/drboolean/xamin}
-  s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.1}
+  s.test_files = Dir['spec/*.rb']
 
-  s.summary = %q{Generates DOT and XMI for Ruby and Rails.}
+  s.version = '1.0.0.pre'
 
-  s.test_files = Dir['spec/*.rb'] 
+  s.add_dependency 'ruby_parser'
+  s.add_dependency 'sexp_processor'
 
-  #if s.respond_to? :specification_version then
-    #current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
-    #s.specification_version = 2
-
-    #if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
-    #else
-    #end
-  #else
-  #end
+  s.add_development_dependency 'pry'
+  s.add_development_dependency 'pry-byebug'
+  s.add_development_dependency 'rspec'
+  s.add_development_dependency 'zeus'
 end

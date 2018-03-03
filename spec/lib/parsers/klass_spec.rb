@@ -41,11 +41,11 @@ class_inheritance = %Q(
 
 
 # Hmm I think we're decribing the parser here
-describe ::Xumlidote::Types::Klass do
+describe ::Xumlidot::Types::Klass do
 
   describe 'module_nesting' do
 
-    let(:parsed) do 
+    let(:parsed) do
       RubyParser.new.parse(module_nesting) # .tap { |sexp| 2.times { sexp.shift }}.first
     end
     subject { described_class.new(parsed).to_s }

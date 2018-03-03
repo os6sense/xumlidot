@@ -6,17 +6,14 @@ require_relative '../types'
 
 module Xumlidot
   module Types
-
     # representation for a class
     class Klass
-      #include ::Xumlidot::Xmi::Klass
-
       # Definition currently holds the superclass ... may change these to nesting and
       # ancestors yet...
       attr_accessor :definition,
                     # we *could* just have a single methods type
                     # and construct the instance/class list dynamically...
-                    :attributes,#
+                    :attributes,
                     :instance_methods,
                     :class_methods,
                     # New additions as I attempt to resolve ancestry
@@ -31,7 +28,6 @@ module Xumlidot
                     # within a module or class with hold actual constants such as FOO = 1,
                     # but also Modules and Klasses
                     :constants,
-
                     :calls # Not yet implemented
 
       extend Forwardable

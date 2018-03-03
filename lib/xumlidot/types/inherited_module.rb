@@ -4,7 +4,6 @@ require_relative '../types'
 
 module Xumlidot
   module Types
-
     class InheritedModule < Superklass
       def initialize(name, namespace = nil)
         super

@@ -56,7 +56,6 @@ describe ::Xumlidot::Parsers::Args do
           let(:arguments) { 'a = ::Foo::Bar' }
           it { is_expected.to eq 'a = ::Foo::Bar' }
         end
-
       end
 
       # TODO: I know that ["1", 2] is breaking
