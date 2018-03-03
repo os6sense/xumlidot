@@ -23,11 +23,16 @@ module Xumlidot
         @stack.traverse do |klass|
           # Check - i shouldnt need to extend twice
           klass.extend(::Xumlidot::Diagram::Dot::Klass)
-          output = klass.draw_inheritence
-          @output << output unless output.nil?
 
-          klass.constants.each do |k|
-            @output << klass.draw_composition(k)
+          if @options.inheritance
+            output = klass.draw_inheritence
+            @output << output unless output.nil?
+          end
+
+          if @options.composition
+            klass.constants.each do |k|
+              @output << klass.draw_composition(k)
+            end
           end
         end
         @output << footer

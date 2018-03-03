@@ -35,6 +35,16 @@ Hence xumlidot ... or whatever I end up calling it.
 
     xumlidot OPTIONS dir_a dir_b dir_c ...
 
+## USE CASES
+
+Often I will come into a project and want a high level overview of things.
+
+I found myself this week having performed a refactor on a piece of code, creating a 
+common interface and splitting out classes to adhere to SRP. From there I wanted to
+add in some PoC error handling (combining retrys and circuit breakers). I was able
+to easiliy generate a diagram of the refactored code, import it into Visual Paradigm,
+and then use the model to explore the functionality I wanted to add. 
+
 ## OPTIONS
 
   --title Provides a title to use for the diagram
@@ -44,6 +54,8 @@ Hence xumlidot ... or whatever I end up calling it.
   --dot Output diagram using dot
 
   --xmi Output diagram using xmi
+
+  --yuml Output diagram using yuml (TODO; lower on my list)
 
   --debug Output (possibly too much) debug info.
 
@@ -79,13 +91,14 @@ diagrams for different areas if you hit some limits in e.g. VP.
 
 - if your diagrams are too big, is there anything you can exclude with the --exclude option? e.g. specs/tests
 
-= DEPENDENCIES
+## DEPENDENCIES
 
 You will need graphviz installed in order to parse the dot output.
 
 ## DEVELOPMENT PLAN/TODO
 
 - inheritence/composition options
+- Allow adding of single files 
 - specs
 - fix ** bugs seen in some codebases (e.g. rails) (probably will be fixed as I work on specs)
 - Add full namespace lookup - fixes 'dangling' classes

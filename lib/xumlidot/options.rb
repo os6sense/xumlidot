@@ -22,7 +22,7 @@ module Xumlidot
       @options.diagram_type = :dot
       @options.rails = false
       @options.debug = false
-      @options.inheritence = true
+      @options.inheritance = true
       @options.composition = true
       @options.usage = true
       @options.split = 1
@@ -53,22 +53,23 @@ module Xumlidot
           @options.diagram_type = :xmi
         end
 
-        opts.on("-d", "--[no-]debug", "Output debug information") do |v|
-          @options.debug = v
+        opts.on("-d", "--debug", "Output debug information") do |v|
+          @options.debug = true
           ENV["XUMLIDOT_DEBUG"] = '1'
         end
 
-        opts.on("-i", "--[no-]inheritence", "Output inheritence links on the diagram") do |v|
-          @options.inheritence = v
+        opts.on("-i", "--no-inheritance", "Output inheritence links on the diagram") do |v|
+          @options.inheritance = false
         end
 
-        opts.on("-r", "--[no-]rails", "Expect a Rails application") do |v|
+        opts.on("-c", "--no-composition", "Output composition links on the diagram") do |v|
+          @options.composition = false
+        end
+
+        opts.on("-r", "--rails", "Expect a Rails application") do |v|
           @options.rails = v
         end
 
-        opts.on("-c", "--[no-]composition", "Output composition links on the diagram") do |v|
-          @options.composition = v
-        end
 
         opts.on("-e", "--exclude [TEXT[", "Output usage links on the diagram") do |v|
           @options.exclude = v

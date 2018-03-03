@@ -23,16 +23,17 @@ module Xumlidot
           end
         end
 
+        # TODO: Split this into model and diagram classes
         class Model
         end
 
         class Diagram
         end
 
-        def draw_klass
+        def draw_klass(options)
           definition.name.extend(Name)
           xmi = "<ownedMember isAbstract=\"false\" isActive=\"false\" isLeaf=\"false\" name=\"#{definition.name.to_xmi}\" visibility=\"public\" xmi:id=\"#{id}\" xmi:type=\"uml:Class\">"
-          xmi += draw_model_inheritance
+          xmi += draw_model_inheritance if options.inheritance
           xmi += extend_and_draw(attributes)
           xmi += extend_and_draw(class_methods)
           xmi += extend_and_draw(instance_methods)
@@ -40,12 +41,12 @@ module Xumlidot
         end
 
         # Draws a diagram element i.e. the part which is rendered
-        def draw_diagram
+        def draw_diagram(options)
           xml = %(<uml:DiagramElement preferredShapeType="Class" subject="#{id}" xmi:id="#{id}de">
             </uml:DiagramElement>)
 
           return xml if @definition.superklass.empty?
-
+          return xml unless options.inheritance
           # Diagram generalization
           xml += %(<uml:DiagramElement fromDiagramElement="#{@definition.superklass.id}de" preferredShapeType="Generalization" subject="#{gen_id}" toDiagramElement="#{id}de">
           </uml:DiagramElement>)
