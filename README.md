@@ -63,11 +63,9 @@ when you make a tool and then find it works!)
 
   --exclude exclude directories or filenames matching string or pattern
 
-  --no-inheritance (TODO: dont output inheritence links; note that this may be
-  neccessary with large diagrams and VP)
+  --no-inheritance Dont output inheritence links
 
-  --no-composition (TODO: dont output composition links; note that this may be
-  neccessary with large diagrams and VP)
+  --no-composition Dont output composition links
 
   --no-uses (TODO: totally, incorporate include/extend as inheritence)
 
@@ -99,8 +97,8 @@ You will need graphviz installed in order to parse the dot output.
 
 ## DEVELOPMENT PLAN/TODO
 
-- Allow adding of single files 
 - specs
+- CHECK adding of single files 
 - fix ** bugs seen in some codebases (e.g. rails) (probably will be fixed as I work on specs)
 - Add full namespace lookup - fixes 'dangling' classes
 - fix the terrible traversal code
