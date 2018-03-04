@@ -13,7 +13,9 @@ module Xumlidot
 
         @klass = klass
         @modules = ::Xumlidot::Types::InheritedModule.new(nil)
+
         process(exp)
+
         return if klass.definition.nil?
         klass.definition.inherited_modules << @modules
       end
@@ -22,7 +24,7 @@ module Xumlidot
         exp.shift # remove the :call
 
         begin
-        recv = process(exp.shift)
+          recv = process(exp.shift)
         rescue => e
           STDERR.puts " ** bug: unable to calculate reciever for #{exp}"
         end
@@ -33,7 +35,14 @@ module Xumlidot
         case name
         when :private, :public, :protected
           ::Xumlidot::Parsers::Scope.set_visibility(name)
-        when :include, :extend
+        when :include
+          @modules.type = :include
+          process(args)
+        when :extend
+          @modules.type = :extend
+          process(args)
+        when :prepend
+          @modules.type = :prepend
           process(args)
         when :module_function
           # TODO: expose as an instance method on the module
