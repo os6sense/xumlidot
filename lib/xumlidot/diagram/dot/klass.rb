@@ -33,8 +33,21 @@ module Xumlidot
         end
 
         def draw_inheritence
-          return nil if @definition.superklass.empty?
-          "\"#{draw_identifier(@definition)}\" -> \"#{draw_ancestor(@definition.superklass)}\" [label=\"\", arrowhead=\"empty\", arrowtail=\"onormal\"]"
+          return nil if @definition.superklass.empty? && @definition.inherited_modules.empty?
+
+          dot = ""
+          if !@definition.superklass.empty?
+            dot += "\"#{draw_identifier(@definition)}\" -> \"#{draw_ancestor(@definition.superklass)}\" [label=\"\", arrowhead=\"empty\", arrowtail=\"onormal\"]\n"
+          end
+
+          return dot if @definition.inherited_modules.empty?
+
+          @definition.inherited_modules.each do |m|
+            next if m.empty?
+            dot += "\"#{draw_identifier(@definition)}\" -> \"#{draw_ancestor(m)}\" [label=\"#{m.type.to_s}s\", arrowhead=\"empty\", arrowtail=\"onormal\"]\n"
+          end
+
+          dot
         end
 
         private

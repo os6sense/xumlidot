@@ -3,9 +3,14 @@ module Outside
   end
 end
 
+module FooBar
+end
+
 module Outside
   class G
     class A1
+      include FooBar
+      extend FooBar
     end
   end
 end

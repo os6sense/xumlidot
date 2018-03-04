@@ -115,6 +115,11 @@ module Xumlidot
           klass.extend(::Xumlidot::Diagram::Xmi::Klass)
           klass.superklass.extend(::Xumlidot::Diagram::Xmi::Superklass) unless klass.superklass.name.nil?
 
+          klass.definition.inherited_modules.each do |m|
+            next if m.empty?
+            m.extend(::Xumlidot::Diagram::Xmi::Superklass)
+          end #unless klass.definition.inherited_modules.empty?
+
           next if @namespace_to_id.has?(klass.draw_identifier)
           @namespace_to_id[klass.draw_identifier] = klass.id
         end
@@ -127,6 +132,13 @@ module Xumlidot
             id = @namespace_to_id[klass.superklass.draw_identifier]
             klass.superklass.force_id(id)
           end
+
+          # do the same with the inherited modules
+          klass.definition.inherited_modules.each do |m|
+            next if m.empty?
+            id = @namespace_to_id[m.draw_identifier]
+            m.force_id(id)
+          end #unless klass.definition.inherited_modules.empty?
 
           # if we have not added an id for this element it is likely a duplicate
           # so do not draw it.

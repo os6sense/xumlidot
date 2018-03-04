@@ -45,11 +45,30 @@ module Xumlidot
           xml = %(<uml:DiagramElement preferredShapeType="Class" subject="#{id}" xmi:id="#{id}de">
             </uml:DiagramElement>)
 
-          return xml if @definition.superklass.empty?
+          return xml if @definition.superklass.empty? && @definition.inherited_modules.empty?
           return xml unless options.inheritance
-          # Diagram generalization
-          xml += %(<uml:DiagramElement fromDiagramElement="#{@definition.superklass.id}de" preferredShapeType="Generalization" subject="#{gen_id}" toDiagramElement="#{id}de">
-          </uml:DiagramElement>)
+
+          xml += draw_diagram_generalisation
+        end
+
+        def draw_diagram_generalisation
+          xml = ''
+
+          if ! @definition.superklass.empty?
+            xml += %(<uml:DiagramElement fromDiagramElement="#{@definition.superklass.id}de" preferredShapeType="Generalization" subject="#{gen_id}" toDiagramElement="#{id}de">
+            </uml:DiagramElement>)
+          end
+
+          return xml if @definition.inherited_modules.empty?
+
+          @definition.inherited_modules.each do |m|
+            next if m.empty?
+
+            xml += %(<uml:DiagramElement fromDiagramElement="#{m.id}de" preferredShapeType="Generalization" subject="#{gen_id}" toDiagramElement="#{id}de">
+            </uml:DiagramElement>)
+          end
+
+          xml
         end
 
         # Inheritance has to be drawn both as part of the model
@@ -59,9 +78,24 @@ module Xumlidot
         # id = IMPORTANT; will be used to draw the lines in the diagram
         #
         def draw_model_inheritance
-          return '' if @definition.superklass.empty?
-          %(<generalization general="#{@definition.superklass.id}" xmi:id="#{gen_id}" xmi:type="uml:Generalization">
-            </generalization>)
+          return '' if @definition.superklass.empty? && @definition.inherited_modules.empty?
+
+          xml = ''
+
+          if ! @definition.superklass.empty?
+            xml += %(<generalization general="#{@definition.superklass.id}" xmi:id="#{gen_id}" xmi:type="uml:Generalization">
+              </generalization>)
+          end
+
+          return xml if @definition.inherited_modules.empty?
+
+          @definition.inherited_modules.each do |m|
+            next if m.empty?
+
+            xml += %(<generalization general="#{m.id}" xmi:id="#{gen_id}" xmi:type="uml:Generalization">
+              </generalization>)
+          end
+          xml
         end
 
         def draw_model_composition(composee)
