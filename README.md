@@ -2,15 +2,12 @@
 
 A Ruby UML XMI and DOT generator
 
-## PRERELEASE VERSION (i.e. work in progress/not production ready)
+## PRERELEASE VERSION
 
-- dot output works quite nicely (see examples folder).
-- xmi output works however there are a few buggy cases. 
-- large diagrams do not layout properly in VP (raising that with them as a subcriber).
-- can parse rails so *should* work on your project - please let me know if it doesn't.
-- missing some of the QoL options.
+- xmi and dot output works quite nicely (see examples folder), however there are still a few buggy cases. 
 - works with any ruby project (will break on broken code though)
 - works with rails but doesn't add the model attributes (yet)
+- can parse rails itself so *should* work on your project - please let me know if it doesn't.
 - pretty comprehensive output but missing delegation (TODO), dynamic methods, etc. etc.
 
 Why?
@@ -49,30 +46,44 @@ when you make a tool and then find it works!)
 
 ## OPTIONS
 
-  --title Provides a title to use for the diagram
+  --title 
+  Provides a title to use for the diagram
 
-  --model Provides a name for the model
+  --model 
+  Provides a name for the model
 
-  --dot Output diagram using dot
+  --dot 
+  Output diagram using dot
 
-  --xmi Output diagram using xmi
+  --xmi 
+  Output diagram using xmi
 
-  --puml Output diagram using plantuml syntax (TODO; low on my list)
-  --yuml Output diagram using yuml syntax (TODO; lower on my list)
+  --puml 
+  Output diagram using plantuml syntax (TODO; low on my list)
 
-  --debug Output (possibly too much) debug info.
+  --yuml 
+  Output diagram using yuml syntax (TODO; very low on my list)
 
-  --exclude exclude directories or filenames matching string or pattern
+  --debug 
+  Output (possibly too much) debug info.
 
-  --no-inheritance Dont output inheritence links
+  --exclude 
+  Exclude directories or filenames matching string or pattern
 
-  --no-composition Dont output composition links
+  --no-inheritance 
+  Dont output inheritence links
 
-  --no-uses (TODO: totally, incorporate include/extend as inheritence)
+  --no-composition 
+  Dont output composition links
 
-  --rails (TODO: Gets additional rails knowledge such as model attributes)
+  --no-uses 
+  (TODO: totally, incorporate include/extend as inheritence)
 
-  --split=n (TODO: Split into n diagrams where there are distinct class
+  --rails 
+  (TODO: Gets additional rails knowledge such as model attributes)
+
+  --split=n 
+  (TODO: Split into n diagrams where there are distinct class
   clusters)
 
   --sequence=CLASS.method_name (TODO: Sequence diagram output starting with )
@@ -87,10 +98,6 @@ when you make a tool and then find it works!)
 
 Should produce a reasonable complete class diagram for a rails project - you *may* need to do seperate
 diagrams for different areas if you hit some limits in e.g. VP.
-
-## LIMITATIONS AND WORK AROUNDS
-
-- if your diagrams are too big, is there anything you can exclude with the --exclude option? e.g. specs/tests
 
 ## DEPENDENCIES
 
