@@ -40,7 +40,6 @@ module Xumlidot
       end
 
       def process_str(exp)
-        binding.pry
         @argument.default = exp.value
         s()
       end
