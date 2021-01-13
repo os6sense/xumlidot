@@ -118,11 +118,11 @@ module Xumlidot
         when String
           @argument.default = exp.value.to_s
         when Sexp
-          binding.pry
+          # binding.pry
         when Hash
-          binding.pry
+          # binding.pry
         else
-          binding.pry
+          # binding.pry
         end
         exp.shift
         s()
