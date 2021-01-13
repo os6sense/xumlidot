@@ -2,9 +2,9 @@
 
 A Ruby UML XMI and DOT generator
 
-## PRERELEASE VERSION
+## VERSION 0.1.0
 
-- xmi and dot output works quite nicely (see examples folder), however there are still a few buggy cases. 
+- xmi and dot output works quite nicely (see examples folder), however there are still a few buggy cases.
 - works with any ruby project (will break on broken code though)
 - works with rails but doesn't add the model attributes (yet)
 - can parse rails itself so *should* work on your project - please let me know if it doesn't.
@@ -14,30 +14,42 @@ Why?
 
 The main reason for this is that I am a fan of Model Driven Engineering and
 whilst there are *great* tools like Railroady and Xamin out there, the focus on
-Rails makes them less useful than I personally would like since Ruby != Rails. Also 
+Rails makes them less useful than I personally would like since Ruby != Rails. Also
 Railroady has never had a working xmi option meaning that we can't import the output
 into tools such as Visual Paradigm - one of my primary use cases (although being able
 to output wall spanning class diagrams is *cool*).
 
 In addition, one of the major problems (IMO) with the approach taken by other
-tools is that they ```require``` files hence you need a project with all the
+tools is that they `require` files hence you need a project with all the
 dependencies set up and working; fine most of the time but I've come across
 more than one project so environment dependent that even the specs would not
 run without vagrant or docker.  I want a tool where I can **quickly** get a high
 level view of the code from an Object Oriented perspective.
 
-Hence xumlidot ... or whatever I end up calling it.
+Hence xumlidot ...
+
+## INSTALLATION
+
+```
+gem install xumlidot
+```
 
 ## USAGE
 
     xumlidot OPTIONS dir_a dir_b dir_c ...
+
+xumlidot basically expects multiple directories from which it will create the
+dot/xmi output. You can of course just point at an entire project but I've found
+it useful to exclude tests/specs, and in a rails project, you don't _really_ want
+the migrations so I tend to use something like `xumlidot --xmi app lib` for a
+more focused model.
 
 ## USE CASES
 
 Often I will come into a project and want a high level overview of things. My go to
 tool was Railroady but this is only of use for Rails projects - now I use xumlidot.
 
-I found myself this week having performed a refactor on a piece of code, creating a 
+I found myself this week having performed a refactor on a piece of code, creating a
 common interface and splitting out classes to adhere to SRP. From there I wanted to
 add in some PoC error handling (combining retrys and circuit breakers). I was able
 to easiliy generate a diagram of the refactored code, import it into Visual Paradigm,
@@ -46,43 +58,43 @@ when you make a tool and then find it works!)
 
 ## OPTIONS
 
-  --title 
+  --title
   Provides a title to use for the diagram
 
-  --model 
+  --model
   Provides a name for the model
 
-  --dot 
+  --dot
   Output diagram using dot
 
-  --xmi 
+  --xmi
   Output diagram using xmi
 
-  --puml 
+  --puml
   Output diagram using plantuml syntax (TODO; low on my list)
 
-  --yuml 
+  --yuml
   Output diagram using yuml syntax (TODO; very low on my list)
 
-  --debug 
+  --debug
   Output (possibly too much) debug info.
 
-  --exclude 
+  --exclude
   Exclude directories or filenames matching string or pattern
 
-  --no-inheritance 
+  --no-inheritance
   Dont output inheritence links
 
-  --no-composition 
+  --no-composition
   Dont output composition links
 
-  --no-uses 
+  --no-uses
   (TODO: totally, incorporate include/extend as inheritence)
 
-  --rails 
+  --rails
   (TODO: Gets additional rails knowledge such as model attributes)
 
-  --split=n 
+  --split=n
   (TODO: Split into n diagrams where there are distinct class
   clusters)
 
@@ -99,6 +111,15 @@ when you make a tool and then find it works!)
 Should produce a reasonable complete class diagram for a rails project - you *may* need to do seperate
 diagrams for different areas if you hit some limits in e.g. VP.
 
+## Makin pretty
+
+# Graphviz
+Have a look at examples_output/README.md for a couple of examples using dot. dot is beyond the
+scope of documenting here do please look at https://graphviz.org/ for further info.
+
+# Visual Paradigm
+I'm still playing with VP and hope to add some tips of how to obtain the best results at somepoint.
+
 ## DEPENDENCIES
 
 You will need graphviz installed in order to parse the dot output.
@@ -106,7 +127,7 @@ You will need graphviz installed in order to parse the dot output.
 ## DEVELOPMENT PLAN/TODO
 
 - specs
-- CHECK adding of single files 
+- CHECK adding of single files
 - fix ** bugs seen in some codebases (e.g. rails) (probably will be fixed as I work on specs)
 - Add full namespace lookup - fixes 'dangling' classes
 - fix the terrible traversal code
