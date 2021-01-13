@@ -111,6 +111,8 @@ when you make a tool and then find it works!)
 Should produce a reasonable complete class diagram for a rails project - you *may* need to do seperate
 diagrams for different areas if you hit some limits in e.g. VP.
 
+![Xumlidot inceptin itself](examples_output/xumlidot.png)
+
 ## MAKIN PRETTy
 
 ### Graphviz
