@@ -2,7 +2,7 @@ Gem::Specification.new do |s|
   s.authors = ['Adrian Lee Jackson']
   s.date = "2018-03-02"
   s.default_executable = 'xumlidot'
-  s.description = %()
+  s.description = %(Generates XMI and DOT files for Ruby and Rails Class Diagrams)
   s.email = ['xumlidot@librely.com']
   s.executables = ['xumlidot']
   s.homepage = 'http://github.com/os6sense/xumlidot'
@@ -13,9 +13,10 @@ Gem::Specification.new do |s|
 
   s.require_paths = %w[lib]
   s.files = Dir['lib/*.rb'] + Dir['bin/*']
+  s.files += Dir['lib/**/*']
   s.test_files = Dir['spec/*.rb']
 
-  s.version = '1.0.0.pre'
+  s.version = '0.1.0'
 
   s.add_dependency 'ruby_parser'
   s.add_dependency 'sexp_processor'

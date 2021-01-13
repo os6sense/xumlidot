@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    xumlidot (1.0.0.pre)
+    xumlidot (0.1.0)
       ruby_parser
       sexp_processor
 
@@ -31,9 +31,9 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.7.0)
     rspec-support (3.7.0)
-    ruby_parser (3.11.0)
+    ruby_parser (3.15.0)
       sexp_processor (~> 4.9)
-    sexp_processor (4.10.1)
+    sexp_processor (4.15.1)
     zeus (0.15.14)
       method_source (>= 0.6.7)
 
@@ -48,4 +48,4 @@ DEPENDENCIES
   zeus
 
 BUNDLED WITH
-   1.16.1
+   1.17.2
