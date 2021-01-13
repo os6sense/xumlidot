@@ -26,7 +26,7 @@ module Xumlidot
     class Argument
       attr_accessor :assign,
                     :default
-                    # :types # TODO: determine the type of the argument
+      # :types # TODO: determine the type of the argument
 
       attr_reader :name
 

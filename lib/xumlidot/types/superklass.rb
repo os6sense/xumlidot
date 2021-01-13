@@ -12,19 +12,19 @@ module Xumlidot
 
       def <<(constant)
         if constant == '::'
-          @has_root = true
+          @has_root = true # TODO: I don't see this used anywhere, remove?
           return
         end
 
         @namespace << constant unless @name.nil?
-        @name ||= constant
+        @name ||= constant # rubocop:disable Naming/MemoizedInstanceVariableName
       end
 
-      # Create a klass from the superclass for adding
-      # to the list of constants.
+      # Create a klass from the superclass for adding to the list of constants.
       def to_klass
         definition = KlassDefinition.new
         definition.name << ::Xumlidot::Types::Constant.new(@name, @namespace)
+
         Klass.new(definition)
       end
     end

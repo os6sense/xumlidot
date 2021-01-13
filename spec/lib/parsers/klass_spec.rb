@@ -39,12 +39,9 @@ class_inheritance = %Q(
 )
 # To do - we know the class name is incorrect for E::F
 
-
 # Hmm I think we're decribing the parser here
 describe ::Xumlidot::Types::Klass do
-
   describe 'module_nesting' do
-
     let(:parsed) do
       RubyParser.new.parse(module_nesting) # .tap { |sexp| 2.times { sexp.shift }}.first
     end
@@ -52,8 +49,7 @@ describe ::Xumlidot::Types::Klass do
 
     context 'when it has a single argument' do
       let(:arguments) { 'a' }
-      it { is_expected.to eq 'a' }
+      xit { is_expected.to eq 'a' }
     end
-
   end
 end
