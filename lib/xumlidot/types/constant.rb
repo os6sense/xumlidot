@@ -11,16 +11,16 @@ module Xumlidot
     # name is a single constant, namespace is the remaining full path
     #
     # e.g
-    # For ::Xumlidot::Types::Constant tne name would be Constant and the
+    # For ::Xumlidot::Types::Constant the name would be Constant and the
     # namespace [Types, Xumlidot]
     #
-    # Note I am REALLY not happy with this design ...
+    # Note I am REALLY unhappy with this design ...
     class Constant
       attr_reader :name,
                   :namespace
 
-      attr_accessor :reference # TODO: What IS this? I think I may have thrown this
-                               # in to fix a traversal issue if so...hack!
+      attr_accessor :reference # I think I may have thrown this in to fix a traversal issue if so...hack!
+                               # TODO: Appears unused, remove when specs complete
 
       def initialize(name, namespace = nil)
         @name = name

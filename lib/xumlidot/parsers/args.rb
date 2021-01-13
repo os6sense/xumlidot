@@ -40,6 +40,7 @@ module Xumlidot
       end
 
       def process_str(exp)
+        binding.pry
         @argument.default = exp.value
         s()
       end
@@ -134,7 +135,7 @@ module Xumlidot
         process(exp)
         s()
       rescue => e
-        STDERR.puts " ** bug: unable to process kwarg #{exp}; failure to parse default value? "
+        warn " ** bug: unable to process kwarg #{exp}; failure to parse default value? msg: #{e} "
         s()
       end
 
@@ -152,7 +153,7 @@ module Xumlidot
           @arguments << @argument
         end
       rescue => e
-        STDERR.puts " ** bug: unable to process args #{exp}; failure to parse default value? "
+        warn " ** bug: unable to process args #{exp}; failure to parse default value? #{e} "
       end
     end
   end

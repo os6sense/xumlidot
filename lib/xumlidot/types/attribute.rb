@@ -6,7 +6,6 @@ module Xumlidot
   module Types
     # Value object for an attribute, i.e. accessor defined
     # via attr_reader, attr_writer or attribute
-    #
     class Attribute
       attr_accessor :read,
                     :write,
@@ -19,7 +18,7 @@ module Xumlidot
       end
 
       def to_s
-        "(#{accessibility}) #{@name}"
+        accessibility ? "(#{accessibility}) #{@name}" : @name
       end
 
       private
