@@ -107,16 +107,21 @@ when you make a tool and then find it works!)
 ## EXAMPLE
 
 ```
-  xumlidot --xmi --title="My Class Diagram" app lib
+  xumlidot --xmi --title="Xumlidot Class Diagram" app lib > xmulidot.xmi
 ```
 
 Should produce a reasonable complete class diagram for a rails project - you *may* need to do seperate
 diagrams for different areas if you hit some limits in e.g. VP.
 
-![Xumlidot inceptin itself](examples_output/xumlidot.png)
+![Xumlidot inceptin itself](https://raw.githubusercontent.com/os6sense/xumlidot/master/examples_output/xumlidot.png)
 
-The above is a demostration image produced from importing into VisualParadigm
-the xmi output of xumlidot graphing itself.  ## MAKIN PRETTy
+The above is a demonstration image produced from importing into VisualParadigm
+the xmi output of xumlidot graphing itself. In VisualParadigm I tweaked the box size so as to fit
+all the method_names, and set the layout to orthagonal, then exported to png.
+
+## MAKING THINGS PRETTY
+
+The raw output is just text sent to stdout so Graphviz dot/VisualParadigm are needed for the pretty stuff.
 
 ### Graphviz
 Have a look at examples_output/README.md for a couple of examples using dot. dot is beyond the
