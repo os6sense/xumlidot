@@ -5,7 +5,6 @@ require_relative '../types'
 
 module Xumlidot
   module Parsers
-
     # We need a level of indirection between the actual parser
     # and MethodBasedSexpProcessor since we will probably end up inheriting
     # from SexpProcessor directly eventually
@@ -15,7 +14,7 @@ module Xumlidot
     class Generic < MethodBasedSexpProcessor
       attr_reader :constants
 
-      def initialize(string, constants = Stack::Constants.new )
+      def initialize(string, constants = Stack::Constants.new)
         @parsed = RubyParser.new.parse(string)
         @constants = constants
         super()
@@ -33,11 +32,8 @@ module Xumlidot
         super(exp) do
           Scope.public { process_until_empty(exp) } # Process the superclass with public visibility
         end
-      rescue Exception => e
-        if ENV["XUMLIDOT_DEBUG"]
-          STDERR.puts e.backtrace.reverse
-          STDERR.puts "ERROR (#process_sclass) #{e.message}"
-        end
+      rescue StandardError => e
+        sdebug('#process_sclass', e)
         exp
       end
 
@@ -54,7 +50,7 @@ module Xumlidot
         Scope.set_visibility
         definition = definition_parser.new(exp.dup[0..2], @class_stack).definition
 
-        STDERR.puts definition.to_s if ::Xumlidot::Options.debug == true
+        warn definition.to_s if ::Xumlidot::Options.debug == true
         super(exp) do
           Scope.public do
             klass_or_module = type.new(definition)
@@ -62,11 +58,8 @@ module Xumlidot
             process_until_empty(exp)
           end
         end
-      rescue Exception => e
-        if ENV["XUMLIDOT_DEBUG"]
-          STDERR.puts e.backtrace.reverse
-          STDERR.puts "ERROR (#process_class) #{e.message}"
-        end
+      rescue StandardError => e
+        sdebug('#process_class', e)
         exp
       end
 
@@ -74,15 +67,11 @@ module Xumlidot
       def process_defn(exp, superclass_method = false)
         method = ::Xumlidot::Parsers::MethodSignature.new(exp, superclass_method || @sclass.last)
         @constants.last_added.add_method(method)
-        STDERR.puts method.to_s if ::Xumlidot::Options.debug == true
-        #super(exp) { process_until_empty(exp) } # DISABLING since parsing the method is crashing
+        warn method.to_s if ::Xumlidot::Options.debug == true
+        # super(exp) { process_until_empty(exp) } # DISABLING since parsing the method is crashing
         s()
-      rescue Exception => e
-        if ENV["XUMLIDOT_DEBUG"]
-          STDERR.puts e.backtrace.reverse
-          STDERR.puts "ERROR (#process_def#{superclass_method ? 's' : 'n'}) #{e.message}"
-        end
-        s()
+      rescue StandardError => e
+        sdebug("#process_def#{superclass_method ? 's' : 'n'}", e)
       end
 
       def process_defs(exp)
@@ -93,14 +82,17 @@ module Xumlidot
       def process_call(exp)
         ::Xumlidot::Parsers::Call.new(exp, @constants.last_added)
         s()
-      rescue Exception => e
-        if ENV["XUMLIDOT_DEBUG"]
-          STDERR.puts e.backtrace.reverse
-          STDERR.puts "ERROR (#process_call) #{e.message}"
-        end
-        s()
+      rescue StandardError => e
+        sdebug('#process_call', e)
       end
 
+      def sdebug(name, error)
+        return s() unless ENV['XUMLIDOT_DEBUG']
+
+        warn error.backtrace.reverse
+        warn "ERROR (#{name}) #{error.message}"
+        s()
+      end
     end
   end
 end

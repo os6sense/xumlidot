@@ -11,10 +11,8 @@ module Xumlidot
     #      to a string 'a, b = nil'
     #
     class MethodSignature < MethodBasedSexpProcessor
-
-      # Container for values assigned to a variable
-      #class Assignments < Hash
-      #end
+      # class Assignments < Hash
+      # end
 
       attr_reader :definition
 
@@ -26,7 +24,7 @@ module Xumlidot
         @definition.args = Args.new(exp.dup[0..2]).definition # only pass the method definition into args
         @definition.superclass_method = superclass_method
 
-        #@assignments = Assignments.new
+        # @assignments = Assignments.new
 
         process(exp)
       end
@@ -47,13 +45,10 @@ module Xumlidot
         more = exp.shift
         process(more) if more.is_a?(Sexp) && !more.empty?
         s()
-      rescue Exception => e
-        STDERR.puts " ** bug: unable to proces defn #{exp}"
-        if ENV["XUMLIDOT_DEBUG"]
-          STDERR.puts "ERROR (MethodSignature#process_defn) #{e.message}"
-          STDERR.puts e.backtrace.reverse
-        end
-        s()
+      rescue StandardError => e
+        warn " ** bug: unable to proces defn #{exp}"
+
+        sdebug('MethodSignature#process_defn', e)
       end
 
       def process_defs(exp)
@@ -71,11 +66,8 @@ module Xumlidot
         args = process(exp.shift) # args
 
         exp
-      rescue Exception => e
-        if ENV["XUMLIDOT_DEBUG"]
-          STDERR.puts "ERROR (MethodSignature#process_call) #{e.message}"
-          STDERR.puts e.backtrace.reverse
-        end
+      rescue StandardError => e
+        sdebug('MethodSignature#process_call', e)
         exp
       end
 
@@ -85,9 +77,19 @@ module Xumlidot
         name = exp.shift.to_s
         value = exp.shift
 
-        #@assignments[name] = value
+        # @assignments[name] = value
 
         process(value)
+        s()
+      end
+
+      private
+
+      def sdebug(name, error)
+        return s() unless ENV['XUMLIDOT_DEBUG']
+
+        warn error.backtrace.reverse
+        warn "ERROR (#{name}) #{error.message}"
         s()
       end
     end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'xmi/argument'
 require_relative 'xmi/attribute'
 require_relative 'xmi/klass'

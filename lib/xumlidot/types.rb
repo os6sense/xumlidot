@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'types/method'
 require_relative 'types/methods'
 require_relative 'types/instance_methods'

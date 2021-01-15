@@ -17,8 +17,8 @@ module Xumlidot
 
         each do |k|
           k.constants.each do |klass|
-             found = klass.constants.find_first(constant)
-             return found unless found.nil?
+            found = klass.constants.find_first(constant)
+            return found unless found.nil?
           end
         end
         nil
@@ -36,6 +36,7 @@ module Xumlidot
         each do |k|
           k.constants.each do |klass|
             return klass if klass.definition.root_namespace_for?(constant)
+
             found = klass.constants.root_namespace_for(constant)
             return found unless found.nil?
           end

@@ -4,7 +4,7 @@ require 'spec_helper'
 
 describe ::Xumlidot::Parsers::Args do
   let(:parsed) do
-    RubyParser.new.parse(method).tap { |sexp| 2.times { sexp.shift }}.first
+    RubyParser.new.parse(method).tap { |sexp| 2.times { sexp.shift } }.first
   end
   let(:method) { "def method(#{arguments}); end" }
   subject { described_class.new(parsed).to_s }

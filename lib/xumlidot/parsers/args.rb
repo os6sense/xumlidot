@@ -9,17 +9,15 @@ module Xumlidot
     #
     # e.g. formats def method(a, b = nil)
     #      to a string 'a, b = nil'
-    #
     class Args < MethodBasedSexpProcessor
-
       def initialize(exp)
         super()
 
         @arguments = ::Xumlidot::Types::Arguments.new
 
         process(exp)
-      rescue => e
-        STDERR.puts " ** bug: unable to process args #{exp} "
+      rescue StandardError => _e
+        warn " ** bug: unable to process args #{exp} "
       end
 
       def to_s
@@ -34,7 +32,7 @@ module Xumlidot
       # means we shouldn't display it and so we use the :nil
       # symbol to represent an *actual assignment of nil* to
       # a variable.
-      def process_nil(exp)
+      def process_nil(_exp)
         @argument.default = :nil
         s()
       end
@@ -44,7 +42,7 @@ module Xumlidot
         s()
       end
 
-      def process_hash(exp)
+      def process_hash(_exp)
         @argument.default = {}
         s()
       end
@@ -73,7 +71,7 @@ module Xumlidot
         # but this is complex since it needs to be inserted into the right
         # place and for that I need the namespace...which suggests this ISNT
         # the place to do that. I possibly need a fake class ...
-        @argument.default = leader + name.map do |v|
+        @argument.default = leader + name.map do |v| # rubocop:disable Style/SymbolProc
           v.to_s
         end.to_a.join('::')
 
@@ -117,12 +115,12 @@ module Xumlidot
           @argument.default = exp.value.to_s
         when String
           @argument.default = exp.value.to_s
-        when Sexp
-          # binding.pry
-        when Hash
-          # binding.pry
-        else
-          # binding.pry
+          # when Sexp
+          #   binding.pry
+          # when Hash
+          #   binding.pry
+          # else
+          #   binding.pry
         end
         exp.shift
         s()
@@ -133,8 +131,8 @@ module Xumlidot
         @argument.name = "#{exp[0]}:"
         process(exp)
         s()
-      rescue => e
-        warn " ** bug: unable to process kwarg #{exp}; failure to parse default value? msg: #{e} "
+      rescue StandardError
+        warn " ** bug: unable to process kwarg #{exp}; failure to parse default value?"
         s()
       end
 
@@ -151,8 +149,8 @@ module Xumlidot
 
           @arguments << @argument
         end
-      rescue => e
-        warn " ** bug: unable to process args #{exp}; failure to parse default value? #{e} "
+      rescue StandardError
+        warn " ** bug: unable to process args #{exp}; failure to parse default value?"
       end
     end
   end
