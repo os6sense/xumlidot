@@ -19,8 +19,8 @@ module Xumlidot
       attr_reader :name,
                   :namespace
 
+      # TODO: Appears unused, remove when specs complete
       attr_accessor :reference # I think I may have thrown this in to fix a traversal issue if so...hack!
-                               # TODO: Appears unused, remove when specs complete
 
       def initialize(name, namespace = nil)
         @name = name

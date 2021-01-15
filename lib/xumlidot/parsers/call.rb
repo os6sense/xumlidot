@@ -17,6 +17,7 @@ module Xumlidot
         process(exp)
 
         return if klass.definition.nil?
+
         klass.definition.inherited_modules << @modules
       end
 
@@ -24,9 +25,9 @@ module Xumlidot
         exp.shift # remove the :call
 
         begin
-          recv = process(exp.shift)
-        rescue => e
-          STDERR.puts " ** bug: unable to calculate reciever for #{exp}"
+          _recv = process(exp.shift)
+        rescue StandardError
+          warn " ** bug: unable to calculate reciever for #{exp}"
         end
 
         name = exp.shift
@@ -44,16 +45,17 @@ module Xumlidot
         when :prepend
           @modules.type = :prepend
           process(args)
-        when :module_function
-          # TODO: expose as an instance method on the module
+        # when :module_function
+        #   TODO: expose as an instance method on the module
         when :attr_reader
           add_attributes(args, exp, read: true)
         when :attr_writer
           add_attributes(args, exp, write: true)
         when :attr_accessor
           add_attributes(args, exp, read: true, write: true)
-        # else
-          # puts "CALL RECV:#{recv unless recv.nil? || recv.empty?} NAME:#{name} ARGS:#{args unless args.nil? || args.empty?}"
+          # else
+          #   puts "CALL RECV:#{recv unless recv.nil? || recv.empty?} " \
+          #   "NAME:#{name} ARGS:#{args unless args.nil? || args.empty?}"
         end
         s()
       end
@@ -86,7 +88,6 @@ module Xumlidot
         process_until_empty(exp)
         s()
       end
-
     end
   end
 end

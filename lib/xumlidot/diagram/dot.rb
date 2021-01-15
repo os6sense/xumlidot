@@ -1,10 +1,11 @@
+# frozen_string_literal: true
+
 require_relative 'dot/klass'
 require_relative 'dot/module'
 
 module Xumlidot
   class Diagram
     class Dot
-
       def initialize(stack, options = nil)
         @stack = stack
         @options = options

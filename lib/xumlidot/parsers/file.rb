@@ -10,6 +10,5 @@ module Xumlidot
     # the SexpProcessors methods to contert to a graph
     class File < Generic
     end
-
   end
 end

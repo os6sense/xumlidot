@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'optparse'
 require 'optparse/time'
 require 'ostruct'
@@ -69,7 +71,6 @@ module Xumlidot
         opts.on("-r", "--rails", "Expect a Rails application") do |v|
           @options.rails = v
         end
-
 
         opts.on("-e", "--exclude [TEXT[", "Output usage links on the diagram") do |v|
           @options.exclude = v

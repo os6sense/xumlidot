@@ -35,7 +35,7 @@ module Xumlidot
           return if @nesting.constants.find_first(c)
 
           root = @nesting.constants.root_namespace_for(c)
-          (root.nil? ? @nesting.constants : root.constants) <<  c
+          (root.nil? ? @nesting.constants : root.constants) << c
           @last_added = c
         end
 
@@ -49,7 +49,7 @@ module Xumlidot
           end
         end
 
-        def resolve_inheritance(constant = nil)
+        def resolve_inheritance(_constant = nil)
           external_klasses = ExternalKlassReferences.new
 
           # The first traversal we are going through finding all
@@ -64,9 +64,7 @@ module Xumlidot
             # If we reach here we have a superklass
             @nesting.constants.traverse do |other_klass|
               if other_klass.definition.superklass_of?(klass.definition.superklass)
-                if ::Xumlidot::Options.debug == true
-                  STDERR.puts "SETTING SUPERKLASS REFERENCE FOR #{klass} to #{other_klass}"
-                end
+                warn "SETTING SUPERKLASS REFERENCE FOR #{klass} to #{other_klass}" if ::Xumlidot::Options.debug == true
                 klass.superklass.reference = other_klass
                 break
               end

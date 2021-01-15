@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 Gem::Specification.new do |s|
   s.authors = ['Adrian Lee Jackson']
-  s.date = "2018-03-02"
+  s.date = '2018-03-02'
   s.default_executable = 'xumlidot'
   s.description = %(Generates XMI and DOT files for Ruby and Rails Class Diagrams)
   s.email = ['xumlidot@librely.com']

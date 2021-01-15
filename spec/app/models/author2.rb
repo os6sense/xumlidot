@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Outside
   class G < B
   end
@@ -28,4 +30,3 @@ module Outside
     end
   end
 end
-

@@ -1,0 +1,31 @@
+---
+name: Rspec Tests
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  rspec:
+    name: RSpec tests
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ruby: [ '2.5.8', '2.6.6', '2.7.2' ]
+    env:
+      RAILS_ENV: test
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+          ruby-version: ${{ matrix.ruby }}
+
+      - name: Run Rspec
+        run: |
+          bundle exec rspec spec

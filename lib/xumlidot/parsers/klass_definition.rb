@@ -7,7 +7,6 @@ module Xumlidot
   module Parsers
     # Parser for the KLASS DEFINITION ONLY
     class KlassDefinition < MethodBasedSexpProcessor
-
       attr_reader :definition
 
       def initialize(exp, namespace = nil)
@@ -38,8 +37,9 @@ module Xumlidot
           else
             raise "unknown type #{exp.inspect}"
           end
+        # TODO: looks like a bug - fix when we get specs
         else Symbol === definition
-          #if we have a symbol we have the actual class name
+          # if we have a symbol we have the actual class name
           # e.g. class Foo; end
           @definition.name << ::Xumlidot::Types::Constant.new(definition, @namespace)
         end

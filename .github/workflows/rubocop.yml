@@ -1,0 +1,25 @@
+---
+name: RuboCop
+
+on: [pull_request]
+
+jobs:
+  rubocop:
+    name: RuboCop
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - run: |
+          git fetch --no-tags --prune --depth=10 origin +refs/heads/*:refs/remotes/origin/*
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+
+      - name: Install gems
+        run: |
+          gem install pronto pronto-rubocop
+
+      - name: Run Pronto/RuboCop
+        run: |
+          PRONTO_PULL_REQUEST_ID="$(jq --raw-output .number "$GITHUB_EVENT_PATH")" PRONTO_GITHUB_ACCESS_TOKEN="${{ github.token }}" pronto run --exit-code -f github_pr_review -c origin/${{ github.base_ref }}

@@ -10,9 +10,7 @@ module Xumlidot
     #
     # The main parser will handle method,
     # constants, etc
-    #
     class ModuleDefinition < MethodBasedSexpProcessor
-
       attr_reader :definition
 
       def initialize(exp, namespace = nil)
@@ -31,18 +29,19 @@ module Xumlidot
         # Processes the name of the module
         if Sexp === definition
           case definition.sexp_type
-          when :colon2 then # Reached in the event that a name is a compound
+          when :colon2 # Reached in the event that a name is a compound
             name = definition.flatten
             name.delete :const
             name.delete :colon2
             name.each do |v|
               @definition.name << ::Xumlidot::Types::Constant.new(v, @namespace)
             end
-          when :colon3 then # Reached in the event that a name begins with ::
+          when :colon3 # Reached in the event that a name begins with ::
             @definition.name << ::Xumlidot::Types::Constant.new(definition.last, '::')
           else
             raise "unknown type #{exp.inspect}"
           end
+        # FIXME: bug - fix when we've added specs
         else Symbol === definition
           #if we have a symbol we have the actual module name
           # e.g. module Foo; end
