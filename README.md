@@ -10,21 +10,22 @@ A Ruby UML XMI and DOT generator
 - can parse rails itself so *should* work on your project - please let me know if it doesn't.
 - pretty comprehensive output but missing delegation (TODO), dynamic methods, etc. etc.
 
-Why?
+## WHY?
 
-The main reason for this is that I am a fan of Model Driven Engineering and
-whilst there are *great* tools like Railroady and Xamin out there, the focus on
-Rails makes them less useful than I personally would like since Ruby != Rails. Also
-Railroady has never had a working xmi option meaning that we can't import the output
-into tools such as Visual Paradigm - one of my primary use cases (although being able
-to output wall spanning class diagrams is *cool*).
+This is a tool I made for myself (hence the 3 years gap between releases). I'm
+a fan of Model Driven Engineering and whilst there are *great* tools like
+Railroady and Xamin out there, the focus on Rails makes them less useful than I
+personally would like since Ruby != Rails. Also Railroady has never had a
+working xmi option meaning that we can't import the output into tools such as
+Visual Paradigm - one of my primary use cases (although being able to output
+wall spanning class diagrams is *cool*).
 
 In addition, one of the major problems (IMO) with the approach taken by other
 tools is that they `require` files hence you need a project with all the
 dependencies set up and working; fine most of the time but I've come across
 more than one project so environment dependent that even the specs would not
-run without vagrant or docker.  I want a tool where I can **quickly** get a high
-level view of the code from an Object Oriented perspective.
+run without vagrant or docker.  I want a tool where I can **quickly** get a
+high level view of the code from an Object Oriented perspective.
 
 Hence xumlidot ...
 
@@ -33,6 +34,9 @@ Hence xumlidot ...
 ```
 gem install xumlidot
 ```
+
+I've only been using xumlidot globally - it's probably perfectly possible to add
+to a projects Gemfile and `bundle exec` it, but I've not had cause to.
 
 ## USAGE
 
@@ -70,12 +74,6 @@ when you make a tool and then find it works!)
   --xmi
   Output diagram using xmi
 
-  --puml
-  Output diagram using plantuml syntax (TODO; low on my list)
-
-  --yuml
-  Output diagram using yuml syntax (TODO; very low on my list)
-
   --debug
   Output (possibly too much) debug info.
 
@@ -87,21 +85,6 @@ when you make a tool and then find it works!)
 
   --no-composition
   Dont output composition links
-
-  --no-uses
-  (TODO: totally, incorporate include/extend as inheritence)
-
-  --rails
-  (TODO: Gets additional rails knowledge such as model attributes)
-
-  --split=n
-  (TODO: Split into n diagrams where there are distinct class
-  clusters)
-
-  --sequence=CLASS.method_name (TODO: Sequence diagram output starting with )
-
-  --no-consolodate (TODO: Use only a single path between each class - is now
-  the default in order to reduce the number of paths that have to be drawn)
 
 
 ## EXAMPLE
@@ -142,6 +125,13 @@ You will need graphviz installed in order to parse the dot output.
 - Add full namespace lookup - fixes 'dangling' classes
 - fix the terrible traversal code
 - fix the terrible XMI code
+- --puml option. Output diagram using plantuml syntax (TODO; low on my list)
+- --yuml option. Output diagram using yuml syntax (TODO; very low on my list)
+- --no-uses option. totally, incorporate include/extend as inheritence
+- --rails option. Gets additional rails knowledge such as model attributes)
+- --split=n.  Split into n diagrams where there are distinct class clusters
+- --sequence=CLASS.method_name option. Sequence diagram output starting with
+- --no-consolodate option. Use only a single path between each class - is now the default in order to reduce the number of paths that have to be drawn)
 - Put the bits that Xamin and Railroady get right (i.e. Rails Integration) in.
 - Sequence diagrams(!! not sure how viable but ...)
 
