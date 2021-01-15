@@ -11,6 +11,9 @@ jobs:
   rspec:
     name: RSpec tests
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ruby: [ '2.5.8', '2.6.6', '2.7.2' ]
     env:
       RAILS_ENV: test
     steps:
@@ -21,6 +24,7 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
+          ruby-version: ${{ matrix.ruby }}
 
       - name: Run Rspec
         run: |
