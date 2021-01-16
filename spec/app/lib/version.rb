@@ -1,16 +1,18 @@
 # frozen_string_literal: true
 
-module VersionExample
+module VersionModule
   def self.gem_version
     Gem::Version.new VERSION::STRING
   end
 
   class Version
-    MAJOR = 6
+    # bug/missing feature, constants not defined
+    MAJOR = 0
     MINOR = 2
     TINY  = 0
-    PRE   = "alpha"
+    PRE   = 'alpha'
 
-    STRING = [MAJOR, MINOR, TINY, PRE].compact.join(".")
+    # BUG - this ends up as being a superclass, it should just be a constant called STRING
+    STRING = [MAJOR, MINOR, TINY, PRE].compact.join('.')
   end
 end
