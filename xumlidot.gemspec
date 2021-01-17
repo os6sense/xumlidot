@@ -7,6 +7,7 @@ Gem::Specification.new do |s|
   s.email = ['xumlidot@librely.com']
   s.executables = ['xumlidot']
   s.homepage = 'http://github.com/os6sense/xumlidot'
+  s.required_ruby_version = '> 2.4.0'
   s.license = 'MIT'
   s.name = 'xumlidot'
   s.summary = %(Generates DOT and XMI for Ruby and Rails UML Class Diagrams. )

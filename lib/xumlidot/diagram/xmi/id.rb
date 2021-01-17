@@ -5,6 +5,7 @@ require 'securerandom'
 module Xumlidot
   class ID
     class << self
+      # rubocop:disable Layout/LineLength
       PREGENERATED = %w[ 915803defa2bd0509fc1ff7a652081d4 e891fc71118502b95030b5e15d887622 2cf60373a8305b3f64bb93a5fa0e786c 35cd5b04a0ab4542aede1e37046fab5e
                          e1521c43130d064474e1585be1d69c6f 59975b5d607a197e676e2534e3dce454 9e52022530441f1688dfab381bba4069 f84f7b576ba1ab5929b4208cebfe7935
                          37e5d86bb891a70011261ad861118a73 09646c77f8dfd088487c91f75c387a4c 9a064273fb75db2d41ad146063940862 ecc9ae948a23543ad23e61b0f907ae6b
@@ -30,6 +31,7 @@ module Xumlidot
                          5afa58ca1c74f449d1b18cc3cb39b19f d5775ea87353bb12f31318533ed17382 c55778698f7c896c6f7e1a35f8698a06 178d5cdabad7e9f82f326a9ebbd01737
                          31cf106e33c94b139f8c8c4820b46524 50a49cf6d0b9bedcbcef845917889a62 cc8aa4100a6f3855df3518a0a4474b74 c98c57ab3db339c74d44d6da5b2e0e62
                          a04e46e4a1f5fea64b3a47a3cc8ca0de 750156c36b6990f2a4763949775ea6a1 423cb15b7efee4800449579ce561a58e 424041648b3414d67743957b9e2ad66c ].freeze
+      # rubocop:enable Layout/LineLength
 
       def reset
         @fixed = nil
@@ -69,7 +71,7 @@ module Xumlidot
         private
 
         def new_id
-          if ::Xumlidot::Options.options.use_debug_ids
+          if ::Xumlidot::Options.use_debug_ids
             ::Xumlidot::ID.fixed.shift
           else
             SecureRandom.hex

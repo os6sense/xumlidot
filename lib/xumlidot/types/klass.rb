@@ -46,13 +46,13 @@ module Xumlidot
         "#{definition} "
       end
 
-      def add_method(m)
-        m = m.definition if m.respond_to?(:definition)
+      def add_method(method_name)
+        method_name = method_name.definition if method_name.respond_to?(:definition)
 
-        if m.superclass_method == true
-          @class_methods << m
+        if method_name.superclass_method == true
+          @class_methods << method_name
         else
-          @instance_methods << m
+          @instance_methods << method_name
         end
       end
     end

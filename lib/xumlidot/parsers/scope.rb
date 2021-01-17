@@ -35,6 +35,7 @@ module Xumlidot
         set_visibility(temp_visibility)
       end
 
+      # rubocop:disable Naming/AccessorMethodName
       def set_visibility(state = :public)
         Visibility.send(state)
       end
@@ -42,10 +43,11 @@ module Xumlidot
       def get_visibility
         Visibility.state
       end
+      # rubocop:enable Naming/AccessorMethodName
 
-      module_function :set_visibility
-      module_function :get_visibility
-      module_function :public
+      module_function :set_visibility, :get_visibility, :public
+      # module_function :get_visibility
+      # module_function :public
     end
   end
 end

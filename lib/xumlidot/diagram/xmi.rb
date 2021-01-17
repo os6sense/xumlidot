@@ -10,15 +10,9 @@ require 'rexml/document'
 module Xumlidot
   class Diagram
     class Xmi
-
       include REXML
 
       class Elements < Array
-
-        def initialize(_options)
-          super()
-        end
-
         def draw
           xml = header
           uniq.each { |de| xml += de }
@@ -60,11 +54,11 @@ module Xumlidot
 
         def header
           %(<uml:Diagram diagramType="ClassDiagram" documentation="" name="#{::Xumlidot::Options.title}" toolName="Visual Paradigm" xmi:id="QfZKnwaFYHEAAQj3">
-              <uml:Diagram.element>)
+            <uml:Diagram.element>)
         end
 
         def footer
-          %(  </uml:Diagram.element>
+          %(</uml:Diagram.element>
             </uml:Diagram>)
         end
       end
@@ -95,17 +89,16 @@ module Xumlidot
         end
       end
 
-      def initialize(stack, options = nil)
+      def initialize(stack)
         @stack = stack
-        @options = options
 
         @namespace_to_id = NamespaceToId.new
 
-        @model = ModelElements.new(options)
-        @diagram = DiagramElements.new(options)
+        @model = ModelElements.new
+        @diagram = DiagramElements.new
 
-        @model_associations = ModelAssociationElements.new(options)
-        @diagram_associations = DiagramAssociationElements.new(options)
+        @model_associations = ModelAssociationElements.new
+        @diagram_associations = DiagramAssociationElements.new
       end
 
       def draw
@@ -118,10 +111,12 @@ module Xumlidot
 
           klass.definition.inherited_modules.each do |m|
             next if m.empty?
+
             m.extend(::Xumlidot::Diagram::Xmi::Superklass)
-          end #unless klass.definition.inherited_modules.empty?
+          end # unless klass.definition.inherited_modules.empty?
 
           next if @namespace_to_id.has?(klass.draw_identifier)
+
           @namespace_to_id[klass.draw_identifier] = klass.id
         end
 
@@ -137,16 +132,17 @@ module Xumlidot
           # do the same with the inherited modules
           klass.definition.inherited_modules.each do |m|
             next if m.empty?
+
             id = @namespace_to_id[m.draw_identifier]
             m.force_id(id)
-          end #unless klass.definition.inherited_modules.empty?
+          end # unless klass.definition.inherited_modules.empty?
 
           # if we have not added an id for this element it is likely a duplicate
           # so do not draw it.
           next unless @namespace_to_id.has_value?(klass.id)
 
-          @model << klass.draw_klass #(@options)
-          @diagram << klass.draw_diagram #(@options)
+          @model << klass.draw_klass
+          @diagram << klass.draw_diagram
 
           if ::Xumlidot::Options.composition
             klass.constants.each do |k|

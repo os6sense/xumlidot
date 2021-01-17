@@ -21,6 +21,7 @@ module Xumlidot
     end
 
     # rubocop:disable Metrics/MethodLength
+    # rubocop:disable Metrics/AbcSize
     def self.parse(args)
       @options = OpenStruct.new
 
@@ -116,5 +117,6 @@ module Xumlidot
       @options
     end
     # rubocop:enable Metrics/MethodLength
+    # rubocop:enable Metrics/AbcSize
   end
 end

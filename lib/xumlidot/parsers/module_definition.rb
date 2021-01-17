@@ -22,12 +22,13 @@ module Xumlidot
         process(exp)
       end
 
+      # rubocop:disable Metrics/AbcSize
       def process_module(exp)
         exp.shift # remove :module
         definition = exp.shift
 
         # Processes the name of the module
-        if Sexp === definition
+        if Sexp === definition # rubocop:disable Style/CaseEquality
           case definition.sexp_type
           when :colon2 # Reached in the event that a name is a compound
             name = definition.flatten
@@ -42,13 +43,13 @@ module Xumlidot
             raise "unknown type #{exp.inspect}"
           end
         # FIXME: bug - fix when we've added specs
-        else Symbol === definition
-          #if we have a symbol we have the actual module name
-          # e.g. module Foo; end
+        else # Symbol === definition
+          # if we have a symbol we have the actual module name e.g. module Foo; end
           @definition.name << ::Xumlidot::Types::Constant.new(definition, @namespace)
         end
         s()
       end
+      # rubocop:enable Metrics/AbcSize
     end
   end
 end

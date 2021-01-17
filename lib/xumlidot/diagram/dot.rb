@@ -6,9 +6,8 @@ require_relative 'dot/module'
 module Xumlidot
   class Diagram
     class Dot
-      def initialize(stack, _options = nil)
+      def initialize(stack)
         @stack = stack
-        #@options = options
         @output = []
       end
 

@@ -8,6 +8,7 @@ def generate_dot(directory)
   options = ::Xumlidot::Options.parse(['--dot'])
   directories = [directory]
   ::Xumlidot::Loader.new(directories, options).load
+  ::Xumlidot::ID.reset
 end
 
 # Hmmm, for the to work for xmi we're going to have
@@ -16,4 +17,5 @@ def generate_xmi(directory)
   options = ::Xumlidot::Options.parse(['--xmi', '--debug-ids'])
   directories = [directory]
   ::Xumlidot::Loader.new(directories, options).load
+  ::Xumlidot::ID.reset
 end

@@ -29,6 +29,7 @@ module Xumlidot
         # class Diagram
         # end
 
+        # rubocop:disable Layout/LineLength
         def draw_klass
           definition.name.extend(Name)
           xmi = "<ownedMember isAbstract=\"false\" isActive=\"false\" isLeaf=\"false\" name=\"#{definition.name.to_xmi}\" visibility=\"public\" xmi:id=\"#{id}\" xmi:type=\"uml:Class\">"
@@ -36,7 +37,7 @@ module Xumlidot
           xmi += extend_and_draw(attributes)
           xmi += extend_and_draw(class_methods)
           xmi += extend_and_draw(instance_methods)
-          xmi += "</ownedMember>"
+          xmi + "</ownedMember>"
         end
 
         # Draws a diagram element i.e. the part which is rendered
@@ -47,15 +48,15 @@ module Xumlidot
           return xml if @definition.superklass.empty? && @definition.inherited_modules.empty?
           return xml unless ::Xumlidot::Options.inheritance
 
-          xml += draw_diagram_generalisation
+          xml + draw_diagram_generalisation
         end
 
         def draw_diagram_generalisation
           xml = ''
 
-          if ! @definition.superklass.empty?
+          if !@definition.superklass.empty?
             xml += %(<uml:DiagramElement fromDiagramElement="#{@definition.superklass.id}de" preferredShapeType="Generalization" subject="#{gen_id}" toDiagramElement="#{id}de">
-            </uml:DiagramElement>)
+                     </uml:DiagramElement>)
           end
 
           return xml if @definition.inherited_modules.empty?
@@ -64,7 +65,7 @@ module Xumlidot
             next if m.empty?
 
             xml += %(<uml:DiagramElement fromDiagramElement="#{m.id}de" preferredShapeType="Generalization" subject="#{gen_id}" toDiagramElement="#{id}de">
-            </uml:DiagramElement>)
+                     </uml:DiagramElement>)
           end
 
           xml
@@ -81,7 +82,7 @@ module Xumlidot
 
           xml = ''
 
-          if ! @definition.superklass.empty?
+          if !@definition.superklass.empty?
             xml += %(<generalization general="#{@definition.superklass.id}" xmi:id="#{gen_id}" xmi:type="uml:Generalization">
               </generalization>)
           end
@@ -112,6 +113,7 @@ module Xumlidot
           %(<uml:DiagramElement fromDiagramElement="#{id}de" preferredShapeType="Association" subject="#{association_id}" toDiagramElement="#{composee.id}de">
           </uml:DiagramElement>)
         end
+        # rubocop:enable Layout/LineLength
 
         # Im not happy with this - xmi should not have to
         # know about types and it should be a method

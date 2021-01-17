@@ -31,12 +31,12 @@ module Xumlidot
         #
         # add(Module C, Module B)
         #
-        def add(c)
-          return if @nesting.constants.find_first(c)
+        def add(constant)
+          return if @nesting.constants.find_first(constant)
 
-          root = @nesting.constants.root_namespace_for(c)
-          (root.nil? ? @nesting.constants : root.constants) << c
-          @last_added = c
+          root = @nesting.constants.root_namespace_for(constant)
+          (root.nil? ? @nesting.constants : root.constants) << constant
+          @last_added = constant
         end
 
         class ExternalKlassReferences < Array
@@ -49,6 +49,8 @@ module Xumlidot
           end
         end
 
+        # rubocop:disable Metrics/AbcSize
+        # rubocop:disable Metrics/MethodLength
         def resolve_inheritance(_constant = nil)
           external_klasses = ExternalKlassReferences.new
 
@@ -88,6 +90,8 @@ module Xumlidot
             end
           end
         end
+        # rubocop:enable Metrics/AbcSize
+        # rubocop:enable Metrics/MethodLength
       end
     end
   end

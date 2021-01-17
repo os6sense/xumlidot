@@ -16,7 +16,7 @@ module Xumlidot
 
       attr_reader :definition
 
-      def initialize(exp, superclass_method = false)
+      def initialize(exp, superclass_method = false) # rubocop:disable Style/OptionalBooleanParameter
         super()
 
         @definition = ::Xumlidot::Types::MethodSignature.new
@@ -33,6 +33,7 @@ module Xumlidot
         @definition.to_s
       end
 
+      # rubocop:disable Metrics/AbcSize
       def process_defn(exp)
         exp.shift unless auto_shift_type # node type
         exp.shift if exp.first.is_a?(Sexp) && exp.first.value == :self # remove :self
@@ -50,6 +51,7 @@ module Xumlidot
 
         sdebug('MethodSignature#process_defn', e)
       end
+      # rubocop:enable Metrics/AbcSize
 
       def process_defs(exp)
         process_defn(exp)
@@ -61,9 +63,9 @@ module Xumlidot
       def process_call(exp)
         exp.shift # remove the :call
 
-        recv = process(exp.shift) # recv
-        name = exp.shift
-        args = process(exp.shift) # args
+        _recv = process(exp.shift) # recv
+        _name = exp.shift
+        _args = process(exp.shift) # args
 
         exp
       rescue StandardError => e
@@ -74,7 +76,7 @@ module Xumlidot
       def process_lasgn(exp)
         exp.shift # remove :lasgn
 
-        name = exp.shift.to_s
+        _name = exp.shift.to_s
         value = exp.shift
 
         # @assignments[name] = value
