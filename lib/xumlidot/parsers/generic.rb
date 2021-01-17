@@ -39,8 +39,8 @@ module Xumlidot
 
       def process_module(exp)
         process_class(exp,
-                      definition_parser: ::Xumlidot::Parsers::ModuleDefinition,
-                      type: Xumlidot::Types::Module)
+                      :definition_parser => ::Xumlidot::Parsers::ModuleDefinition,
+                      :type => Xumlidot::Types::Module)
       end
 
       def process_class(exp,

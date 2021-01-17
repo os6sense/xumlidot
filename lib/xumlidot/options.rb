@@ -107,7 +107,7 @@ module Xumlidot
       # Well, this is ugly but we need access to the options in classes which are extended
       # and without doing quite a bit of hoop jumping, this is actually a neater way to
       # ensure the options are globally available. So yes, I'm using a global.
-      $xumlidot_options = @options
+      $xumlidot_options = @options # rubocop:disable Style/GlobalVars
 
       @options
     end

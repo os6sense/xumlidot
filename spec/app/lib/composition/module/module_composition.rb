@@ -4,8 +4,7 @@ module A
   class B
   end
 
-  def foo
-  end
+  def foo; end
 end
 
 class C
