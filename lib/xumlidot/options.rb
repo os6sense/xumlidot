@@ -14,7 +14,6 @@ module Xumlidot
       raise OptionsError.new, "Unknown Option #{method_name}"
     end
 
-    # rubocop:disable Metrics/AbcSize
     # rubocop:disable Metrics/MethodLength
     def self.parse(args)
       @options = OpenStruct.new
@@ -100,7 +99,6 @@ module Xumlidot
       opt_parser.parse!(args)
       @options
     end
-    # rubocop:enable Metrics/AbcSize
     # rubocop:enable Metrics/MethodLength
   end
 end

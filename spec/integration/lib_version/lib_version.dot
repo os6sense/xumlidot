@@ -1,0 +1,7 @@
+digraph graph_title {
+            graph[overlap=false, splines=true, bgcolor="white"]
+"VersionModule" [shape=Mrecord, label="{VersionModule|\lS + gem_version()\l}"]
+"VersionModule::Version" [shape=Mrecord, label="{VersionModule::Version|\l}"]
+"VersionModule::Version" -> "VersionModule" [label="", arrowhead="diamond", arrowtail="diamond"]
+
+}
