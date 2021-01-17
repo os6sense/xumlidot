@@ -6,26 +6,26 @@ describe ::Xumlidot::Types::Constant do
   subject(:constant) { described_class.new(name, namespace) }
 
   # rubocop:disable Lint/ConstantDefinitionInBlock
-  Foo = Class.new
-  Bar = Class.new
-  Baz = Class.new
+  FooA = Class.new
+  BarA = Class.new
+  BazA = Class.new
   # rubocop:enable Lint/ConstantDefinitionInBlock
 
-  let(:name) { Baz }
-  let(:namespace) { [Foo, Bar] }
+  let(:name) { BazA }
+  let(:namespace) { [FooA, BarA] }
 
   describe '#name' do
     subject { constant.name }
-    it { is_expected.to eq Baz }
+    it { is_expected.to eq BazA }
   end
 
   describe '#namespace' do
     subject { constant.namespace }
-    it { is_expected.to eq [Foo, Bar] }
+    it { is_expected.to eq [FooA, BarA] }
   end
 
   describe '#to_s' do
     subject { constant.to_s }
-    it { is_expected.to eq 'Baz (Bar::Foo)' }
+    it { is_expected.to eq 'BazA (BarA::FooA)' }
   end
 end

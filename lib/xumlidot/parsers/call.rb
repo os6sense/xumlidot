@@ -21,6 +21,8 @@ module Xumlidot
         klass.definition.inherited_modules << @modules
       end
 
+      # rubocop:disable Metrics/AbcSize
+      # rubocop:disable Metrics/MethodLength
       def process_call(exp)
         _call = exp.shift # remove the :call
 
@@ -54,17 +56,19 @@ module Xumlidot
         # when :public_constant
         # TODO:
         when :attr_reader
-          add_attributes(args, exp, :read => true)
+          add_attributes(args, exp, read: true)
         when :attr_writer
-          add_attributes(args, exp, :write => true)
+          add_attributes(args, exp, write: true)
         when :attr_accessor
-          add_attributes(args, exp, :read => true, :write => true)
+          add_attributes(args, exp, read: true, write: true)
           # else
           # warn "CALL RECV:#{recv unless recv.nil? || recv.empty?} " \
           # "NAME:#{name} ARGS:#{args unless args.nil? || args.empty?}"
         end
         s()
       end
+      # rubocop:enable Metrics/AbcSize
+      # rubocop:enable Metrics/MethodLength
 
       # If we have e.g a constant in the class definition which is assigned an
       # array this prevents us having those constants defined as a parent

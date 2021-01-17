@@ -24,39 +24,39 @@ module Xumlidot
         end
 
         # TODO: Split this into model and diagram classes
-        class Model
-        end
+        # class Model
+        # end
+        # class Diagram
+        # end
 
-        class Diagram
-        end
-
-        def draw_klass(options)
+        # rubocop:disable Layout/LineLength
+        def draw_klass
           definition.name.extend(Name)
           xmi = "<ownedMember isAbstract=\"false\" isActive=\"false\" isLeaf=\"false\" name=\"#{definition.name.to_xmi}\" visibility=\"public\" xmi:id=\"#{id}\" xmi:type=\"uml:Class\">"
-          xmi += draw_model_inheritance if options.inheritance
+          xmi += draw_model_inheritance if ::Xumlidot::Options.inheritance
           xmi += extend_and_draw(attributes)
           xmi += extend_and_draw(class_methods)
           xmi += extend_and_draw(instance_methods)
-          xmi += "</ownedMember>"
+          xmi + "</ownedMember>"
         end
 
         # Draws a diagram element i.e. the part which is rendered
-        def draw_diagram(options)
+        def draw_diagram
           xml = %(<uml:DiagramElement preferredShapeType="Class" subject="#{id}" xmi:id="#{id}de">
             </uml:DiagramElement>)
 
           return xml if @definition.superklass.empty? && @definition.inherited_modules.empty?
-          return xml unless options.inheritance
+          return xml unless ::Xumlidot::Options.inheritance
 
-          xml += draw_diagram_generalisation
+          xml + draw_diagram_generalisation
         end
 
         def draw_diagram_generalisation
           xml = ''
 
-          if ! @definition.superklass.empty?
+          if !@definition.superklass.empty?
             xml += %(<uml:DiagramElement fromDiagramElement="#{@definition.superklass.id}de" preferredShapeType="Generalization" subject="#{gen_id}" toDiagramElement="#{id}de">
-            </uml:DiagramElement>)
+                     </uml:DiagramElement>)
           end
 
           return xml if @definition.inherited_modules.empty?
@@ -65,7 +65,7 @@ module Xumlidot
             next if m.empty?
 
             xml += %(<uml:DiagramElement fromDiagramElement="#{m.id}de" preferredShapeType="Generalization" subject="#{gen_id}" toDiagramElement="#{id}de">
-            </uml:DiagramElement>)
+                     </uml:DiagramElement>)
           end
 
           xml
@@ -82,7 +82,7 @@ module Xumlidot
 
           xml = ''
 
-          if ! @definition.superklass.empty?
+          if !@definition.superklass.empty?
             xml += %(<generalization general="#{@definition.superklass.id}" xmi:id="#{gen_id}" xmi:type="uml:Generalization">
               </generalization>)
           end
@@ -101,11 +101,11 @@ module Xumlidot
         def draw_model_composition(composee)
           %(<ownedMember isAbstract="false" isDerived="false" isLeaf="false" xmi:id="#{association_id}" xmi:type="uml:Association">
               <memberEnd xmi:idref="#{association_end_id}"/>
-              <ownedEnd aggregation="none" association="#{association_id}" isDerived="false" isDerivedUnion="false" isLeaf="false" isNavigable="true" isReadOnly="false" isStatic="false" type="#{id}" xmi:id="9JMZlYaD.AACASCI" xmi:type="uml:Property">
+              <ownedEnd aggregation="none" association="#{association_id}" isDerived="false" isDerivedUnion="false" isLeaf="false" isNavigable="true" isReadOnly="false" isStatic="false" type="#{id}" xmi:id="#{association_end_id}" xmi:type="uml:Property">
               </ownedEnd>
               <memberEnd xmi:idref="#{composee.association_end_id}"/>
-            <ownedEnd aggregation="composite" association="#{association_id}" isDerived="false" isDerivedUnion="false" isLeaf="false" isNavigable="true" isReadOnly="false" isStatic="false" type="#{composee.id}" xmi:id="9JMZlYaD.AACASCK" xmi:type="uml:Property">
-            </ownedEnd>
+              <ownedEnd aggregation="composite" association="#{association_id}" isDerived="false" isDerivedUnion="false" isLeaf="false" isNavigable="true" isReadOnly="false" isStatic="false" type="#{composee.id}" xmi:id="#{composee.association_end_id}" xmi:type="uml:Property">
+              </ownedEnd>
             </ownedMember>)
         end
 
@@ -113,6 +113,7 @@ module Xumlidot
           %(<uml:DiagramElement fromDiagramElement="#{id}de" preferredShapeType="Association" subject="#{association_id}" toDiagramElement="#{composee.id}de">
           </uml:DiagramElement>)
         end
+        # rubocop:enable Layout/LineLength
 
         # Im not happy with this - xmi should not have to
         # know about types and it should be a method

@@ -8,13 +8,20 @@ module Xumlidot
   OptionsError = Class.new(StandardError)
 
   class Options
-    def self.method_missing(method_name, *_args, &_block)
-      return @options.send(method_name) if @options.respond_to?(method_name)
+    @options = nil
 
-      raise OptionsError.new, "Unknown Option #{method_name}"
+    class << self
+      attr_accessor :options
+
+      def method_missing(method_name, *_args, &_block)
+        return options.send(method_name) if options.respond_to?(method_name)
+
+        raise OptionsError.new, "Unknown Option #{method_name}"
+      end
     end
 
     # rubocop:disable Metrics/MethodLength
+    # rubocop:disable Metrics/AbcSize
     def self.parse(args)
       @options = OpenStruct.new
 
@@ -29,6 +36,7 @@ module Xumlidot
       @options.split = 1
       @options.sequence = ''
       @options.exclude = ''
+      @options.use_debug_ids = false
 
       ENV.delete('XUMLIDOT_DEBUG')
 
@@ -78,8 +86,12 @@ module Xumlidot
         opts.on('-u', '--[no-]usage', 'Output usage links on the diagram') do |v|
           @options.usage = v
         end
-        opts.separator ''
 
+        opts.on('-b', '--debug-ids', 'Output from a static list of ids') do |v|
+          @options.use_debug_ids = v
+        end
+
+        opts.separator ''
         opts.separator 'Common options:'
 
         # No argument, shows at tail.  This will print an options summary.
@@ -97,8 +109,14 @@ module Xumlidot
       end
 
       opt_parser.parse!(args)
+
+      # Rather than pass the options around everywhere, lets set it as a class instance var
+      # TODO: Remove code passing it around everywhere
+      ::Xumlidot::Options.options = @options
+
       @options
     end
     # rubocop:enable Metrics/MethodLength
+    # rubocop:enable Metrics/AbcSize
   end
 end

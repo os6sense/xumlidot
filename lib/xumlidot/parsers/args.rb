@@ -111,9 +111,7 @@ module Xumlidot
           @argument.default << exp.value
         when nil
           @argument.default = exp.value
-        when Symbol
-          @argument.default = exp.value.to_s
-        when String
+        when Symbol, String
           @argument.default = exp.value.to_s
           # when Sexp
           #   binding.pry

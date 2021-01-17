@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    xumlidot (0.1.0)
+    xumlidot (0.1.1)
       ruby_parser
       sexp_processor
 

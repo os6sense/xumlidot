@@ -18,29 +18,30 @@ module Xumlidot
         process(exp)
       end
 
+      # rubocop:disable Metrics/AbcSize
+      # rubocop:disable Metrics/MethodLength
       def process_class(exp)
         exp.shift # remove :class
         definition = exp.shift
 
         # Processes the name of the class
-        if Sexp === definition
+        if Sexp === definition # rubocop:disable Style/CaseEquality
           case definition.sexp_type
-          when :colon2 then # Reached in the event that a name is a compound
+          when :colon2 # Reached in the event that a name is a compound
             name = definition.flatten
             name.delete :const
             name.delete :colon2
             name.each do |v|
               @definition.name << ::Xumlidot::Types::Constant.new(v, @namespace)
             end
-          when :colon3 then # Reached in the event that a name begins with ::
+          when :colon3 # Reached in the event that a name begins with ::
             @definition.name << ::Xumlidot::Types::Constant.new(definition.last, '::')
           else
             raise "unknown type #{exp.inspect}"
           end
         # TODO: looks like a bug - fix when we get specs
-        else Symbol === definition
-          # if we have a symbol we have the actual class name
-          # e.g. class Foo; end
+        else # Symbol === definition
+          # if we have a symbol we have the actual class name e.g. class Foo; end
           @definition.name << ::Xumlidot::Types::Constant.new(definition, @namespace)
         end
 
@@ -49,6 +50,8 @@ module Xumlidot
 
         s()
       end
+      # rubocop:enable Metrics/AbcSize
+      # rubocop:enable Metrics/MethodLength
 
       def process_const(exp)
         # TODO: may have removed a shift by mistake

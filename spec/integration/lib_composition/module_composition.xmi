@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8'?> 
+<xmi:XMI xmi:version='2.1' xmlns:uml='http://schema.omg.org/spec/UML/2.0' xmlns:xmi='http://schema.omg.org/spec/XMI/2.1'>
+  <xmi:Documentation exporter='Visual Paradigm' exporterVersion='7.0.2'> </xmi:Documentation>
+  <uml:Model name='My Model' xmi:id='jcBKnwaFYHEAAQV_'>
+    <ownedMember isAbstract='false' isActive='false' isLeaf='false' name='::A' visibility='public' xmi:id='915803defa2bd0509fc1ff7a652081d4' xmi:type='uml:Class'/>
+    <ownedMember isAbstract='false' isActive='false' isLeaf='false' name='A::B' visibility='public' xmi:id='e891fc71118502b95030b5e15d887622' xmi:type='uml:Class'>
+      <ownedOperation isAbstract='false' isLeaf='false' isOrdered='false' isQuery='false' isStatic='' isUnique='true' name='foo' visibility='public' xmi:id='09646c77f8dfd088487c91f75c387a4c' xmi:type='uml:Operation'>
+        <ownedParameter kind='return' xmi:id='9a064273fb75db2d41ad146063940862' xmi:type='uml:Parameter'/>
+      </ownedOperation>
+    </ownedMember>
+    <ownedMember isAbstract='false' isActive='false' isLeaf='false' name='::C' visibility='public' xmi:id='2cf60373a8305b3f64bb93a5fa0e786c' xmi:type='uml:Class'>
+      <generalization general='915803defa2bd0509fc1ff7a652081d4' xmi:id='ECC9AE.B92277' xmi:type='uml:Generalization'> </generalization>
+    </ownedMember>
+    <ownedMember isAbstract='false' isDerived='false' isLeaf='false' xmi:id='35CD5B.E1521C' xmi:type='uml:Association'>
+      <memberEnd xmi:idref='59975B.9E5202'/>
+      <ownedEnd aggregation='none' association='35CD5B.E1521C' isDerived='false' isDerivedUnion='false' isLeaf='false' isNavigable='true' isReadOnly='false' isStatic='false' type='915803defa2bd0509fc1ff7a652081d4' xmi:type='uml:Property' xmi:id='59975B.9E5202'> </ownedEnd>
+      <memberEnd xmi:idref='F84F7B.37E5D8'/>
+      <ownedEnd aggregation='composite' association='35CD5B.E1521C' isDerived='false' isDerivedUnion='false' isLeaf='false' isNavigable='true' isReadOnly='false' isStatic='false' type='e891fc71118502b95030b5e15d887622' xmi:type='uml:Property' xmi:id='F84F7B.37E5D8'> </ownedEnd>
+    </ownedMember>
+  </uml:Model>
+  <uml:Diagram diagramType='ClassDiagram' documentation='' name='Class Diagram' toolName='Visual Paradigm' xmi:id='QfZKnwaFYHEAAQj3'>
+    <uml:Diagram.element>
+      <uml:DiagramElement preferredShapeType='Class' subject='915803defa2bd0509fc1ff7a652081d4' xmi:id='915803defa2bd0509fc1ff7a652081d4de'> </uml:DiagramElement>
+      <uml:DiagramElement preferredShapeType='Class' subject='e891fc71118502b95030b5e15d887622' xmi:id='e891fc71118502b95030b5e15d887622de'> </uml:DiagramElement>
+      <uml:DiagramElement preferredShapeType='Class' subject='2cf60373a8305b3f64bb93a5fa0e786c' xmi:id='2cf60373a8305b3f64bb93a5fa0e786cde'> </uml:DiagramElement>
+      <uml:DiagramElement fromDiagramElement='915803defa2bd0509fc1ff7a652081d4de' preferredShapeType='Generalization' subject='ECC9AE.B92277' toDiagramElement='2cf60373a8305b3f64bb93a5fa0e786cde'> </uml:DiagramElement>
+      <uml:DiagramElement fromDiagramElement='915803defa2bd0509fc1ff7a652081d4de' preferredShapeType='Association' subject='35CD5B.E1521C' toDiagramElement='e891fc71118502b95030b5e15d887622de'> </uml:DiagramElement>
+    </uml:Diagram.element>
+  </uml:Diagram>
+</xmi:XMI>

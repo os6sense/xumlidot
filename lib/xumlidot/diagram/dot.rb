@@ -6,9 +6,8 @@ require_relative 'dot/module'
 module Xumlidot
   class Diagram
     class Dot
-      def initialize(stack, options = nil)
+      def initialize(stack)
         @stack = stack
-        @options = options
         @output = []
       end
 
@@ -25,12 +24,12 @@ module Xumlidot
           # Check - i shouldnt need to extend twice
           klass.extend(::Xumlidot::Diagram::Dot::Klass)
 
-          if @options.inheritance
+          if ::Xumlidot::Options.inheritance
             output = klass.draw_inheritence
             @output << output unless output.nil?
           end
 
-          if @options.composition
+          if ::Xumlidot::Options.composition
             klass.constants.each do |k|
               @output << klass.draw_composition(k)
             end
