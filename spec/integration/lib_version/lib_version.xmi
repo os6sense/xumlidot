@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8'?> 
+<xmi:XMI xmi:version='2.1' xmlns:uml='http://schema.omg.org/spec/UML/2.0' xmlns:xmi='http://schema.omg.org/spec/XMI/2.1'>
+  <xmi:Documentation exporter='Visual Paradigm' exporterVersion='7.0.2'> </xmi:Documentation>
+  <uml:Model name='My Model' xmi:id='jcBKnwaFYHEAAQV_'>
+    <ownedMember isAbstract='false' isActive='false' isLeaf='false' name='::VersionModule' visibility='public' xmi:id='103da9b33716a748bb1f0b49047a5999' xmi:type='uml:Class'>
+      <ownedOperation isAbstract='false' isLeaf='false' isOrdered='false' isQuery='false' isStatic='true' isUnique='true' name='gem_version' visibility='public' xmi:id='58c0acc340dbe6987c4f73ca92dde162' xmi:type='uml:Operation'>
+        <ownedParameter kind='return' xmi:id='70871debd2be2dc16021ef8ffbc26cce' xmi:type='uml:Parameter'/>
+      </ownedOperation>
+    </ownedMember>
+    <ownedMember isAbstract='false' isActive='false' isLeaf='false' name='VersionModule::Version' visibility='public' xmi:id='e256b454deedbd2e1b34446d1a9d9d21' xmi:type='uml:Class'/>
+    <ownedMember isAbstract='false' isDerived='false' isLeaf='false' xmi:id='1C9C9B.79F316' xmi:type='uml:Association'>
+      <memberEnd xmi:idref='83EED9.C3246A'/>
+      <ownedEnd aggregation='none' association='1C9C9B.79F316' isDerived='false' isDerivedUnion='false' isLeaf='false' isNavigable='true' isReadOnly='false' isStatic='false' type='103da9b33716a748bb1f0b49047a5999' xmi:type='uml:Property' xmi:id='9JMZlYaD.AACASCI'> </ownedEnd>
+      <memberEnd xmi:idref='7B58C4.9A0791'/>
+      <ownedEnd aggregation='composite' association='1C9C9B.79F316' isDerived='false' isDerivedUnion='false' isLeaf='false' isNavigable='true' isReadOnly='false' isStatic='false' type='e256b454deedbd2e1b34446d1a9d9d21' xmi:type='uml:Property' xmi:id='9JMZlYaD.AACASCK'> </ownedEnd>
+    </ownedMember>
+  </uml:Model>
+  <uml:Diagram diagramType='ClassDiagram' documentation='' name='Class Diagram' toolName='Visual Paradigm' xmi:id='QfZKnwaFYHEAAQj3'>
+    <uml:Diagram.element>
+      <uml:DiagramElement preferredShapeType='Class' subject='103da9b33716a748bb1f0b49047a5999' xmi:id='103da9b33716a748bb1f0b49047a5999de'> </uml:DiagramElement>
+      <uml:DiagramElement preferredShapeType='Class' subject='e256b454deedbd2e1b34446d1a9d9d21' xmi:id='e256b454deedbd2e1b34446d1a9d9d21de'> </uml:DiagramElement>
+      <uml:DiagramElement fromDiagramElement='103da9b33716a748bb1f0b49047a5999de' preferredShapeType='Association' subject='1C9C9B.79F316' toDiagramElement='e256b454deedbd2e1b34446d1a9d9d21de'> </uml:DiagramElement>
+    </uml:Diagram.element>
+  </uml:Diagram>
+</xmi:XMI>
