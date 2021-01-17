@@ -5,11 +5,11 @@ require_relative 'diagram/xmi'
 
 module Xumlidot
   class Diagram
-    def initialize(stack, options)
-      @diagram = if options[:diagram_type] == :dot
-                   ::Xumlidot::Diagram::Dot.new(stack, options)
+    def initialize(stack, _options)
+      @diagram = if ::Xumlidot::Options.diagram_type == :dot
+                   ::Xumlidot::Diagram::Dot.new(stack)
                  else
-                   ::Xumlidot::Diagram::Xmi.new(stack, options)
+                   ::Xumlidot::Diagram::Xmi.new(stack)
                  end
     end
 

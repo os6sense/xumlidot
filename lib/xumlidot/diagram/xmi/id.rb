@@ -69,7 +69,7 @@ module Xumlidot
         private
 
         def new_id
-          if $xumlidot_options.use_debug_ids # rubocop:disable Style/GlobalVars
+          if ::Xumlidot::Options.options.use_debug_ids
             ::Xumlidot::ID.fixed.shift
           else
             SecureRandom.hex

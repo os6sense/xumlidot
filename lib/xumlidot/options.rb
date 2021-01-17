@@ -8,10 +8,16 @@ module Xumlidot
   OptionsError = Class.new(StandardError)
 
   class Options
-    def self.method_missing(method_name, *_args, &_block)
-      return @options.send(method_name) if @options.respond_to?(method_name)
+    @options = nil
 
-      raise OptionsError.new, "Unknown Option #{method_name}"
+    class << self
+      attr_accessor :options
+
+      def method_missing(method_name, *_args, &_block)
+        return options.send(method_name) if options.respond_to?(method_name)
+
+        raise OptionsError.new, "Unknown Option #{method_name}"
+      end
     end
 
     # rubocop:disable Metrics/MethodLength
@@ -85,7 +91,6 @@ module Xumlidot
         end
 
         opts.separator ''
-
         opts.separator 'Common options:'
 
         # No argument, shows at tail.  This will print an options summary.
@@ -104,10 +109,9 @@ module Xumlidot
 
       opt_parser.parse!(args)
 
-      # Well, this is ugly but we need access to the options in classes which are extended
-      # and without doing quite a bit of hoop jumping, this is actually a neater way to
-      # ensure the options are globally available. So yes, I'm using a global.
-      $xumlidot_options = @options # rubocop:disable Style/GlobalVars
+      # Rather than pass the options around everywhere, lets set it as a class instance var
+      # TODO: Remove code passing it around everywhere
+      ::Xumlidot::Options.options = @options
 
       @options
     end

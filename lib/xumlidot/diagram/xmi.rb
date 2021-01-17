@@ -15,9 +15,8 @@ module Xumlidot
 
       class Elements < Array
 
-        def initialize(options)
+        def initialize(_options)
           super()
-          @options = options
         end
 
         def draw
@@ -48,7 +47,7 @@ module Xumlidot
         private
 
         def header
-          %(<uml:Model name="#{@options[:model_name]}" xmi:id="jcBKnwaFYHEAAQV_">)
+          %(<uml:Model name="#{::Xumlidot::Options.model_name}" xmi:id="jcBKnwaFYHEAAQV_">)
         end
 
         def footer
@@ -60,7 +59,7 @@ module Xumlidot
         private
 
         def header
-          %(<uml:Diagram diagramType="ClassDiagram" documentation="" name="#{@options[:title]}" toolName="Visual Paradigm" xmi:id="QfZKnwaFYHEAAQj3">
+          %(<uml:Diagram diagramType="ClassDiagram" documentation="" name="#{::Xumlidot::Options.title}" toolName="Visual Paradigm" xmi:id="QfZKnwaFYHEAAQj3">
               <uml:Diagram.element>)
         end
 
@@ -146,17 +145,17 @@ module Xumlidot
           # so do not draw it.
           next unless @namespace_to_id.has_value?(klass.id)
 
-          @model << klass.draw_klass(@options)
-          @diagram << klass.draw_diagram(@options)
+          @model << klass.draw_klass #(@options)
+          @diagram << klass.draw_diagram #(@options)
 
-          if @options.composition
+          if ::Xumlidot::Options.composition
             klass.constants.each do |k|
               # Likewise to the above, unless we have an id for the class
               # we don't want to draw the relationships
               next unless @namespace_to_id.has_value?(k.id)
 
-              @model_associations << klass.draw_model_composition(k, @options)
-              @diagram_associations << klass.draw_diagram_composition(k, @options)
+              @model_associations << klass.draw_model_composition(k)
+              @diagram_associations << klass.draw_diagram_composition(k)
             end
           end
         end
