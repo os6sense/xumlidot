@@ -33,7 +33,7 @@ module Xumlidot
         def draw_klass(options)
           definition.name.extend(Name)
           xmi = "<ownedMember isAbstract=\"false\" isActive=\"false\" isLeaf=\"false\" name=\"#{definition.name.to_xmi}\" visibility=\"public\" xmi:id=\"#{id}\" xmi:type=\"uml:Class\">"
-          xmi += draw_model_inheritance if options.inheritance
+          xmi += draw_model_inheritance(options) if options.inheritance
           xmi += extend_and_draw(attributes)
           xmi += extend_and_draw(class_methods)
           xmi += extend_and_draw(instance_methods)
@@ -48,10 +48,10 @@ module Xumlidot
           return xml if @definition.superklass.empty? && @definition.inherited_modules.empty?
           return xml unless options.inheritance
 
-          xml += draw_diagram_generalisation
+          xml += draw_diagram_generalisation(options)
         end
 
-        def draw_diagram_generalisation
+        def draw_diagram_generalisation(options)
           xml = ''
 
           if ! @definition.superklass.empty?
@@ -77,7 +77,7 @@ module Xumlidot
         # general =
         # id = IMPORTANT; will be used to draw the lines in the diagram
         #
-        def draw_model_inheritance
+        def draw_model_inheritance(options)
           return '' if @definition.superklass.empty? && @definition.inherited_modules.empty?
 
           xml = ''
@@ -98,18 +98,18 @@ module Xumlidot
           xml
         end
 
-        def draw_model_composition(composee)
+        def draw_model_composition(composee, options)
           %(<ownedMember isAbstract="false" isDerived="false" isLeaf="false" xmi:id="#{association_id}" xmi:type="uml:Association">
               <memberEnd xmi:idref="#{association_end_id}"/>
-              <ownedEnd aggregation="none" association="#{association_id}" isDerived="false" isDerivedUnion="false" isLeaf="false" isNavigable="true" isReadOnly="false" isStatic="false" type="#{id}" xmi:id="9JMZlYaD.AACASCI" xmi:type="uml:Property">
+              <ownedEnd aggregation="none" association="#{association_id}" isDerived="false" isDerivedUnion="false" isLeaf="false" isNavigable="true" isReadOnly="false" isStatic="false" type="#{id}" xmi:id="#{association_end_id}" xmi:type="uml:Property">
               </ownedEnd>
               <memberEnd xmi:idref="#{composee.association_end_id}"/>
-            <ownedEnd aggregation="composite" association="#{association_id}" isDerived="false" isDerivedUnion="false" isLeaf="false" isNavigable="true" isReadOnly="false" isStatic="false" type="#{composee.id}" xmi:id="9JMZlYaD.AACASCK" xmi:type="uml:Property">
-            </ownedEnd>
+              <ownedEnd aggregation="composite" association="#{association_id}" isDerived="false" isDerivedUnion="false" isLeaf="false" isNavigable="true" isReadOnly="false" isStatic="false" type="#{composee.id}" xmi:id="#{composee.association_end_id}" xmi:type="uml:Property">
+              </ownedEnd>
             </ownedMember>)
         end
 
-        def draw_diagram_composition(composee)
+        def draw_diagram_composition(composee, options)
           %(<uml:DiagramElement fromDiagramElement="#{id}de" preferredShapeType="Association" subject="#{association_id}" toDiagramElement="#{composee.id}de">
           </uml:DiagramElement>)
         end

@@ -154,8 +154,9 @@ module Xumlidot
               # Likewise to the above, unless we have an id for the class
               # we don't want to draw the relationships
               next unless @namespace_to_id.has_value?(k.id)
-              @model_associations << klass.draw_model_composition(k)
-              @diagram_associations << klass.draw_diagram_composition(k)
+
+              @model_associations << klass.draw_model_composition(k, @options)
+              @diagram_associations << klass.draw_diagram_composition(k, @options)
             end
           end
         end

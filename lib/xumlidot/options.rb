@@ -29,6 +29,7 @@ module Xumlidot
       @options.split = 1
       @options.sequence = ''
       @options.exclude = ''
+      @options.use_debug_ids = false
 
       ENV.delete('XUMLIDOT_DEBUG')
 
@@ -78,6 +79,11 @@ module Xumlidot
         opts.on('-u', '--[no-]usage', 'Output usage links on the diagram') do |v|
           @options.usage = v
         end
+
+        opts.on('-b', '--debug-ids', 'Output from a static list of ids') do |v|
+          @options.use_debug_ids = v
+        end
+
         opts.separator ''
 
         opts.separator 'Common options:'
@@ -97,6 +103,12 @@ module Xumlidot
       end
 
       opt_parser.parse!(args)
+
+      # Well, this is ugly but we need access to the options in classes which are extended
+      # and without doing quite a bit of hoop jumping, this is actually a neater way to
+      # ensure the options are globally available. So yes, I'm using a global.
+      $xumlidot_options = @options
+
       @options
     end
     # rubocop:enable Metrics/MethodLength

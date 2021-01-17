@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?> 
+<xmi:XMI xmi:version='2.1' xmlns:uml='http://schema.omg.org/spec/UML/2.0' xmlns:xmi='http://schema.omg.org/spec/XMI/2.1'>
+  <xmi:Documentation exporter='Visual Paradigm' exporterVersion='7.0.2'> </xmi:Documentation>
+  <uml:Model name='My Model' xmi:id='jcBKnwaFYHEAAQV_'>
+    <ownedMember isAbstract='false' isActive='false' isLeaf='false' name='::A' visibility='public' xmi:id='915803defa2bd0509fc1ff7a652081d4' xmi:type='uml:Class'/>
+    <ownedMember isAbstract='false' isActive='false' isLeaf='false' name='A::B' visibility='public' xmi:id='e891fc71118502b95030b5e15d887622' xmi:type='uml:Class'/>
+    <ownedMember isAbstract='false' isDerived='false' isLeaf='false' xmi:id='2CF603.35CD5B' xmi:type='uml:Association'>
+      <memberEnd xmi:idref='E1521C.59975B'/>
+      <ownedEnd aggregation='none' association='2CF603.35CD5B' isDerived='false' isDerivedUnion='false' isLeaf='false' isNavigable='true' isReadOnly='false' isStatic='false' type='915803defa2bd0509fc1ff7a652081d4' xmi:type='uml:Property' xmi:id='E1521C.59975B'> </ownedEnd>
+      <memberEnd xmi:idref='9E5202.F84F7B'/>
+      <ownedEnd aggregation='composite' association='2CF603.35CD5B' isDerived='false' isDerivedUnion='false' isLeaf='false' isNavigable='true' isReadOnly='false' isStatic='false' type='e891fc71118502b95030b5e15d887622' xmi:type='uml:Property' xmi:id='9E5202.F84F7B'> </ownedEnd>
+    </ownedMember>
+  </uml:Model>
+  <uml:Diagram diagramType='ClassDiagram' documentation='' name='Class Diagram' toolName='Visual Paradigm' xmi:id='QfZKnwaFYHEAAQj3'>
+    <uml:Diagram.element>
+      <uml:DiagramElement preferredShapeType='Class' subject='915803defa2bd0509fc1ff7a652081d4' xmi:id='915803defa2bd0509fc1ff7a652081d4de'> </uml:DiagramElement>
+      <uml:DiagramElement preferredShapeType='Class' subject='e891fc71118502b95030b5e15d887622' xmi:id='e891fc71118502b95030b5e15d887622de'> </uml:DiagramElement>
+      <uml:DiagramElement fromDiagramElement='915803defa2bd0509fc1ff7a652081d4de' preferredShapeType='Association' subject='2CF603.35CD5B' toDiagramElement='e891fc71118502b95030b5e15d887622de'> </uml:DiagramElement>
+    </uml:Diagram.element>
+  </uml:Diagram>
+</xmi:XMI>
