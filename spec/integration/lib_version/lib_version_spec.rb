@@ -4,8 +4,8 @@ require 'spec_helper'
 
 describe 'Output of lib/version.rb' do
   let(:directory) { 'spec/app/lib/version' }
-  let(:expect_xmi) { File.open('lib_version.xmi').read }
-  let(:expect_dot) { File.open('lib_version.dot').read }
+  # let(:expect_xmi) { File.open('spec/integration/lib_version/lib_version.xmi lib_version.xmi').read }
+  let(:expect_dot) { File.open('spec/integration/lib_version/lib_version.dot').read }
 
   specify { expect { generate_dot(directory) }.to output(expect_dot).to_stdout }
 
