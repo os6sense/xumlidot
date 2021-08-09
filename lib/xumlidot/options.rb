@@ -79,7 +79,7 @@ module Xumlidot
           @options.rails = v
         end
 
-        opts.on('-e', '--exclude [TEXT[', 'Output usage links on the diagram') do |v|
+        opts.on('-e', '--exclude [TEXT]', 'Exclude directories or files by pattern') do |v|
           @options.exclude = v
         end
 

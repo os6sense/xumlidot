@@ -5,6 +5,6 @@ require_relative '../lib/xumlidot'
 options = ::Xumlidot::Options.parse(ARGV)
 
 # TODO: user input
-directories = [ARGV[0]]
+directories = ARGV
 
 ::Xumlidot::Loader.new(directories, options).load
