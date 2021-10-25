@@ -35,14 +35,7 @@ module Xumlidot
       private
 
       def clean_name
-        tmp = @name.is_a?(Regexp) ? @name.inspect : @name.to_s
-
-        case tmp
-        when '<<'
-          '&lt;&lt;'
-        else
-          tmp
-        end
+        @name.is_a?(Regexp) ? @name.inspect : @name.to_s
       end
 
       def visibility_symbol

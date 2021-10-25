@@ -6,8 +6,16 @@ module Xumlidot
   class Diagram
     class Dot
       module Method
+        CHARACTER_SUBSTITUTIONS = {
+          '>' => '\>',
+          '<' => '\<',
+          '{' => '\{',
+          '}' => '\}',
+          '|' => '\|'
+        }.freeze
+
         def to_dot
-          to_s.gsub('{}', '\{\}')
+          to_s.gsub(/[#{CHARACTER_SUBSTITUTIONS.keys.join}]/, CHARACTER_SUBSTITUTIONS)
         end
       end
 
