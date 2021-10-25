@@ -2,12 +2,11 @@
 
 Gem::Specification.new do |s|
   s.authors = ['Adrian Lee Jackson']
-  s.date = '2018-03-02'
   s.description = %(Generates XMI and DOT files for Ruby and Rails Class Diagrams)
   s.email = ['xumlidot@librely.com']
   s.executables = ['xumlidot']
   s.homepage = 'http://github.com/os6sense/xumlidot'
-  s.required_ruby_version = '> 2.4.0'
+  s.required_ruby_version = '>= 2.6', '< 3'
   s.license = 'MIT'
   s.name = 'xumlidot'
   s.summary = %(Generates DOT and XMI for Ruby and Rails UML Class Diagrams. )
@@ -26,5 +25,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'pry'
   s.add_development_dependency 'pry-byebug'
   s.add_development_dependency 'rspec'
+  s.add_development_dependency 'rubocop', '~> 1.22'
   s.add_development_dependency 'zeus'
 end

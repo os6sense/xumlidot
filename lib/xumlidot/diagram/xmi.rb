@@ -53,7 +53,8 @@ module Xumlidot
         private
 
         def header
-          %(<uml:Diagram diagramType="ClassDiagram" documentation="" name="#{::Xumlidot::Options.title}" toolName="Visual Paradigm" xmi:id="QfZKnwaFYHEAAQj3">
+          %(<uml:Diagram diagramType="ClassDiagram" documentation=""
+             name="#{::Xumlidot::Options.title}" toolName="Visual Paradigm" xmi:id="QfZKnwaFYHEAAQj3">
             <uml:Diagram.element>)
         end
 
@@ -71,7 +72,7 @@ module Xumlidot
         end
 
         # reverse lookup
-        def has_value?(id)
+        def has_value?(id) # rubocop:disable Naming/PredicateName
           @id_to_namespace[id] != nil
         end
 
@@ -101,7 +102,7 @@ module Xumlidot
         @diagram_associations = DiagramAssociationElements.new
       end
 
-      def draw
+      def draw # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity
         # First traversal we're just assigning ids to everything so that when
         # we come to draw things we can do a lookup on the ids for any composition
         # aggregation or subclass relationships.
@@ -113,7 +114,7 @@ module Xumlidot
             next if m.empty?
 
             m.extend(::Xumlidot::Diagram::Xmi::Superklass)
-          end # unless klass.definition.inherited_modules.empty?
+          end
 
           next if @namespace_to_id.has?(klass.draw_identifier)
 
@@ -135,11 +136,11 @@ module Xumlidot
 
             id = @namespace_to_id[m.draw_identifier]
             m.force_id(id)
-          end # unless klass.definition.inherited_modules.empty?
+          end
 
           # if we have not added an id for this element it is likely a duplicate
           # so do not draw it.
-          next unless @namespace_to_id.has_value?(klass.id)
+          next unless @namespace_to_id.has_value?(klass.id) # rubocop:disable Style/PreferredHashMethods
 
           @model << klass.draw_klass
           @diagram << klass.draw_diagram
@@ -148,7 +149,7 @@ module Xumlidot
             klass.constants.each do |k|
               # Likewise to the above, unless we have an id for the class
               # we don't want to draw the relationships
-              next unless @namespace_to_id.has_value?(k.id)
+              next unless @namespace_to_id.has_value?(k.id) # rubocop:disable Style/PreferredHashMethods
 
               @model_associations << klass.draw_model_composition(k)
               @diagram_associations << klass.draw_diagram_composition(k)

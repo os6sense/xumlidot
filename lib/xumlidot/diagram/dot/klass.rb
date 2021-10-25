@@ -29,22 +29,29 @@ module Xumlidot
         end
 
         def draw_composition(composee)
-          "\"#{draw_identifier(composee.definition)}\" -> \"#{draw_identifier(@definition)}\" [label=\"\", arrowhead=\"diamond\", arrowtail=\"diamond\"]"
+          "\"#{draw_identifier(composee.definition)}\"" \
+            " -> \"#{draw_identifier(@definition)}\"" \
+            ' [label="", arrowhead="diamond", arrowtail="diamond"]'
         end
 
-        def draw_inheritence
+        def draw_inheritance # rubocop:disable Metrics/AbcSize
           return nil if @definition.superklass.empty? && @definition.inherited_modules.empty?
 
-          dot = ""
-          if !@definition.superklass.empty?
-            dot += "\"#{draw_identifier(@definition)}\" -> \"#{draw_ancestor(@definition.superklass)}\" [label=\"\", arrowhead=\"empty\", arrowtail=\"onormal\"]\n"
+          dot = ''
+          unless @definition.superklass.empty?
+            dot += "\"#{draw_identifier(@definition)}\"" \
+                   " -> \"#{draw_ancestor(@definition.superklass)}\"" \
+                   " [label=\"\", arrowhead=\"empty\", arrowtail=\"onormal\"]\n"
           end
 
           return dot if @definition.inherited_modules.empty?
 
           @definition.inherited_modules.each do |m|
             next if m.empty?
-            dot += "\"#{draw_identifier(@definition)}\" -> \"#{draw_ancestor(m)}\" [label=\"#{m.type.to_s}s\", arrowhead=\"empty\", arrowtail=\"onormal\"]\n"
+
+            dot += "\"#{draw_identifier(@definition)}\"" \
+                   " -> \"#{draw_ancestor(m)}\"" \
+                   " [label=\"#{m.type}s\", arrowhead=\"empty\", arrowtail=\"onormal\"]\n"
           end
 
           dot
@@ -52,7 +59,7 @@ module Xumlidot
 
         private
 
-        def draw_methods
+        def draw_methods # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
           @attributes.each { |a| a.extend(Attribute) }
           @class_methods.each { |a| a.extend(Method) }
           @instance_methods.each { |a| a.extend(Method) }

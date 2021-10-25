@@ -4,13 +4,10 @@ require 'spec_helper'
 
 describe ::Xumlidot::Types::Superklass do
   subject(:superklass) { described_class.new(name, namespace) }
-
-  # rubocop:disable Lint/ConstantDefinitionInBlock
   FooB = Class.new
   BarB = Class.new
   BazB = Class.new
   BooB = Class.new
-  # rubocop:enable Lint/ConstantDefinitionInBlock
 
   let(:name) { BazB }
   let(:namespace) { [FooB, BarB] }

@@ -64,9 +64,8 @@ module Xumlidot
       end
 
       # METHODS & METHOD SIGNATURES
-      # rubocop:disable Style/OptionalBooleanParameter
-      def process_defn(exp, superclass_method = false)
-        method = ::Xumlidot::Parsers::MethodSignature.new(exp, superclass_method || @sclass.last)
+      def process_defn(exp, superclass_method: false)
+        method = ::Xumlidot::Parsers::MethodSignature.new(exp, superclass_method: superclass_method || @sclass.last)
         @constants.last_added.add_method(method)
         warn method.to_s if ::Xumlidot::Options.debug == true
         # super(exp) { process_until_empty(exp) } # DISABLING since parsing the method is crashing
@@ -74,10 +73,9 @@ module Xumlidot
       rescue StandardError => e
         sdebug("#process_def#{superclass_method ? 's' : 'n'}", e)
       end
-      # rubocop:enable Style/OptionalBooleanParameter
 
       def process_defs(exp)
-        process_defn(exp, true)
+        process_defn(exp, superclass_method: true)
       end
 
       # CALLS

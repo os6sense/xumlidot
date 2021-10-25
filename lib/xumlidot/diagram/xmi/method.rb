@@ -14,17 +14,20 @@ module Xumlidot
           return '&lt;&lt;' if name == :<<
           return '&gt;&gt;' if name == :>>
           return '&lt;=&gt;' if name == :<=>
+
           name
         end
 
         def draw
-          xmi = "<ownedOperation isAbstract=\"false\" isLeaf=\"false\" isOrdered=\"false\" isQuery=\"false\" isStatic=\"#{superclass_method}\" isUnique=\"true\" name=\"#{name_to_xmi}\" visibility=\"#{visibility}\" xmi:id=\"#{id}\" xmi:type=\"uml:Operation\">"
+          xmi = '<ownedOperation isAbstract="false" isLeaf="false" isOrdered="false" isQuery="false"' \
+                " isStatic=\"#{superclass_method}\" isUnique=\"true\" name=\"#{name_to_xmi}\"" \
+                " visibility=\"#{visibility}\" xmi:id=\"#{id}\" xmi:type=\"uml:Operation\">"
           xmi += "<ownedParameter kind=\"return\" xmi:id=\"#{return_id}\" xmi:type=\"uml:Parameter\"/>"
           args.each do |argument|
             argument.extend(::Xumlidot::Diagram::Xmi::Argument)
             xmi += argument.draw
           end
-          xmi += "</ownedOperation>"
+          "#{xmi}</ownedOperation>"
         end
 
         private

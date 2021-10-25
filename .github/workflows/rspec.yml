@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        ruby: [ '2.5.8', '2.6.6', '2.7.2' ]
+        ruby: [ '2.6.6', '2.7.2' ]
     env:
       RAILS_ENV: test
     steps:

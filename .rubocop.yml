@@ -1,6 +1,6 @@
 ---
 AllCops:
-  TargetRubyVersion: 2.4
+  TargetRubyVersion: 2.6
   Exclude:
     - ".github/**/*"
     - "bin/**/*"
@@ -14,15 +14,6 @@ Style/FormatStringToken:
 Style/StringLiterals:
   Enabled: true
   EnforcedStyle: single_quotes
-
-Style/Strip:
-  Enabled: true
-
-Bundler/DuplicatedGem:
-  Enabled: true
-
-Bundler/OrderedGems:
-  Enabled: true
 
 Layout/MultilineOperationIndentation:
   EnforcedStyle: indented
@@ -63,162 +54,24 @@ Style/MethodCallWithoutArgsParentheses:
 Layout/EmptyLineAfterMagicComment:
   Enabled: false
 
-Naming/MethodParameterName:
-  Enabled: true
-
-Lint/UselessAssignment:
-  Enabled: true
-
-Naming/ClassAndModuleCamelCase:
-  Enabled: true
-
-Naming/AccessorMethodName:
-  Enabled: true
-
 Style/NumericLiteralPrefix:
   EnforcedOctalStyle: zero_only
 
-Lint/LiteralInInterpolation:
-  Enabled: true
-
-Style/Lambda:
-  Enabled: true
-
-Style/PreferredHashMethods:
-  Enabled: true
-
-Style/ModuleFunction:
-  Enabled: true
-
-Style/SpecialGlobalVars:
-  Enabled: true
-
-Style/WordArray:
-  Enabled: true
-
-Style/MixinUsage:
-  Enabled: true
-
-Style/ClassAndModuleChildren:
-  Enabled: true
-
-Style/GlobalVars:
-  Enabled: true
-
-Style/MissingRespondToMissing:
-  Enabled: true
-
-Style/AccessModifierDeclarations:
-  Enabled: true
-
-Layout/ExtraSpacing:
-  Enabled: true
-
-Style/SymbolProc:
-  Enabled: true
-
 Lint/SuppressedException:
   AllowComments: true
-
-Lint/ReturnInVoidContext:
-  Enabled: true
-
-Lint/ShadowedException:
-  Enabled: true
 
 Naming/MemoizedInstanceVariableName:
   EnforcedStyleForLeadingUnderscores: optional
   Enabled: true
 
-Naming/MethodName:
-  Enabled: true
-
 Layout/LineLength:
   Max: 120
-
-Layout/SpaceAroundMethodCallOperator:
-  Enabled: true
-
-Lint/RaiseException:
-  Enabled: true
-
-Lint/StructNewOverride:
-  Enabled: true
-
-Style/ExponentialNotation:
-  Enabled: true
-
-Style/HashEachMethods:
-  Enabled: true
-
-Style/HashTransformKeys:
-  Enabled: true
-
-Style/HashTransformValues:
-  Enabled: true
-
-Layout/SpaceBeforeBrackets: # (new in 1.7)
-  Enabled: true
-
-Lint/AmbiguousAssignment: # (new in 1.7)
-  Enabled: true
-
-Lint/DeprecatedConstants: # (new in 1.8)
-  Enabled: true
-
-Lint/DuplicateBranch: # (new in 1.3)
-  Enabled: true
-
-Lint/DuplicateRegexpCharacterClassElement: # (new in 1.1)
-  Enabled: true
-
-Lint/EmptyBlock: # (new in 1.1)
-  Enabled: true
+  Exclude:
+    - 'lib/xumlidot/diagram/xmi/klass.rb'
 
 Lint/EmptyClass: # (new in 1.3)
   Enabled: false
 
-Lint/LambdaWithoutLiteralBlock: # (new in 1.8)
-  Enabled: true
-
-Lint/NoReturnInBeginEndBlocks: # (new in 1.2)
-  Enabled: true
-
-Lint/RedundantDirGlobSort: # (new in 1.8)
-  Enabled: true
-
-Lint/ToEnumArguments: # (new in 1.1)
-  Enabled: true
-
-Lint/UnexpectedBlockArity: # (new in 1.5)
-  Enabled: true
-
-Lint/UnmodifiedReduceAccumulator: # (new in 1.1)
-  Enabled: true
-
-Style/ArgumentsForwarding: # (new in 1.1)
-  Enabled: true
-
-Style/CollectionCompact: # (new in 1.2)
-  Enabled: true
-
-Style/DocumentDynamicEvalDefinition: # (new in 1.1)
-  Enabled: true
-
-Style/EndlessMethod: # (new in 1.8)
-  Enabled: true
-
-Style/HashExcept: # (new in 1.7)
-  Enabled: true
-
-Style/NegatedIfElseCondition: # (new in 1.2)
-  Enabled: true
-
-Style/NilLambda: # (new in 1.3)
-  Enabled: true
-
-Style/RedundantArgument: # (new in 1.4)
-  Enabled: true
-
-Style/SwapValues: # (new in 1.1)
-  Enabled: true
+Lint/ConstantDefinitionInBlock:
+  Exclude:
+    - 'spec/**/*'

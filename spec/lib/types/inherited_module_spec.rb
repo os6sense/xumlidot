@@ -4,12 +4,9 @@ require 'spec_helper'
 
 describe ::Xumlidot::Types::InheritedModule do
   subject(:inherited_module) { described_class.new(name, namespace) }
-
-  # rubocop:disable Lint/ConstantDefinitionInBlock
   Foo = Class.new
   Bar = Class.new
   Baz = Class.new
-  # rubocop:enable Lint/ConstantDefinitionInBlock
 
   let(:name) { Baz }
   let(:namespace) { [Foo, Bar] }

@@ -29,15 +29,14 @@ module Xumlidot
         # class Diagram
         # end
 
-        # rubocop:disable Layout/LineLength
-        def draw_klass
+        def draw_klass # rubocop:disable Metrics/AbcSize
           definition.name.extend(Name)
           xmi = "<ownedMember isAbstract=\"false\" isActive=\"false\" isLeaf=\"false\" name=\"#{definition.name.to_xmi}\" visibility=\"public\" xmi:id=\"#{id}\" xmi:type=\"uml:Class\">"
           xmi += draw_model_inheritance if ::Xumlidot::Options.inheritance
           xmi += extend_and_draw(attributes)
           xmi += extend_and_draw(class_methods)
           xmi += extend_and_draw(instance_methods)
-          xmi + "</ownedMember>"
+          "#{xmi}</ownedMember>"
         end
 
         # Draws a diagram element i.e. the part which is rendered
@@ -54,7 +53,7 @@ module Xumlidot
         def draw_diagram_generalisation
           xml = ''
 
-          if !@definition.superklass.empty?
+          unless @definition.superklass.empty?
             xml += %(<uml:DiagramElement fromDiagramElement="#{@definition.superklass.id}de" preferredShapeType="Generalization" subject="#{gen_id}" toDiagramElement="#{id}de">
                      </uml:DiagramElement>)
           end
@@ -77,12 +76,12 @@ module Xumlidot
         # general =
         # id = IMPORTANT; will be used to draw the lines in the diagram
         #
-        def draw_model_inheritance
+        def draw_model_inheritance # rubocop:disable Metrics/AbcSize
           return '' if @definition.superklass.empty? && @definition.inherited_modules.empty?
 
           xml = ''
 
-          if !@definition.superklass.empty?
+          unless @definition.superklass.empty?
             xml += %(<generalization general="#{@definition.superklass.id}" xmi:id="#{gen_id}" xmi:type="uml:Generalization">
               </generalization>)
           end
@@ -113,7 +112,6 @@ module Xumlidot
           %(<uml:DiagramElement fromDiagramElement="#{id}de" preferredShapeType="Association" subject="#{association_id}" toDiagramElement="#{composee.id}de">
           </uml:DiagramElement>)
         end
-        # rubocop:enable Layout/LineLength
 
         # Im not happy with this - xmi should not have to
         # know about types and it should be a method

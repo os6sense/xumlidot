@@ -18,6 +18,10 @@ module Xumlidot
 
         raise OptionsError.new, "Unknown Option #{method_name}"
       end
+
+      def respond_to_missing?(method_name, include_private = false)
+        options.respond_to?(method_name) || super
+      end
     end
 
     # rubocop:disable Metrics/MethodLength
@@ -67,7 +71,7 @@ module Xumlidot
           ENV['XUMLIDOT_DEBUG'] = '1'
         end
 
-        opts.on('-i', '--no-inheritance', 'Output inheritence links on the diagram') do
+        opts.on('-i', '--no-inheritance', 'Output inheritance links on the diagram') do
           @options.inheritance = false
         end
 

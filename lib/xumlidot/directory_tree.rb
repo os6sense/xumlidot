@@ -11,7 +11,7 @@ module Xumlidot
       @excluded = Regexp.new(@options.exclude)
     end
 
-    def find_all_rb_files(&block)
+    def find_all_rb_files
       @directories.each do |directory|
         Find.find(directory) do |path|
           next if path =~ @exluded

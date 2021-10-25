@@ -13,7 +13,7 @@ module Xumlidot
 
       # We have to draw any connecting labels AFTER we have drawn the klasses
       # in order to have something to connect.
-      def draw
+      def draw # rubocop:disable Metrics/AbcSize
         @output << header
         @stack.traverse do |klass|
           klass.extend(::Xumlidot::Diagram::Dot::Klass)
@@ -25,7 +25,7 @@ module Xumlidot
           klass.extend(::Xumlidot::Diagram::Dot::Klass)
 
           if ::Xumlidot::Options.inheritance
-            output = klass.draw_inheritence
+            output = klass.draw_inheritance
             @output << output unless output.nil?
           end
 
