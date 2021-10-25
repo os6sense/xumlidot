@@ -48,7 +48,7 @@ module Xumlidot
                         type: Xumlidot::Types::Klass)
 
         Scope.set_visibility
-        definition = definition_parser.new(exp.dup[0..2], @class_stack).definition
+        definition = definition_parser.new(Sexp.new.concat(exp[0..2]), @class_stack).definition
 
         warn definition.to_s if ::Xumlidot::Options.debug == true
         super(exp) do

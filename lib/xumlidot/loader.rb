@@ -30,7 +30,7 @@ module Xumlidot
       # we will create a dummy class.
       #
       # if a class is inherited from, we want to find it using the constant lookup
-      # rules definind in the resolver
+      # rules defining in the resolver
       #
       # and what ... we want to add a reference too it?
       #
