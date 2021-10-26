@@ -59,12 +59,12 @@ module Xumlidot
 
           km = ''
           km += @attributes.map(&:to_dot).join('\l')
-          km += '\\l' unless km.end_with?('\\l')
+          km += '\\l' if @attributes.any?
 
           km += @class_methods.map(&:to_dot).join('\l')
           km += '\\l' unless km.end_with?('\\l')
-          km += '|' if instance_methods.size.positive?
 
+          km += '|' if instance_methods.any?
           km += @instance_methods.map(&:to_dot).join('\l')
           km += '\\l' unless km.end_with?('\\l')
           km

@@ -1,0 +1,8 @@
+digraph graph_title {
+            graph[overlap=false, splines=true, bgcolor="white"]
+"Printer" [shape=Mrecord, label="{Printer|S + print()\l}"]
+"Printer2" [shape=Mrecord, label="{Printer2|S + print()\l|I + colors()\l}"]
+"Printer3" [shape=Mrecord, label="{Printer3|(ro) name\l|I + initialize(name)\lI + colors()\l}"]
+"Printer4" [shape=Mrecord, label="{Printer4|(ro) name\lS + print()\l|I + initialize(name)\lI + colors()\l}"]
+
+}
