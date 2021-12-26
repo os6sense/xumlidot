@@ -1,6 +1,6 @@
 digraph graph_title {
             graph[overlap=false, splines=true, bgcolor="white"]
-"A" [shape=Mrecord, label="{A|\l}"]
+"A" [shape=Mrecord, label="{A|\l|I + f()\l}"]
 "A::B" [shape=Mrecord, label="{A::B|\l}"]
 "A::B" -> "A" [label="", arrowhead="diamond", arrowtail="diamond"]
 }
