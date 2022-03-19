@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.files += Dir['lib/**/*']
   s.test_files = Dir['spec/*.rb']
 
-  s.version = '0.1.1'
+  s.version = '0.2.0'
 
   s.add_dependency 'rexml'
   s.add_dependency 'ruby_parser'

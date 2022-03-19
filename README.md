@@ -1,33 +1,57 @@
 # XUMLIDOT
 
-A Ruby UML XMI and DOT generator
+A Ruby UML XMI and DOT diagram generator
 
-## VERSION 0.1.0
+## VERSION 0.2.0 - Whats new?
 
-- xmi and dot output works quite nicely (see examples folder), however there are still a few buggy cases.
-- works with any ruby project (will break on broken code though)
-- works with rails but doesn't add the model attributes (yet)
-- can parse rails itself so *should* work on your project - please let me know if it doesn't.
-- pretty comprehensive output but missing delegation (TODO), dynamic methods, etc. etc.
+- Works with Ruby 3! Many thanks @leoarnold
+- Problem with internal classes fixed, see #42, Many thanks @sinecode
+- Fixes for the command line --exclude options. Many thanks @ned-pcs
+
+## WHAT DOES IT DO SO FAR?
+
+- XMI and DOT output works quite nicely (see examples folder), however there
+  are still a few buggy cases.
+
+- XMI should be importable into tools such as Visual Paradigm.
+
+- Works with any ruby project (will break on broken code though) since it isn't
+  dependent on the code being set up to run. Download a repo, generate a
+  diagram.
+
+- Works with rails projects but doesn't add the model attributes (yet). Look at railroady if you need this.
+
+- Can parse rails itself so *should* work on your project - please let me know if it doesn't.
+
+- Pretty comprehensive output but missing delegation (TODO), dynamic methods, etc. etc.
+
+## WARNING
+xumlidot will quite happily trundle away and create some simply massive xmi or
+dot files. When these are converted to an image, these will often get scaled
+down by graphviz and even if they don't, some image viewers stuggle with large
+svg/png images. Visual Paradigm can absolutely choke. Consider the
+`--no-inheritance` and `--no-composition` options to reduce the
+complexity/size, or just focusing in on specific directories to create smaller
+diagrams.
 
 ## WHY?
 
-This is a tool I made for myself (hence the 3 years gap between releases). I'm
-a fan of Model Driven Engineering and whilst there are *great* tools like
+This is a tool I made for myself (hence the long gaps between releases). I'm a
+fan of Model Driven Engineering and whilst there are *great* tools like
 Railroady and Xamin out there, the focus on Rails makes them less useful than I
 personally would like since Ruby != Rails. Also Railroady has never had a
-working xmi option meaning that we can't import the output into tools such as
+working XMI option meaning that we can't import the output into tools such as
 Visual Paradigm - one of my primary use cases (although being able to output
-wall spanning class diagrams is *cool*).
+wall spanning class diagrams is very *cool*).
 
 In addition, one of the major problems (IMO) with the approach taken by other
-tools is that they `require` files hence you need a project with all the
+tools is that they `require` files, hence you need a project with all the
 dependencies set up and working; fine most of the time but I've come across
 more than one project so environment dependent that even the specs would not
-run without vagrant or docker.  I want a tool where I can **quickly** get a
-high level view of the code from an Object Oriented perspective.
+run without spooling up vagrant or if you're lucky docker.
 
-Hence xumlidot ...
+I wanted a tool where I can **quickly** get a high level view of the code from an
+Object Oriented perspective.  Hence xumlidot ...
 
 ## INSTALLATION
 
@@ -42,11 +66,11 @@ to a projects Gemfile and `bundle exec` it, but I've not had cause to.
 
     xumlidot OPTIONS dir_a dir_b dir_c ...
 
-xumlidot basically expects multiple directories from which it will create the
-dot/xmi output. You can of course just point at an entire project but I've found
-it useful to exclude tests/specs, and in a rails project, you don't _really_ want
-the migrations so I tend to use something like `xumlidot --xmi app lib` for a
-more focused model.
+xumlidot basically expects a list of directories from which it will create the
+DOT or XMI output. You can of course just point it at the root of a project but
+I've found it useful to exclude tests/specs, and in a rails project, you don't
+_really_ want the migrations, so I tend to use something like `xumlidot --xmi
+app lib` for a more focused model.
 
 ## USE CASES
 
@@ -106,12 +130,24 @@ all the method_names, and set the layout to orthagonal, then exported to png.
 
 The raw output is just text sent to stdout so Graphviz dot/VisualParadigm are needed for the pretty stuff.
 
+On Ubuntu I tend to do something like:
+
+```
+xumlidot app lib | dot -Tsvg -o diagram.svg && xdg-open diagram.svg
+```
+
+Which creates a quick diagram to see the structure of a project.
+
 ### Graphviz
 Have a look at examples_output/README.md for a couple of examples using dot. dot is beyond the
 scope of documenting here do please look at https://graphviz.org/ for further info.
 
 #### Visual Paradigm
-I'm still playing with VP and hope to add some tips of how to obtain the best results at somepoint.
+I'm still playing with VP and hope to add some tips of how to obtain the best
+results at somepoint.  Tweaking the box size so as to fit all the method_names,
+and setting the layout to your preference orthagonal seems to be all that is
+needed for a reasonable diagram; be warned however, things can be slow and there
+may be VP settings you need to tweak for large projects.
 
 ## DEPENDENCIES
 
@@ -146,3 +182,5 @@ me parsing ruby superfast.
 using to just get an idea of the XMI structure.
 
 - Thanks to MyMedsAndMe for the 10% time to work on this project.
+
+- Thanks to everyone who has submitted a PR or an issue. Sorry, I'm so slow to respond but it is greatly appreaciated!
