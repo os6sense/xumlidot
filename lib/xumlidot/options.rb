@@ -10,11 +10,28 @@ module Xumlidot
   class Options
     @options = nil
 
+    attr_accessor(*%i[
+                    composition
+                    debug
+                    diagram_type
+                    exclude
+                    inheritance
+                    model_name
+                    rails
+                    respond_to
+                    send
+                    sequence
+                    split
+                    title
+                    usage
+                    use_debug_ids
+                  ])
+
     class << self
       attr_accessor :options
 
       def method_missing(method_name, *_args, &_block)
-        return options.send(method_name) if options.respond_to?(method_name)
+        return options.public_send(method_name) if options.respond_to?(method_name)
 
         raise OptionsError.new, "Unknown Option #{method_name}"
       end
@@ -24,10 +41,8 @@ module Xumlidot
       end
     end
 
-    # rubocop:disable Metrics/MethodLength
-    # rubocop:disable Metrics/AbcSize
-    def self.parse(args)
-      @options = OpenStruct.new
+    def self.parse(args) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+      @options = new
 
       @options.title = 'Class Diagram'
       @options.model_name = 'My Model'
@@ -120,7 +135,5 @@ module Xumlidot
 
       @options
     end
-    # rubocop:enable Metrics/MethodLength
-    # rubocop:enable Metrics/AbcSize
   end
 end

@@ -12,6 +12,8 @@ Gem::Specification.new do |s|
   s.summary = %(Generates DOT and XMI for Ruby and Rails UML Class Diagrams. )
   s.rubygems_version = '1.3.6'
 
+  s.metadata['rubygems_mfa_required'] = 'true'
+
   s.require_paths = %w[lib]
   s.files = Dir['lib/*.rb'] + Dir['bin/*']
   s.files += Dir['lib/**/*']
