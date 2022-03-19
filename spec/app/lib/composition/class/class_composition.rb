@@ -3,4 +3,6 @@
 class A
   class B
   end
+
+  def f; end
 end

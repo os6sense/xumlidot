@@ -39,6 +39,12 @@ module Xumlidot
           @last_added = constant
         end
 
+        def pop_last_added
+          return if @last_added.nil?
+
+          @last_added = @nesting.constants.root_namespace_for(@last_added)
+        end
+
         class ExternalKlassReferences < Array
           def <<(external_klass)
             return if find do |klass|

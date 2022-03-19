@@ -56,6 +56,7 @@ module Xumlidot
             klass_or_module = type.new(definition)
             @constants.add(klass_or_module)
             process_until_empty(exp)
+            @constants.pop_last_added
           end
         end
       rescue StandardError => e
