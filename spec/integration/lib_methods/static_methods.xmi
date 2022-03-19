@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8'?> 
+<xmi:XMI xmi:version='2.1' xmlns:uml='http://schema.omg.org/spec/UML/2.0' xmlns:xmi='http://schema.omg.org/spec/XMI/2.1'>
+  <xmi:Documentation exporter='Visual Paradigm' exporterVersion='7.0.2'> </xmi:Documentation>
+  <uml:Model name='My Model' xmi:id='jcBKnwaFYHEAAQV_'>
+    <ownedMember isAbstract='false' isActive='false' isLeaf='false' name='::Printer' visibility='public' xmi:id='915803defa2bd0509fc1ff7a652081d4' xmi:type='uml:Class'>
+      <ownedOperation isAbstract='false' isLeaf='false' isOrdered='false' isQuery='false' isStatic='true' isUnique='true' name='print' visibility='public' xmi:id='e891fc71118502b95030b5e15d887622' xmi:type='uml:Operation'>
+        <ownedParameter kind='return' xmi:id='2cf60373a8305b3f64bb93a5fa0e786c' xmi:type='uml:Parameter'/>
+      </ownedOperation>
+      <ownedOperation isAbstract='false' isLeaf='false' isOrdered='false' isQuery='false' isStatic='true' isUnique='true' name='reset' visibility='public' xmi:id='35cd5b04a0ab4542aede1e37046fab5e' xmi:type='uml:Operation'>
+        <ownedParameter kind='return' xmi:id='e1521c43130d064474e1585be1d69c6f' xmi:type='uml:Parameter'/>
+      </ownedOperation>
+      <ownedOperation isAbstract='false' isLeaf='false' isOrdered='false' isQuery='false' isStatic='' isUnique='true' name='colors' visibility='public' xmi:id='59975b5d607a197e676e2534e3dce454' xmi:type='uml:Operation'>
+        <ownedParameter kind='return' xmi:id='9e52022530441f1688dfab381bba4069' xmi:type='uml:Parameter'/>
+      </ownedOperation>
+    </ownedMember>
+  </uml:Model>
+  <uml:Diagram diagramType='ClassDiagram' documentation='' name='Class Diagram' toolName='Visual Paradigm' xmi:id='QfZKnwaFYHEAAQj3'>
+    <uml:Diagram.element>
+      <uml:DiagramElement preferredShapeType='Class' subject='915803defa2bd0509fc1ff7a652081d4' xmi:id='915803defa2bd0509fc1ff7a652081d4de'> </uml:DiagramElement>
+    </uml:Diagram.element>
+  </uml:Diagram>
+</xmi:XMI>
