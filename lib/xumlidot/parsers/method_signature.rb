@@ -16,7 +16,7 @@ module Xumlidot
 
       attr_reader :definition
 
-      def initialize(exp, superclass_method = false) # rubocop:disable Style/OptionalBooleanParameter
+      def initialize(exp, superclass_method: false)
         super()
 
         @definition = ::Xumlidot::Types::MethodSignature.new

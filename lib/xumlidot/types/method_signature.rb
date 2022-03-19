@@ -16,6 +16,12 @@ module Xumlidot
     # we store all the method details here including many
     # which we are not yet using.
     class MethodSignature
+      VISIBILITY_SYMBOLS = {
+        public: '+',
+        private: '-',
+        protected: '#'
+      }.freeze
+
       attr_accessor :name,               # symbol
                     :args,               # Arguments
                     :file,               # string
@@ -46,14 +52,7 @@ module Xumlidot
       end
 
       def visibility_symbol
-        case @visibility
-        when :public
-          '+'
-        when :private
-          '-'
-        when :protected
-          '#'
-        end
+        VISIBILITY_SYMBOLS[@visibility]
       end
 
       def klass

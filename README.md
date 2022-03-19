@@ -81,7 +81,7 @@ when you make a tool and then find it works!)
   Exclude directories or filenames matching string or pattern
 
   --no-inheritance
-  Dont output inheritence links
+  Dont output inheritance links
 
   --no-composition
   Dont output composition links
@@ -127,7 +127,7 @@ You will need graphviz installed in order to parse the dot output.
 - fix the terrible XMI code
 - --puml option. Output diagram using plantuml syntax (TODO; low on my list)
 - --yuml option. Output diagram using yuml syntax (TODO; very low on my list)
-- --no-uses option. totally, incorporate include/extend as inheritence
+- --no-uses option. totally, incorporate include/extend as inheritance
 - --rails option. Gets additional rails knowledge such as model attributes)
 - --split=n.  Split into n diagrams where there are distinct class clusters
 - --sequence=CLASS.method_name option. Sequence diagram output starting with

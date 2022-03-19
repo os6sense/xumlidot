@@ -4,12 +4,9 @@ require 'spec_helper'
 
 describe ::Xumlidot::Types::Constant do
   subject(:constant) { described_class.new(name, namespace) }
-
-  # rubocop:disable Lint/ConstantDefinitionInBlock
   FooA = Class.new
   BarA = Class.new
   BazA = Class.new
-  # rubocop:enable Lint/ConstantDefinitionInBlock
 
   let(:name) { BazA }
   let(:namespace) { [FooA, BarA] }
