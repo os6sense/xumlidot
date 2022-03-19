@@ -21,7 +21,7 @@ module Xumlidot
         end
 
         @stack.traverse do |klass|
-          # Check - i shouldnt need to extend twice
+          # Check - i shouldn't need to extend twice
           klass.extend(::Xumlidot::Diagram::Dot::Klass)
 
           if ::Xumlidot::Options.inheritance

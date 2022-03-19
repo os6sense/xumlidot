@@ -15,7 +15,7 @@ module Xumlidot
 
         @arguments = ::Xumlidot::Types::Arguments.new
 
-        process(exp)
+        process(Sexp.new.concat(exp))
       rescue StandardError => _e
         warn " ** bug: unable to process args #{exp} "
       end
