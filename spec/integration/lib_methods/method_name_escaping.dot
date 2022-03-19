@@ -1,0 +1,4 @@
+digraph graph_title {
+            graph[overlap=false, splines=true, bgcolor="white"]
+"BinaryNumber" [shape=Mrecord, label="{BinaryNumber|\l|I + +(_other)\lI + -(_other)\lI + *(_other)\lI + /(_other)\lI + \<\<(_other)\lI + \>\>(_other)\lI + \|(_other)\l}"]
+}

@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8'?> 
+<xmi:XMI xmi:version='2.1' xmlns:uml='http://schema.omg.org/spec/UML/2.0' xmlns:xmi='http://schema.omg.org/spec/XMI/2.1'>
+  <xmi:Documentation exporter='Visual Paradigm' exporterVersion='7.0.2'> </xmi:Documentation>
+  <uml:Model name='My Model' xmi:id='jcBKnwaFYHEAAQV_'>
+    <ownedMember isAbstract='false' isActive='false' isLeaf='false' name='::BinaryNumber' visibility='public' xmi:id='915803defa2bd0509fc1ff7a652081d4' xmi:type='uml:Class'>
+      <ownedOperation isAbstract='false' isLeaf='false' isOrdered='false' isQuery='false' isStatic='' isUnique='true' name='+' visibility='public' xmi:id='e891fc71118502b95030b5e15d887622' xmi:type='uml:Operation'>
+        <ownedParameter kind='return' xmi:id='2cf60373a8305b3f64bb93a5fa0e786c' xmi:type='uml:Parameter'/>
+        <ownedParameter kind='inout' name='_other' xmi:id='35cd5b04a0ab4542aede1e37046fab5e' xmi:type='uml:Parameter'/>
+      </ownedOperation>
+      <ownedOperation isAbstract='false' isLeaf='false' isOrdered='false' isQuery='false' isStatic='' isUnique='true' name='-' visibility='public' xmi:id='e1521c43130d064474e1585be1d69c6f' xmi:type='uml:Operation'>
+        <ownedParameter kind='return' xmi:id='59975b5d607a197e676e2534e3dce454' xmi:type='uml:Parameter'/>
+        <ownedParameter kind='inout' name='_other' xmi:id='9e52022530441f1688dfab381bba4069' xmi:type='uml:Parameter'/>
+      </ownedOperation>
+      <ownedOperation isAbstract='false' isLeaf='false' isOrdered='false' isQuery='false' isStatic='' isUnique='true' name='*' visibility='public' xmi:id='f84f7b576ba1ab5929b4208cebfe7935' xmi:type='uml:Operation'>
+        <ownedParameter kind='return' xmi:id='37e5d86bb891a70011261ad861118a73' xmi:type='uml:Parameter'/>
+        <ownedParameter kind='inout' name='_other' xmi:id='09646c77f8dfd088487c91f75c387a4c' xmi:type='uml:Parameter'/>
+      </ownedOperation>
+      <ownedOperation isAbstract='false' isLeaf='false' isOrdered='false' isQuery='false' isStatic='' isUnique='true' name='/' visibility='public' xmi:id='9a064273fb75db2d41ad146063940862' xmi:type='uml:Operation'>
+        <ownedParameter kind='return' xmi:id='ecc9ae948a23543ad23e61b0f907ae6b' xmi:type='uml:Parameter'/>
+        <ownedParameter kind='inout' name='_other' xmi:id='b922777242d6e4d182e979a19b6b8fd9' xmi:type='uml:Parameter'/>
+      </ownedOperation>
+      <ownedOperation isAbstract='false' isLeaf='false' isOrdered='false' isQuery='false' isStatic='' isUnique='true' name='&lt;&lt;' visibility='public' xmi:id='b7f1299975494da9811c061f008cacba' xmi:type='uml:Operation'>
+        <ownedParameter kind='return' xmi:id='c906375f1de4be9d3dd3ea56e7917ea6' xmi:type='uml:Parameter'/>
+        <ownedParameter kind='inout' name='_other' xmi:id='4265f6134237c7d0c9a4f12b838d1849' xmi:type='uml:Parameter'/>
+      </ownedOperation>
+      <ownedOperation isAbstract='false' isLeaf='false' isOrdered='false' isQuery='false' isStatic='' isUnique='true' name='&gt;&gt;' visibility='public' xmi:id='2d75d4762aa997551f95c76ff23a1e52' xmi:type='uml:Operation'>
+        <ownedParameter kind='return' xmi:id='fe32489778ddc04b5b2e29a69a25c44e' xmi:type='uml:Parameter'/>
+        <ownedParameter kind='inout' name='_other' xmi:id='8e89af98ee73225cac65ade347f5d653' xmi:type='uml:Parameter'/>
+      </ownedOperation>
+      <ownedOperation isAbstract='false' isLeaf='false' isOrdered='false' isQuery='false' isStatic='' isUnique='true' name='|' visibility='public' xmi:id='70668faf589fcdd1034db5e8e38c0b8c' xmi:type='uml:Operation'>
+        <ownedParameter kind='return' xmi:id='5b4d3919edab18b46790dc2af405982e' xmi:type='uml:Parameter'/>
+        <ownedParameter kind='inout' name='_other' xmi:id='bb35181dc1d23696cb914287fb3073da' xmi:type='uml:Parameter'/>
+      </ownedOperation>
+    </ownedMember>
+  </uml:Model>
+  <uml:Diagram diagramType='ClassDiagram' documentation='' name='Class Diagram' toolName='Visual Paradigm' xmi:id='QfZKnwaFYHEAAQj3'>
+    <uml:Diagram.element>
+      <uml:DiagramElement preferredShapeType='Class' subject='915803defa2bd0509fc1ff7a652081d4' xmi:id='915803defa2bd0509fc1ff7a652081d4de'> </uml:DiagramElement>
+    </uml:Diagram.element>
+  </uml:Diagram>
+</xmi:XMI>
